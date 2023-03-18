@@ -1,0 +1,47 @@
+name: Generate GitHub API types
+on:
+  schedule:
+    - cron: "0 0 * * *" # Run every day at midnight
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        schema:
+          - api.github.com.json
+          - api.github.com.2022-11-28.json
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download OpenAPI schema
+        run: |
+          mkdir -p ~/tmp
+          curl -o ~/tmp/schema.json \
+            https://github.com/github/rest-api-description/raw/main/descriptions/api.github.com/${{ matrix.schema }}
+
+      - name: Update
+        run: |
+          npm i -g oazapfts
+          oazapfts ~/tmp/schema.json mod.ts
+
+          # Check if there has been any git changes. updated=1 if there's one,
+          # otherwise it's 0. We'll skip the rest if 0.
+          if [[ $(git status --porcelain) ]]; then
+            echo "updated=1" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit changes, if any
+        id: git-commit
+        if: steps.update-pkg.outputs.updated == 1
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: |-
+            Update github_api_types using GitHub Actions
+            The action workflow was triggered by ref:
+                ${{ github.sha }}
+          branch: ${{ github.ref_name }}
