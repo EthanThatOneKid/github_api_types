@@ -1,22 +1,6 @@
 {
   "version": "2",
   "remote": {
-    "https://cdn.skypack.dev/-/ansi-colors@v4.1.3-SNIN68yVfCraA1YWateU/dist=es2019,mode=imports/optimized/ansi-colors.js": "2421a2e7cb0da79c67cf8d9edda81f8a0bcf7a8ab5811a737bf69df6e0bd73ee",
-    "https://cdn.skypack.dev/-/js-yaml@v4.1.0-dDv6O5b7vFYj0Ro3QdID/dist=es2019,mode=imports/optimized/js-yaml.js": "efa944688ea631840477fbb0c8375dc1fa5fbe35116e6f5547f2d13305b5822f",
-    "https://cdn.skypack.dev/-/openapi-typescript@v6.2.0-ZMsxFIL1ZbG8X8NXKCsX/dist=es2019,mode=imports/optimized/openapi-typescript.js": "9aee4bcbc857f39a5abffd0a6c1e093c074e30fa17482f254655abae1e13a09b",
-    "https://cdn.skypack.dev/-/openapi-typescript@v6.2.0-ZMsxFIL1ZbG8X8NXKCsX/dist=es2019,mode=types/dist/index.d.ts": "d2fe2918e914a32de88c118e17de48651fdf63542003dd6e8499d8030398ce27",
-    "https://cdn.skypack.dev/-/openapi-typescript@v6.2.0-ZMsxFIL1ZbG8X8NXKCsX/dist=es2019,mode=types/dist/transform/schema-object.d.ts": "74121c7b4dc1cfaba34185f313f79cbe64699cb4fa8c1d9f43a3a7286f4f9847",
-    "https://cdn.skypack.dev/-/openapi-typescript@v6.2.0-ZMsxFIL1ZbG8X8NXKCsX/dist=es2019,mode=types/dist/types.d.ts": "79eb4b1dbe112daa555be88769714b7a292850c738ffe67c0fe0cf314a27f70d",
-    "https://cdn.skypack.dev/-/supports-color@v9.3.1-t8rXQahPW1e0BMJ2VdUo/dist=es2019,mode=imports/optimized/supports-color.js": "0e65b1c7e7c0a066ac0e6966746c790a4347aa1dc5a4fdacfdd6e2b679896d41",
-    "https://cdn.skypack.dev/error/build:undici@v5.21.0-c6xj8d2eoDdDua7QtpTK": "6654a393905b300ab6ba8e52f215b4db5d8383d6e1ec78f9d6435020fe8bd527",
-    "https://cdn.skypack.dev/error/node:node:fs?from=openapi-typescript": "f796e374752ace63ae69f128ac7f9b5bd1df0ee554d751c9d8bd8192c30f7607",
-    "https://cdn.skypack.dev/error/node:node:path?from=openapi-typescript": "7ea293c88206f65ac8a7be12bd3ba121937c3b08b8a003cb0ccb0b74d4ddaad0",
-    "https://cdn.skypack.dev/error/node:node:stream?from=openapi-typescript": "5ba9c6a4794684b2212355fbf71c17d4c802c41b98682909f1ea8b3c0921c08d",
-    "https://cdn.skypack.dev/error/node:node:url?from=openapi-typescript": "db27ca7c9e48aac27d4f99678d1d75be12b7b15f546f16b3a3a9e69c0a79542c",
-    "https://cdn.skypack.dev/error/node:stream?from=openapi-typescript": "73bcc1e50dc8f8b2e63812ebcbdebd7e6b43c9f41aa1b104d2b3cb8b20892eaf",
-    "https://cdn.skypack.dev/error/node:url?from=openapi-typescript": "92f869d49144d623e67f783244d9967717341d5c9f37151de50bfbd1ba727e5d",
-    "https://cdn.skypack.dev/error/unknown:node?from=openapi-typescript": "805ca5648b602a1c265f05dbacefffb43f59c29254b0aff721b17278283ea47a",
-    "https://cdn.skypack.dev/openapi-typescript@6.2.0/dist/index.js?dts": "f79f46cd9c63c9bc2bb25296ab9741ebf3f9bfa9e28220703bf536b74e43771f",
     "https://deno.land/std@0.140.0/_util/assert.ts": "e94f2eb37cebd7f199952e242c77654e43333c1ac4c5c700e929ea3aa5489f74",
     "https://deno.land/std@0.140.0/_util/os.ts": "3b4c6e27febd119d36a416d7a97bd3b0251b77c88942c8f16ee5953ea13e2e49",
     "https://deno.land/std@0.140.0/fs/_util.ts": "0fb24eb4bfebc2c194fb1afdb42b9c3dda12e368f43e8f2321f84fc77d42cb0f",
@@ -66,7 +50,7 @@
     "https://deno.land/x/ts_morph@17.0.1/mod.ts": "adba9b82f24865d15d2c78ef6074b9a7457011719056c9928c800f130a617c93",
     "https://deno.land/x/ts_morph@17.0.1/ts_morph.d.ts": "a54b0c51b06d84defedf5fdd59c773d803808ae7c9678f7165f7a1a6dfa7f6a3",
     "https://deno.land/x/ts_morph@17.0.1/ts_morph.js": "1bb80284b9e31a4c5c2078cd533fe9b12b4b2d710267055cb655225aa88fb2df",
-    "https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.2022-11-28.json": "6b030d491c6f9da4c9cc7b6d450f19da572d133eb031932807152cd9b10c515d",
-    "https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.json": "6b030d491c6f9da4c9cc7b6d450f19da572d133eb031932807152cd9b10c515d"
+    "https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.2022-11-28.json": "8480031357850cc9d6ccf7d20d2d8d6e837641e368dea75627c5bb7d298006ed",
+    "https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.json": "8480031357850cc9d6ccf7d20d2d8d6e837641e368dea75627c5bb7d298006ed"
   }
 }

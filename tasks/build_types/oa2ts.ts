@@ -25,8 +25,10 @@ function makeModule(
     const [pathname, pathItem] of Object.entries<PathItemObject>(oaObject.paths)
   ) {
     const { identifier, pathnameParams } = parsePathname(pathname);
-    makePathnameParamsDecls(fileDecl, identifier, pathnameParams, pathItem);
-    return;
+    if (pathnameParams.length > 0) {
+      makePathnameParamsDecls(fileDecl, identifier, pathnameParams, pathItem);
+      return;
+    }
 
     // TODO:
     // makeSearchParamsDecls(fileDecl, pathname, pathItem);
@@ -75,30 +77,13 @@ function makePathnameParamsDecl(
   pathnameParams: string[],
   operation: OperationObject,
 ): void {
-  // TODO:
   const identifier = `${baseIdentifier}${pascalCase(method)}PathnameParams`;
-  const tags: JSDocTagStructure[] = [];
+  const docs = operation.externalDocs?.url
+    ? [{ tags: [{ tagName: "see", text: operation.externalDocs?.url }] }]
+    : [];
+  console.log({ docs });
   const decl = fileDecl.addInterface({
-    docs: [{
-      tags: [
-        {
-          tagName: "summary",
-          text: operation.summary,
-        },
-        {
-          tagName: "description",
-          text: operation.description,
-        },
-        {
-          tagName: "tags",
-          text: operation.tags?.join(", "),
-        },
-        {
-          tagName: "see",
-          text: operation.externalDocs?.url,
-        },
-      ],
-    }],
+    docs,
     isExported: true,
     name: identifier,
     properties: pathnameParams.map((param) => ({
@@ -106,8 +91,7 @@ function makePathnameParamsDecl(
       type: "string",
     })),
   });
-  console.log(decl.getText(true));
-  console.log({ operation });
+  console.log({ text: decl.getText() });
 }
 
 function parsePathname(
@@ -125,41 +109,4 @@ function parsePathname(
     ),
   ) || "Root";
   return { identifier, pathnameParams };
-}
-
-function tagsFromOperation(operation: OperationObject): JSDocTagStructure[] {
-  const tags: OptionKind<JSDocTagStructure>[] = [];
-
-  if (operation.summary) {
-    tags.push({
-      tagName: "summary",
-      text: operation.summary,
-    });
-  }
-
-  if (operation.description) {
-    tags.push({
-      tagName: "description",
-      text: operation.description,
-      kind: "text",
-    });
-  }
-
-  if (operation.tags) {
-    tags.push({
-      tagName: "tags",
-      text: operation.tags.join(", "),
-      kind: "text",
-    });
-  }
-
-  if (operation.externalDocs?.url) {
-    tags.push({
-      tagName: "see",
-      text: operation.externalDocs.url,
-      kind: "text",
-    });
-  }
-
-  return tags;
 }
