@@ -11,23 +11,18 @@ jobs:
     strategy:
       matrix:
         schema:
-          - api.github.com.json
-          - api.github.com.2022-11-28.json
+          - url: https://github.com/github/rest-api-description/raw/main/descriptions/api.github.com/api.github.com.yaml
+            output: mod.ts
+          - url: https://github.com/github/rest-api-description/raw/main/descriptions/api.github.com/api.github.com.2022-11-28.yaml
+            output: api.github.com.2022-11-28/mod.ts
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download OpenAPI schema
+      - name: Generate TypeScript types from OpenAPI schema
         run: |
-          mkdir -p ~/tmp
-          curl -o ~/tmp/schema.json \
-            https://github.com/github/rest-api-description/raw/main/descriptions/api.github.com/${{ matrix.schema }}
-
-      - name: Update
-        run: |
-          npm i -g oazapfts
-          oazapfts ~/tmp/schema.json mod.ts
+          npx openapi-typescript ${{ matrix.schema.url }} --output ${{ matrix.schema.output }}
 
           # Check if there has been any git changes. updated=1 if there's one,
           # otherwise it's 0. We'll skip the rest if 0.
@@ -38,10 +33,13 @@ jobs:
       - name: Commit changes, if any
         id: git-commit
         if: steps.update-pkg.outputs.updated == 1
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: devops-infra/action-commit-push@master
         with:
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          add_timestamp: true
+          commit_prefix: "[AUTO]"
+          target_branch: update/github_api_types
           commit_message: |-
             Update github_api_types using GitHub Actions
             The action workflow was triggered by ref:
                 ${{ github.sha }}
-          branch: ${{ github.ref_name }}
