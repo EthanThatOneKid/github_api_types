@@ -24,6 +24,8 @@ jobs:
         run: |
           npx openapi-typescript ${{ matrix.schema.url }} --output ${{ matrix.schema.output }}
 
+          cat << EOF >> ${{ matrix.schema.output }}
+
           # Check if there has been any git changes. updated=1 if there's one,
           # otherwise it's 0. We'll skip the rest if 0.
           if [[ $(git status --porcelain) ]]; then
