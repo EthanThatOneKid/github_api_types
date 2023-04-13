@@ -24,12 +24,12 @@ jobs:
         run: |
           npx openapi-typescript ${{ matrix.schema.url }} --output ${{ matrix.schema.output }}
 
-          cat << EOF >> ${{ matrix.schema.output }}
+          cat ${{ matrix.schema.output }}
 
           # Check if there has been any git changes. updated=1 if there's one,
           # otherwise it's 0. We'll skip the rest if 0.
-          if [[ $(git status --porcelain) ]]; then
-            echo "updated=1" >> $GITHUB_OUTPUT
+          if [[ $(git diff --name-only) ]]; then
+            echo "updated=1" >> $GITHUB_ENV
           fi
 
       - name: Commit changes, if any
