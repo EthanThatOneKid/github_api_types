@@ -21,21 +21,22 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Generate TypeScript types from OpenAPI schema
+        id: update
         run: |
           npx openapi-typescript ${{ matrix.schema.url }} --output ${{ matrix.schema.output }}
 
-          # Check if there has been any git changes. updated=1 if there's one,
+          # Check if there have been any git changes. updated=1 if there's one,
           # otherwise it's 0. We'll skip the rest if 0.
-          git status -s && echo "updated=1" >> $GITHUB_ENV
+          git status -s && echo "updated=1" >> $GITHUB_ENV || echo "updated=0" >> $GITHUB_ENV
 
       - name: Commit changes, if any
         id: git-commit
-        if: steps.update-pkg.outputs.updated == 1
+        if: steps.update.outputs.updated == 1
         uses: devops-infra/action-commit-push@master
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           add_timestamp: true
-          commit_prefix: "[AUTO]"
+          commit_prefix: "[CI]"
           target_branch: update/github_api_types
           commit_message: |-
             Update github_api_types using GitHub Actions
