@@ -28,9 +28,7 @@ jobs:
           # Check if there have been any git changes. updated=1 if there's one,
           # otherwise it's 0. We'll skip the rest if 0.
           if [[ $(git status --short) ]]; then
-            echo "updated=1" >> $GITHUB_ENV
-          else
-            echo "updated=0" >> $GITHUB_ENV
+            echo "updated=1" >> $GITHUB_OUTPUT
           fi
 
       - name: Commit changes, if any
