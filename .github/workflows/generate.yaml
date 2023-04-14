@@ -8,6 +8,11 @@ jobs:
   update:
     runs-on: ubuntu-latest
 
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+
     strategy:
       matrix:
         schema:
@@ -34,12 +39,9 @@ jobs:
       - name: Commit changes, if any
         id: git-commit
         if: steps.update.outputs.updated == 1
-        uses: devops-infra/action-commit-push@master
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          github_token: "${{ secrets.GITHUB_TOKEN }}"
-          add_timestamp: true
-          commit_prefix: "[CI]"
-          target_branch: update/github_api_types
+          branch: auto/update
           commit_message: |-
             Update github_api_types using GitHub Actions
             The action workflow was triggered by ref:
