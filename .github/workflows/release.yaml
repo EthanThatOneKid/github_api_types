@@ -22,9 +22,6 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install dependencies
-        run: npm ci
-
       - name: Promote branch to main
         run: |
           # Fetch the specified branch from origin
