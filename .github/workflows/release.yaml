@@ -1,0 +1,43 @@
+name: Manual Branch Promotion
+
+# Trigger the workflow on manual dispatch event
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch name"
+        required: true
+        default: "auto/update"
+
+jobs:
+  promote_to_main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Promote branch to main
+        run: |
+          # Fetch the specified branch from origin
+          git fetch origin ${{ github.event.inputs.branch }}:${{ github.event.inputs.branch }}
+
+          # Checkout the specified branch
+          git checkout ${{ github.event.inputs.branch }}
+
+          # Checkout main branch
+          git checkout main
+
+          # Merge the specified branch into main
+          git merge ${{ github.event.inputs.branch }}
+
+          # Push changes to main branch
+          git push origin main
+
+      - name: Run semantic-release
+        run: npx semantic-release
