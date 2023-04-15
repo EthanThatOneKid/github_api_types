@@ -2,6 +2,8 @@ name: Manual Branch Promotion
 
 # Trigger the workflow on manual dispatch event
 on:
+  schedule:
+    - cron: "0 0 * * *" # https://crontab.guru/#0_9_*_*_1 (At 9:00 AM on Monday)
   workflow_dispatch:
     inputs:
       branch:
