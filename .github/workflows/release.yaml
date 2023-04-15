@@ -48,7 +48,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: Release `${{ substr(github.sha, 0, 7) }}`
+          name: Recurring release
 
           # note you'll typically need to create a personal access token
           # with permissions to create releases in the other repo
