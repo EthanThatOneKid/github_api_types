@@ -16,35 +16,43 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the
-      # added or changed files to the repository.
       contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
-
       - name: Promote branch to main
-        run: |
+        run: |-
           # Fetch the specified branch from origin
           git fetch origin ${{ github.event.inputs.branch }}:${{ github.event.inputs.branch }}
 
           # Checkout the specified branch
           git checkout ${{ github.event.inputs.branch }}
 
-          # Checkout main branch
-          git checkout main
+          # Check if the specified branch is up to date with main
+          git fetch origin main
+
+          # Check if there are changes between the specified branch and main
+          if git diff --quiet origin/main; then
+            echo "No changes between ${{ github.event.inputs.branch }} and main"
+            exit 0
+          fi
 
           # Merge the specified branch into main
-          git merge ${{ github.event.inputs.branch }}
+          git merge --no-ff --no-edit ${{ github.event.inputs.branch }}
 
-          # Push changes to main branch
+          # Push the changes to main
           git push origin main
 
-      - name: Run semantic-release
-        run: npx semantic-release
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release `${{ substr(github.sha, 0, 7) }}`
+
+          # note you'll typically need to create a personal access token
+          # with permissions to create releases in the other repo
+          token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+          generate_release_notes: true
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
