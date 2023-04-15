@@ -35,7 +35,8 @@ Add new repository secrets to this repository at:
 
 ###### `RELEASE_GITHUB_TOKEN`
 
-This secret is a GitHub token with `public_repo` scope. Generate it at:
+This secret is a GitHub token with `Only select repositories` and the
+`github_api_types` repository selcted. Generate it at:
 <https://github.com/settings/personal-access-tokens/new>.
 
 This secret is used for the
@@ -45,4 +46,4 @@ action to create releases on GitHub.
 ##### Run manually
 
 To run this workflow manually, go to the Actions tab at:
-<https://github.com/EthanThatOneKid/github_api_types/actions/workflows/generate.yaml>
+<https://github.com/EthanThatOneKid/github_api_types/actions/workflows/release.yaml>
