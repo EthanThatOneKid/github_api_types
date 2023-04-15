@@ -38,6 +38,9 @@ jobs:
             echo "updated=0" >> $GITHUB_OUTPUT
           fi
 
+          # Git add if the changes are untracked.
+          git add ${{ matrix.schema.output }}
+
       - name: Commit changes, if any
         id: git-commit
         if: steps.update.outputs.updated == 1
