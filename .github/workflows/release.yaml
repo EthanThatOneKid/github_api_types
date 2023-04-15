@@ -44,13 +44,19 @@ jobs:
           git merge --no-ff --no-edit ${{ github.event.inputs.branch }}
 
           # Push the changes to main
-          git push origin main
+          if git push origin main; then
+            echo "success=1" >> $GITHUB_ENV
+          else
+            echo "success=0" >> $GITHUB_ENV
+            exit 1
+          fi
 
           # Output the formatted datetime
           datetime=$(date -u +"%Y-%m-%d-%H-%M")
           echo "datetime=$datetime" >> $GITHUB_ENV
 
       - name: Release
+        if: ${{ steps.promote.outputs.success == 1 }}
         uses: softprops/action-gh-release@v1
         with:
           name: Recurring release
