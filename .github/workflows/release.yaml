@@ -25,26 +25,23 @@ jobs:
       - name: Promote branch to main
         id: promote
         run: |-
-          # Fetch the specified branch from origin
-          git fetch origin ${{ github.event.inputs.branch }}:${{ github.event.inputs.branch }}
-
-          # Checkout the specified branch
+          # Switch to the source branch. If it doesn't exist, exit.
           git checkout ${{ github.event.inputs.branch }}
 
-          # Check if the specified branch is up to date with main
-          git fetch origin main
+          # Merge the latest changes from main into the source branch.
+          git merge main
 
-          # Check if there are changes between the specified branch and main
+          # Check if there are changes between the specified branch and main.
           if git diff --quiet origin/main; then
             echo "No changes between ${{ github.event.inputs.branch }} and main"
             exit 0
           fi
 
-          # Merge the specified branch into main
-          git merge --no-ff --no-edit ${{ github.event.inputs.branch }}
+          # Switch to the target branch (main)   
+          git checkout main
 
-          # Push the changes to main
-          if git push origin main; then
+          # If the reset was successful, set success=1, otherwise set success=0 and exit.
+          if git reset --hard ${{ github.event.inputs.branch }}; then
             echo "success=1" >> $GITHUB_ENV
           else
             echo "success=0" >> $GITHUB_ENV
