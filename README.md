@@ -37,7 +37,8 @@ Add new repository secrets to this repository at:
 
 This secret is a GitHub token with `Only select repositories` and the
 `github_api_types` repository selected. Generate it at:
-<https://github.com/settings/personal-access-tokens/new>.
+<https://github.com/settings/personal-access-tokens/new>. Set the `Contents`
+permission to `Read & Write`.
 
 This secret is used for the
 [`softprops/action-gh-release`](https://github.com/softprops/action-gh-release#readme)
