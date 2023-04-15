@@ -36,7 +36,7 @@ Add new repository secrets to this repository at:
 ###### `RELEASE_GITHUB_TOKEN`
 
 This secret is a GitHub token with `Only select repositories` and the
-`github_api_types` repository selcted. Generate it at:
+`github_api_types` repository selected. Generate it at:
 <https://github.com/settings/personal-access-tokens/new>.
 
 This secret is used for the
