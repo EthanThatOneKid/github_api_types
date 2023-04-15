@@ -3,7 +3,7 @@ name: Manual Branch Promotion
 # Trigger the workflow on manual dispatch event
 on:
   schedule:
-    - cron: "0 0 * * *" # https://crontab.guru/#0_9_*_*_1 (At 9:00 AM on Monday)
+    - cron: "0 0 * * 1" # https://crontab.guru/#0_0_*_*_1 (At 12:00 AM on Monday)
   workflow_dispatch:
     inputs:
       branch:
@@ -49,9 +49,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: Recurring release
-
-          # note you'll typically need to create a personal access token
-          # with permissions to create releases in the other repo
+          tag: ${{ formatTime(now(), 'YYYY-MM-DD-HH-mm', 'GMT') }}
           token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
           generate_release_notes: true
         env:
