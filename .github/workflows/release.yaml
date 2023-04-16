@@ -25,28 +25,23 @@ jobs:
       - name: Promote branch to main
         id: promote
         run: |-
-          # Switch to the source branch. If it doesn't exist, exit.
-          git checkout ${{ github.event.inputs.branch }}
-
-          # Merge the latest changes from main into the source branch.
-          git merge main
-
-          # Check if there are changes between the specified branch and main.
-          if git diff --quiet origin/main; then
-            echo "No changes between ${{ github.event.inputs.branch }} and main"
-            exit 0
-          fi
-
-          # Switch to the target branch (main)   
+          git fetch
           git checkout main
+          git pull
+          git checkout auto/update
+          git pull
+          git diff main..auto/update
 
-          # If the reset was successful, set success=1, otherwise set success=0 and exit.
-          if git reset --hard ${{ github.event.inputs.branch }}; then
-            echo "success=1" >> $GITHUB_ENV
-          else
-            echo "success=0" >> $GITHUB_ENV
+          # Check if there are any conflicts
+          if git diff --name-only --diff-filter=U | grep -q .; then
+            echo "There are conflicts between main and auto/update. Merge aborted."
             exit 1
           fi
+
+          # If all checks pass, proceed with merging
+          git checkout main
+          git merge --no-ff auto/update -m "Merge auto/update into main"
+          git push origin main
 
           # Output the formatted datetime
           datetime=$(date -u +"%Y-%m-%d-%H-%M")
