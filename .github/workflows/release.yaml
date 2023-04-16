@@ -25,6 +25,11 @@ jobs:
       - name: Promote branch to main
         id: promote
         run: |-
+          # Set Git config
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Check if the branch exists
           git fetch
           git checkout main
           git pull
@@ -45,6 +50,9 @@ jobs:
           # Output the formatted datetime
           datetime=$(date -u +"%Y-%m-%d-%H-%M")
           echo "datetime=$datetime" >> $GITHUB_ENV
+
+          # Output success
+          echo "success=1" >> $GITHUB_ENV
 
       - name: Release
         if: ${{ steps.promote.outputs.success == 1 }}
