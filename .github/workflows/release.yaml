@@ -49,10 +49,10 @@ jobs:
 
           # Output the formatted datetime
           datetime=$(date -u +"%Y-%m-%d-%H-%M")
-          echo "datetime=$datetime" >> $GITHUB_ENV
+          echo "datetime=$datetime" >> $GITHUB_OUTPUT
 
           # Output success
-          echo "success=1" >> $GITHUB_ENV
+          echo "success=1" >> $GITHUB_OUTPUT
 
       - name: Release
         if: ${{ steps.promote.outputs.success == 1 }}
