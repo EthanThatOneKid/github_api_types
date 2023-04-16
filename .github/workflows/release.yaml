@@ -25,6 +25,11 @@ jobs:
       - name: Promote branch to main
         id: promote
         run: |-
+          # Set Git config
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Check if the branch exists
           git fetch
           git checkout main
           git pull
