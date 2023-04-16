@@ -30,7 +30,6 @@ jobs:
           git pull
           git checkout auto/update
           git pull
-          git diff main..auto/update
 
           # Check if there are any conflicts
           if git diff --name-only --diff-filter=U | grep -q .; then
