@@ -59,8 +59,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: Recurring release
-          tag: ${{ steps.promote.outputs.datetime }}
+          tag_name: ${{ steps.promote.outputs.datetime }}
           token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
           generate_release_notes: true
-        env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
+          draft: false
+          prerelease: false
