@@ -79183,7 +79183,7 @@ export interface components {
     /**
      * @description A comma-separated list of states. If specified, only alerts with these states will be returned.
      * 
-     * Can be: `dismissed`, `fixed`, `open`
+     * Can be: `auto_dismissed`, `dismissed`, `fixed`, `open`
      */
     "dependabot-alert-comma-separated-states": string;
     /**
