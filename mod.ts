@@ -1902,6 +1902,35 @@ export interface paths {
      */
     post: operations["repos/create-in-org"];
   };
+  "/orgs/{org}/rulesets": {
+    /**
+     * Get all organization repository rulesets 
+     * @description Get all the repository rulesets for an organization.
+     */
+    get: operations["repos/get-org-rulesets"];
+    /**
+     * Create an organization repository ruleset 
+     * @description Create a repository ruleset for an organization.
+     */
+    post: operations["repos/create-org-ruleset"];
+  };
+  "/orgs/{org}/rulesets/{ruleset_id}": {
+    /**
+     * Get an organization repository ruleset 
+     * @description Get a repository ruleset for an organization.
+     */
+    get: operations["repos/get-org-ruleset"];
+    /**
+     * Update an organization repository ruleset 
+     * @description Update a ruleset for an organization.
+     */
+    put: operations["repos/update-org-ruleset"];
+    /**
+     * Delete an organization repository ruleset 
+     * @description Delete a ruleset for an organization.
+     */
+    delete: operations["repos/delete-org-ruleset"];
+  };
   "/orgs/{org}/secret-scanning/alerts": {
     /**
      * List secret scanning alerts for an organization 
@@ -5838,6 +5867,42 @@ export interface paths {
      * Delete a reaction to a [release](https://docs.github.com/rest/reference/repos#releases).
      */
     delete: operations["reactions/delete-for-release"];
+  };
+  "/repos/{owner}/{repo}/rules/branches/{branch}": {
+    /**
+     * Get rules for a branch 
+     * @description Returns all rules that apply to the specified branch.
+     */
+    get: operations["repos/get-branch-rules"];
+  };
+  "/repos/{owner}/{repo}/rulesets": {
+    /**
+     * Get all repository rulesets 
+     * @description Get all the rulesets for a repository.
+     */
+    get: operations["repos/get-repo-rulesets"];
+    /**
+     * Create a repository ruleset 
+     * @description Create a ruleset for a repository.
+     */
+    post: operations["repos/create-repo-ruleset"];
+  };
+  "/repos/{owner}/{repo}/rulesets/{ruleset_id}": {
+    /**
+     * Get a repository ruleset 
+     * @description Get a ruleset for a repository.
+     */
+    get: operations["repos/get-repo-ruleset"];
+    /**
+     * Update a repository ruleset 
+     * @description Update a ruleset for a repository.
+     */
+    put: operations["repos/update-repo-ruleset"];
+    /**
+     * Delete a repository ruleset 
+     * @description Delete a ruleset for a repository.
+     */
+    delete: operations["repos/delete-repo-ruleset"];
   };
   "/repos/{owner}/{repo}/secret-scanning/alerts": {
     /**
@@ -12723,6 +12788,312 @@ export interface components {
       organization_permission?: "read" | "write" | "admin" | "none";
       /** @description Whether or not this project can be seen by everyone. Only present if owner is an organization. */
       private?: boolean;
+    };
+    /**
+     * @description The enforcement level of the ruleset. `evaluate` allows admins to test rules before enforcing them. Admins can view insights on the Rule Insights page (`evaluate` is only available with GitHub Enterprise). 
+     * @enum {string}
+     */
+    "repository-rule-enforcement": "disabled" | "active" | "evaluate";
+    /**
+     * Repository Ruleset Bypass Actor 
+     * @description An actor that can bypass rules in a ruleset
+     */
+    "repository-ruleset-bypass-actor": {
+      /** @description The ID of the actor that can bypass a ruleset */
+      actor_id?: number;
+      /**
+       * @description The type of actor that can bypass a ruleset 
+       * @enum {string}
+       */
+      actor_type?: "Team" | "Integration";
+    };
+    /**
+     * Repository ruleset conditions for ref names 
+     * @description Parameters for a repository ruleset ref name condition
+     */
+    "repository-ruleset-conditions": {
+      ref_name?: {
+        /** @description Array of ref names or patterns to include. One of these patterns must match for the condition to pass. Also accepts `~DEFAULT_BRANCH` to include the default branch or `~ALL` to include all branches. */
+        include?: (string)[];
+        /** @description Array of ref names or patterns to exclude. The condition will not pass if any of these patterns match. */
+        exclude?: (string)[];
+      };
+    };
+    /**
+     * Repository ruleset conditions for repository names 
+     * @description Parameters for a repository name condition
+     */
+    "repository-ruleset-conditions-repository-name-target": {
+      repository_name?: {
+        /** @description Array of repository names or patterns to include. One of these patterns must match for the condition to pass. Also accepts `~ALL` to include all repositories. */
+        include?: (string)[];
+        /** @description Array of repository names or patterns to exclude. The condition will not pass if any of these patterns match. */
+        exclude?: (string)[];
+        /** @description Whether renaming of target repositories is prevented. */
+        protected?: boolean;
+      };
+    };
+    /**
+     * Organization ruleset conditions 
+     * @description Conditions for a organization ruleset
+     */
+    "org-ruleset-conditions": components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-name-target"];
+    /**
+     * creation 
+     * @description Parameters to be used for the creation rule
+     */
+    "repository-rule-creation": {
+      /** @enum {string} */
+      type: "creation";
+    };
+    /**
+     * update 
+     * @description Parameters to be used for the update rule
+     */
+    "repository-rule-update": {
+      /** @enum {string} */
+      type: "update";
+      parameters?: {
+        /** @description Branch can pull changes from its upstream repository */
+        update_allows_fetch_and_merge: boolean;
+      };
+    };
+    /**
+     * deletion 
+     * @description Parameters to be used for the deletion rule
+     */
+    "repository-rule-deletion": {
+      /** @enum {string} */
+      type: "deletion";
+    };
+    /**
+     * required_linear_history 
+     * @description Parameters to be used for the required_linear_history rule
+     */
+    "repository-rule-required-linear-history": {
+      /** @enum {string} */
+      type: "required_linear_history";
+    };
+    /**
+     * required_deployments 
+     * @description Parameters to be used for the required_deployments rule
+     */
+    "repository-rule-required-deployments": {
+      /** @enum {string} */
+      type: "required_deployments";
+      parameters?: {
+        /** @description The environments that must be successfully deployed to before branches can be merged. */
+        required_deployment_environments: (string)[];
+      };
+    };
+    /**
+     * required_signatures 
+     * @description Parameters to be used for the required_signatures rule
+     */
+    "repository-rule-required-signatures": {
+      /** @enum {string} */
+      type: "required_signatures";
+    };
+    /**
+     * pull_request 
+     * @description Parameters to be used for the pull_request rule
+     */
+    "repository-rule-pull-request": {
+      /** @enum {string} */
+      type: "pull_request";
+      parameters?: {
+        /** @description New, reviewable commits pushed will dismiss previous pull request review approvals. */
+        dismiss_stale_reviews_on_push: boolean;
+        /** @description Require an approving review in pull requests that modify files that have a designated code owner. */
+        require_code_owner_review: boolean;
+        /** @description Whether the most recent reviewable push must be approved by someone other than the person who pushed it. */
+        require_last_push_approval: boolean;
+        /** @description The number of approving reviews that are required before a pull request can be merged. */
+        required_approving_review_count: number;
+        /** @description All conversations on code must be resolved before a pull request can be merged. */
+        required_review_thread_resolution: boolean;
+      };
+    };
+    /**
+     * StatusCheckConfiguration 
+     * @description Required status check
+     */
+    "repository-rule-params-status-check-configuration": {
+      /** @description The status check context name that must be present on the commit. */
+      context: string;
+      /** @description The optional integration ID that this status check must originate from. */
+      integration_id?: number;
+    };
+    /**
+     * required_status_checks 
+     * @description Parameters to be used for the required_status_checks rule
+     */
+    "repository-rule-required-status-checks": {
+      /** @enum {string} */
+      type: "required_status_checks";
+      parameters?: {
+        /** @description Status checks that are required. */
+        required_status_checks: (components["schemas"]["repository-rule-params-status-check-configuration"])[];
+        /** @description Whether pull requests targeting a matching branch must be tested with the latest code. This setting will not take effect unless at least one status check is enabled. */
+        strict_required_status_checks_policy: boolean;
+      };
+    };
+    /**
+     * non_fast_forward 
+     * @description Parameters to be used for the non_fast_forward rule
+     */
+    "repository-rule-non-fast-forward": {
+      /** @enum {string} */
+      type: "non_fast_forward";
+    };
+    /**
+     * commit_message_pattern 
+     * @description Parameters to be used for the commit_message_pattern rule
+     */
+    "repository-rule-commit-message-pattern": {
+      /** @enum {string} */
+      type: "commit_message_pattern";
+      parameters?: {
+        /** @description How this rule will appear to users. */
+        name?: string;
+        /** @description If true, the rule will fail if the pattern matches. */
+        negate?: boolean;
+        /**
+         * @description The operator to use for matching. 
+         * @enum {string}
+         */
+        operator: "starts_with" | "ends_with" | "contains" | "regex";
+        /** @description The pattern to match with. */
+        pattern: string;
+      };
+    };
+    /**
+     * commit_author_email_pattern 
+     * @description Parameters to be used for the commit_author_email_pattern rule
+     */
+    "repository-rule-commit-author-email-pattern": {
+      /** @enum {string} */
+      type: "commit_author_email_pattern";
+      parameters?: {
+        /** @description How this rule will appear to users. */
+        name?: string;
+        /** @description If true, the rule will fail if the pattern matches. */
+        negate?: boolean;
+        /**
+         * @description The operator to use for matching. 
+         * @enum {string}
+         */
+        operator: "starts_with" | "ends_with" | "contains" | "regex";
+        /** @description The pattern to match with. */
+        pattern: string;
+      };
+    };
+    /**
+     * committer_email_pattern 
+     * @description Parameters to be used for the committer_email_pattern rule
+     */
+    "repository-rule-committer-email-pattern": {
+      /** @enum {string} */
+      type: "committer_email_pattern";
+      parameters?: {
+        /** @description How this rule will appear to users. */
+        name?: string;
+        /** @description If true, the rule will fail if the pattern matches. */
+        negate?: boolean;
+        /**
+         * @description The operator to use for matching. 
+         * @enum {string}
+         */
+        operator: "starts_with" | "ends_with" | "contains" | "regex";
+        /** @description The pattern to match with. */
+        pattern: string;
+      };
+    };
+    /**
+     * branch_name_pattern 
+     * @description Parameters to be used for the branch_name_pattern rule
+     */
+    "repository-rule-branch-name-pattern": {
+      /** @enum {string} */
+      type: "branch_name_pattern";
+      parameters?: {
+        /** @description How this rule will appear to users. */
+        name?: string;
+        /** @description If true, the rule will fail if the pattern matches. */
+        negate?: boolean;
+        /**
+         * @description The operator to use for matching. 
+         * @enum {string}
+         */
+        operator: "starts_with" | "ends_with" | "contains" | "regex";
+        /** @description The pattern to match with. */
+        pattern: string;
+      };
+    };
+    /**
+     * tag_name_pattern 
+     * @description Parameters to be used for the tag_name_pattern rule
+     */
+    "repository-rule-tag-name-pattern": {
+      /** @enum {string} */
+      type: "tag_name_pattern";
+      parameters?: {
+        /** @description How this rule will appear to users. */
+        name?: string;
+        /** @description If true, the rule will fail if the pattern matches. */
+        negate?: boolean;
+        /**
+         * @description The operator to use for matching. 
+         * @enum {string}
+         */
+        operator: "starts_with" | "ends_with" | "contains" | "regex";
+        /** @description The pattern to match with. */
+        pattern: string;
+      };
+    };
+    /**
+     * Repository Rule 
+     * @description A repository rule.
+     */
+    "repository-rule": components["schemas"]["repository-rule-creation"] | components["schemas"]["repository-rule-update"] | components["schemas"]["repository-rule-deletion"] | components["schemas"]["repository-rule-required-linear-history"] | components["schemas"]["repository-rule-required-deployments"] | components["schemas"]["repository-rule-required-signatures"] | components["schemas"]["repository-rule-pull-request"] | components["schemas"]["repository-rule-required-status-checks"] | components["schemas"]["repository-rule-non-fast-forward"] | components["schemas"]["repository-rule-commit-message-pattern"] | components["schemas"]["repository-rule-commit-author-email-pattern"] | components["schemas"]["repository-rule-committer-email-pattern"] | components["schemas"]["repository-rule-branch-name-pattern"] | components["schemas"]["repository-rule-tag-name-pattern"];
+    /**
+     * Repository ruleset 
+     * @description A set of rules to apply when specified conditions are met.
+     */
+    "repository-ruleset": {
+      /** @description The ID of the ruleset */
+      id: number;
+      /** @description The name of the ruleset */
+      name: string;
+      /**
+       * @description The target of the ruleset 
+       * @enum {string}
+       */
+      target?: "branch" | "tag";
+      /**
+       * @description The type of the source of the ruleset 
+       * @enum {string}
+       */
+      source_type?: "Repository" | "Organization";
+      /** @description The name of the source */
+      source: string;
+      enforcement: components["schemas"]["repository-rule-enforcement"];
+      /**
+       * @description The permission level required to bypass this ruleset. "repository" allows those with bypass permission at the repository level to bypass. "organization" allows those with bypass permission at the organization level to bypass. "none" prevents anyone from bypassing. 
+       * @enum {string}
+       */
+      bypass_mode?: "none" | "repository" | "organization";
+      /** @description The actors that can bypass the rules in this ruleset */
+      bypass_actors?: (components["schemas"]["repository-ruleset-bypass-actor"])[];
+      node_id?: string;
+      _links?: {
+        self?: {
+          /** @description The URL of the ruleset */
+          href?: string;
+        };
+      };
+      conditions?: components["schemas"]["repository-ruleset-conditions"] | components["schemas"]["org-ruleset-conditions"];
+      rules?: (components["schemas"]["repository-rule"])[];
     };
     /**
      * Team Simple 
@@ -85821,6 +86192,153 @@ export interface operations {
     };
   };
   /**
+   * Get all organization repository rulesets 
+   * @description Get all the repository rulesets for an organization.
+   */
+  "repos/get-org-rulesets": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": (components["schemas"]["repository-ruleset"])[];
+        };
+      };
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Create an organization repository ruleset 
+   * @description Create a repository ruleset for an organization.
+   */
+  "repos/create-org-ruleset": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    /** @description Request body */
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The name of the ruleset. */
+          name: string;
+          /**
+           * @description The target of the ruleset. 
+           * @enum {string}
+           */
+          target?: "branch" | "tag";
+          enforcement: components["schemas"]["repository-rule-enforcement"];
+          /** @description The actors that can bypass the rules in this ruleset */
+          bypass_actors?: (components["schemas"]["repository-ruleset-bypass-actor"])[];
+          conditions?: components["schemas"]["org-ruleset-conditions"];
+          /** @description An array of rules within the ruleset. */
+          rules?: (components["schemas"]["repository-rule"])[];
+        };
+      };
+    };
+    responses: {
+      /** @description Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["repository-ruleset"];
+        };
+      };
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Get an organization repository ruleset 
+   * @description Get a repository ruleset for an organization.
+   */
+  "repos/get-org-ruleset": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        /** @description The ID of the ruleset. */
+        ruleset_id: number;
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["repository-ruleset"];
+        };
+      };
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Update an organization repository ruleset 
+   * @description Update a ruleset for an organization.
+   */
+  "repos/update-org-ruleset": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        /** @description The ID of the ruleset. */
+        ruleset_id: number;
+      };
+    };
+    /** @description Request body */
+    requestBody?: {
+      content: {
+        "application/json": {
+          /** @description The name of the ruleset. */
+          name?: string;
+          /**
+           * @description The target of the ruleset. 
+           * @enum {string}
+           */
+          target?: "branch" | "tag";
+          enforcement?: components["schemas"]["repository-rule-enforcement"];
+          /** @description The actors that can bypass the rules in this ruleset */
+          bypass_actors?: (components["schemas"]["repository-ruleset-bypass-actor"])[];
+          conditions?: components["schemas"]["org-ruleset-conditions"];
+          /** @description An array of rules within the ruleset. */
+          rules?: (components["schemas"]["repository-rule"])[];
+        };
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["repository-ruleset"];
+        };
+      };
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Delete an organization repository ruleset 
+   * @description Delete a ruleset for an organization.
+   */
+  "repos/delete-org-ruleset": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        /** @description The ID of the ruleset. */
+        ruleset_id: number;
+      };
+    };
+    responses: {
+      /** @description Response */
+      204: never;
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
    * List secret scanning alerts for an organization 
    * @description Lists secret scanning alerts for eligible repositories in an organization, from newest to oldest.
    * To use this endpoint, you must be an administrator or security manager for the organization, and you must use an access token with the `repo` scope or `security_events` scope.
@@ -99804,6 +100322,197 @@ export interface operations {
     responses: {
       /** @description Response */
       204: never;
+    };
+  };
+  /**
+   * Get rules for a branch 
+   * @description Returns all rules that apply to the specified branch.
+   */
+  "repos/get-branch-rules": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        branch: components["parameters"]["branch"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": (components["schemas"]["repository-rule"])[];
+        };
+      };
+    };
+  };
+  /**
+   * Get all repository rulesets 
+   * @description Get all the rulesets for a repository.
+   */
+  "repos/get-repo-rulesets": {
+    parameters: {
+      query: {
+        /** @description Include rulesets configured at higher levels that apply to this repository */
+        includes_parents?: boolean;
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": (components["schemas"]["repository-ruleset"])[];
+        };
+      };
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Create a repository ruleset 
+   * @description Create a ruleset for a repository.
+   */
+  "repos/create-repo-ruleset": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
+    /** @description Request body */
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The name of the ruleset. */
+          name: string;
+          /**
+           * @description The target of the ruleset. 
+           * @enum {string}
+           */
+          target?: "branch" | "tag";
+          enforcement: components["schemas"]["repository-rule-enforcement"];
+          /**
+           * @description The permission level required to bypass this ruleset. "repository" allows those with bypass permission at the repository level to bypass. "organization" allows those with bypass permission at the organization level to bypass. "none" prevents anyone from bypassing. 
+           * @enum {string}
+           */
+          bypass_mode?: "none" | "repository" | "organization";
+          /** @description The actors that can bypass the rules in this ruleset */
+          bypass_actors?: (components["schemas"]["repository-ruleset-bypass-actor"])[];
+          conditions?: components["schemas"]["repository-ruleset-conditions"];
+          /** @description An array of rules within the ruleset. */
+          rules?: (components["schemas"]["repository-rule"])[];
+        };
+      };
+    };
+    responses: {
+      /** @description Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["repository-ruleset"];
+        };
+      };
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Get a repository ruleset 
+   * @description Get a ruleset for a repository.
+   */
+  "repos/get-repo-ruleset": {
+    parameters: {
+      query: {
+        /** @description Include rulesets configured at higher levels that apply to this repository */
+        includes_parents?: boolean;
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        /** @description The ID of the ruleset. */
+        ruleset_id: number;
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["repository-ruleset"];
+        };
+      };
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Update a repository ruleset 
+   * @description Update a ruleset for a repository.
+   */
+  "repos/update-repo-ruleset": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        /** @description The ID of the ruleset. */
+        ruleset_id: number;
+      };
+    };
+    /** @description Request body */
+    requestBody?: {
+      content: {
+        "application/json": {
+          /** @description The name of the ruleset. */
+          name?: string;
+          /**
+           * @description The target of the ruleset. 
+           * @enum {string}
+           */
+          target?: "branch" | "tag";
+          enforcement?: components["schemas"]["repository-rule-enforcement"];
+          /**
+           * @description The permission level required to bypass this ruleset. "repository" allows those with bypass permission at the repository level to bypass. "organization" allows those with bypass permission at the organization level to bypass. "none" prevents anyone from bypassing. 
+           * @enum {string}
+           */
+          bypass_mode?: "none" | "repository" | "organization";
+          /** @description The actors that can bypass the rules in this ruleset */
+          bypass_actors?: (components["schemas"]["repository-ruleset-bypass-actor"])[];
+          conditions?: components["schemas"]["repository-ruleset-conditions"];
+          /** @description An array of rules within the ruleset. */
+          rules?: (components["schemas"]["repository-rule"])[];
+        };
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["repository-ruleset"];
+        };
+      };
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Delete a repository ruleset 
+   * @description Delete a ruleset for a repository.
+   */
+  "repos/delete-repo-ruleset": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        /** @description The ID of the ruleset. */
+        ruleset_id: number;
+      };
+    };
+    responses: {
+      /** @description Response */
+      204: never;
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
     };
   };
   /**
