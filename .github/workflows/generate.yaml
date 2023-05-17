@@ -24,7 +24,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        ref: auto/update
+        with:
+          ref: auto/update
 
       - name: Generate TypeScript types from OpenAPI schema
         id: update
