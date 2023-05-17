@@ -24,6 +24,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        ref: auto/update
 
       - name: Generate TypeScript types from OpenAPI schema
         id: update
@@ -46,7 +47,6 @@ jobs:
         if: steps.update.outputs.updated == 1
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: auto/update
           commit_message: |-
             Update github_api_types using GitHub Actions
             The action workflow was triggered by ref:
