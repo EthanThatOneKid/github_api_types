@@ -2865,6 +2865,18 @@ export interface paths {
      */
     post: operations["actions/cancel-workflow-run"];
   };
+  "/repos/{owner}/{repo}/actions/runs/{run_id}/deployment_protection_rule": {
+    /**
+     * Review custom deployment protection rules for a workflow run 
+     * @description Approve or reject custom deployment protection rules provided by a GitHub App for a workflow run. For more information, see "[Using environments for deployment](https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
+     * 
+     * **Note:** GitHub Apps can only review their own custom deployment protection rules.
+     * To approve or reject pending deployments that are waiting for review from a specific person or team, see [`POST /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments`](/rest/actions/workflow-runs#review-pending-deployments-for-a-workflow-run).
+     * 
+     * GitHub Apps must have read and write permission for **Deployments** to use this endpoint.
+     */
+    post: operations["actions/review-custom-gates-for-run"];
+  };
   "/repos/{owner}/{repo}/actions/runs/{run_id}/jobs": {
     /**
      * List jobs for a workflow run 
@@ -4691,8 +4703,56 @@ export interface paths {
      */
     delete: operations["repos/delete-deployment-branch-policy"];
   };
+  "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules": {
+    /**
+     * Get all deployment protection rules for an environment 
+     * @description Gets all custom deployment protection rules that are enabled for an environment. Anyone with read access to the repository can use this endpoint. If the repository is private and you want to use a personal access token (classic), you must use an access token with the `repo` scope. GitHub Apps and fine-grained personal access tokens must have the `actions:read` permission to use this endpoint. For more information about environments, see "[Using environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
+     * 
+     * For more information about the app that is providing this custom deployment rule, see the [documentation for the `GET /apps/{app_slug}` endpoint](https://docs.github.com/rest/apps/apps#get-an-app).
+     */
+    get: operations["repos/get-all-deployment-protection-rules"];
+    /**
+     * Create a custom deployment protection rule on an environment 
+     * @description Enable a custom deployment protection rule for an environment.
+     * 
+     * You must authenticate using an access token with the `repo` scope to use this endpoint. Enabling a custom protection rule requires admin or owner permissions to the repository. GitHub Apps must have the `actions:write` permission to use this endpoint.
+     * 
+     * For more information about the app that is providing this custom deployment rule, see the [documentation for the `GET /apps/{app_slug}` endpoint](https://docs.github.com/rest/apps/apps#get-an-app).
+     */
+    post: operations["repos/create-deployment-protection-rule"];
+  };
+  "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/apps": {
+    /**
+     * List custom deployment rule integrations available for an environment 
+     * @description Gets all custom deployment protection rule integrations that are available for an environment. Anyone with read access to the repository can use this endpoint. If the repository is private and you want to use a personal access token (classic), you must use an access token with the `repo` scope. GitHub Apps and fine-grained personal access tokens must have the `actions:read` permission to use this endpoint.
+     * 
+     * For more information about environments, see "[Using environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
+     * 
+     * For more information about the app that is providing this custom deployment rule, see "[GET an app](https://docs.github.com/rest/apps/apps#get-an-app)".
+     */
+    get: operations["repos/list-custom-deployment-rule-integrations"];
+  };
+  "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/{protection_rule_id}": {
+    /**
+     * Get a custom deployment protection rule 
+     * @description Gets an enabled custom deployment protection rule for an environment. Anyone with read access to the repository can use this endpoint. If the repository is private and you want to use a personal access token (classic), you must use an access token with the `repo` scope. GitHub Apps and fine-grained personal access tokens must have the `actions:read` permission to use this endpoint. For more information about environments, see "[Using environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
+     * 
+     * For more information about the app that is providing this custom deployment rule, see [`GET /apps/{app_slug}`](https://docs.github.com/rest/apps/apps#get-an-app).
+     */
+    get: operations["repos/get-custom-deployment-protection-rule"];
+    /**
+     * Disable a custom protection rule for an environment 
+     * @description Disables a custom deployment protection rule for an environment.
+     * 
+     * You must authenticate using an access token with the `repo` scope to use this endpoint. Removing a custom protection rule requires admin or owner permissions to the repository. GitHub Apps must have the `actions:write` permission to use this endpoint. For more information, see "[Get an app](https://docs.github.com/rest/apps/apps#get-an-app)".
+     */
+    delete: operations["repos/disable-deployment-protection-rule"];
+  };
   "/repos/{owner}/{repo}/events": {
-    /** List repository events */
+    /**
+     * List repository events 
+     * @description **Note**: This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
+     */
     get: operations["activity/list-repo-events"];
   };
   "/repos/{owner}/{repo}/forks": {
@@ -5006,6 +5066,10 @@ export interface paths {
      * Get an import status 
      * @description View the progress of an import.
      * 
+     * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+     * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+     * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
+     * 
      * **Import status**
      * 
      * This section includes details about the possible values of the `status` field of the Import Progress response.
@@ -5043,11 +5107,16 @@ export interface paths {
     /**
      * Start an import 
      * @description Start a source import to a GitHub repository using GitHub Importer. Importing into a GitHub repository with GitHub Actions enabled is not supported and will return a status `422 Unprocessable Entity` response.
+     * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
      */
     put: operations["migrations/start-import"];
     /**
      * Cancel an import 
      * @description Stop an import for a repository.
+     * 
+     * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+     * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+     * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
      */
     delete: operations["migrations/cancel-import"];
     /**
@@ -5058,6 +5127,10 @@ export interface paths {
      * Some servers (e.g. TFS servers) can have several projects at a single URL. In those cases the import progress will
      * have the status `detection_found_multiple` and the Import Progress response will include a `project_choices` array.
      * You can select the project to import by providing one of the objects in the `project_choices` array in the update request.
+     * 
+     * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+     * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+     * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
      */
     patch: operations["migrations/update-import"];
   };
@@ -5067,13 +5140,22 @@ export interface paths {
      * @description Each type of source control system represents authors in a different way. For example, a Git commit author has a display name and an email address, but a Subversion commit author just has a username. The GitHub Importer will make the author information valid, but the author might not be correct. For example, it will change the bare Subversion username `hubot` into something like `hubot <hubot@12341234-abab-fefe-8787-fedcba987654>`.
      * 
      * This endpoint and the [Map a commit author](https://docs.github.com/rest/migrations/source-imports#map-a-commit-author) endpoint allow you to provide correct Git author information.
+     * 
+     * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+     * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+     * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
      */
     get: operations["migrations/get-commit-authors"];
   };
   "/repos/{owner}/{repo}/import/authors/{author_id}": {
     /**
      * Map a commit author 
-     * @description Update an author's identity for the import. Your application can continue updating authors any time before you push new commits to the repository.
+     * @description Update an author's identity for the import. Your application can continue updating authors any time before you push
+     * new commits to the repository.
+     * 
+     * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+     * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+     * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
      */
     patch: operations["migrations/map-commit-author"];
   };
@@ -5081,13 +5163,25 @@ export interface paths {
     /**
      * Get large files 
      * @description List files larger than 100MB found during the import
+     * 
+     * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+     * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+     * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
      */
     get: operations["migrations/get-large-files"];
   };
   "/repos/{owner}/{repo}/import/lfs": {
     /**
      * Update Git LFS preference 
-     * @description You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability is powered by [Git LFS](https://git-lfs.com). You can learn more about our LFS feature and working with large files [on our help site](https://docs.github.com/repositories/working-with-files/managing-large-files).
+     * @description You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability
+     * is powered by [Git LFS](https://git-lfs.com).
+     * 
+     * You can learn more about our LFS feature and working with large files [on our help
+     * site](https://docs.github.com/repositories/working-with-files/managing-large-files).
+     * 
+     * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+     * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+     * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
      */
     patch: operations["migrations/set-lfs-preference"];
   };
@@ -5435,7 +5529,12 @@ export interface paths {
     put: operations["activity/mark-repo-notifications-as-read"];
   };
   "/repos/{owner}/{repo}/pages": {
-    /** Get a GitHub Pages site */
+    /**
+     * Get a GitHub Pages site 
+     * @description Gets information about a GitHub Pages site.
+     * 
+     * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+     */
     get: operations["repos/get-pages"];
     /**
      * Update information about a GitHub Pages site 
@@ -5460,7 +5559,12 @@ export interface paths {
     delete: operations["repos/delete-pages-site"];
   };
   "/repos/{owner}/{repo}/pages/builds": {
-    /** List GitHub Pages builds */
+    /**
+     * List GitHub Pages builds 
+     * @description Lists builts of a GitHub Pages site.
+     * 
+     * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+     */
     get: operations["repos/list-pages-builds"];
     /**
      * Request a GitHub Pages build 
@@ -5471,11 +5575,21 @@ export interface paths {
     post: operations["repos/request-pages-build"];
   };
   "/repos/{owner}/{repo}/pages/builds/latest": {
-    /** Get latest Pages build */
+    /**
+     * Get latest Pages build 
+     * @description Gets information about the single most recent build of a GitHub Pages site.
+     * 
+     * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+     */
     get: operations["repos/get-latest-pages-build"];
   };
   "/repos/{owner}/{repo}/pages/builds/{build_id}": {
-    /** Get GitHub Pages build */
+    /**
+     * Get GitHub Pages build 
+     * @description Gets information about a GitHub Pages build.
+     * 
+     * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+     */
     get: operations["repos/get-pages-build"];
   };
   "/repos/{owner}/{repo}/pages/deployment": {
@@ -5653,11 +5767,15 @@ export interface paths {
     get: operations["pulls/list-files"];
   };
   "/repos/{owner}/{repo}/pulls/{pull_number}/merge": {
-    /** Check if a pull request has been merged */
+    /**
+     * Check if a pull request has been merged 
+     * @description Checks if a pull request has been merged into the base branch. The HTTP status of the response indicates whether or not the pull request has been merged; the response body is empty.
+     */
     get: operations["pulls/check-if-merged"];
     /**
      * Merge a pull request 
-     * @description This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+     * @description Merges a pull request into the base branch.
+     * This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
      */
     put: operations["pulls/merge"];
   };
@@ -5669,10 +5787,14 @@ export interface paths {
     get: operations["pulls/list-requested-reviewers"];
     /**
      * Request reviewers for a pull request 
-     * @description This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+     * @description Requests reviews for a pull request from a given set of users and/or teams.
+     * This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
      */
     post: operations["pulls/request-reviewers"];
-    /** Remove requested reviewers from a pull request */
+    /**
+     * Remove requested reviewers from a pull request 
+     * @description Removes review requests from a pull request for a given set of users and/or teams.
+     */
     delete: operations["pulls/remove-requested-reviewers"];
   };
   "/repos/{owner}/{repo}/pulls/{pull_number}/reviews": {
@@ -5694,14 +5816,20 @@ export interface paths {
     post: operations["pulls/create-review"];
   };
   "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}": {
-    /** Get a review for a pull request */
+    /**
+     * Get a review for a pull request 
+     * @description Retrieves a pull request review by its ID.
+     */
     get: operations["pulls/get-review"];
     /**
      * Update a review for a pull request 
      * @description Update the review summary comment with new text.
      */
     put: operations["pulls/update-review"];
-    /** Delete a pending review for a pull request */
+    /**
+     * Delete a pending review for a pull request 
+     * @description Deletes a pull request review that has not been submitted. Submitted reviews cannot be deleted.
+     */
     delete: operations["pulls/delete-pending-review"];
   };
   "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments": {
@@ -5965,6 +6093,14 @@ export interface paths {
      */
     post: operations["security-advisories/create-repository-advisory"];
   };
+  "/repos/{owner}/{repo}/security-advisories/reports": {
+    /**
+     * Privately report a security vulnerability 
+     * @description Report a security vulnerability to the maintainers of the repository.
+     * See "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)" for more information about private vulnerability reporting.
+     */
+    post: operations["security-advisories/create-private-vulnerability-report"];
+  };
   "/repos/{owner}/{repo}/security-advisories/{ghsa_id}": {
     /**
      * Get a repository security advisory 
@@ -6029,6 +6165,8 @@ export interface paths {
      * @description Returns the total commit counts for the `owner` and total commit counts in `all`. `all` is everyone combined, including the `owner` in the last 52 weeks. If you'd like to get the commit counts for non-owners, you can subtract `owner` from `all`.
      * 
      * The array order is oldest week (index 0) to most recent week.
+     * 
+     * The most recent week is seven days ago at UTC midnight to today at UTC midnight.
      */
     get: operations["repos/get-participation-stats"];
   };
@@ -6375,9 +6513,7 @@ export interface paths {
      * *   You must always include at least one search term when searching source code. For example, searching for [`language:go`](https://github.com/search?utf8=%E2%9C%93&q=language%3Ago&type=Code) is not valid, while [`amazing
      * language:go`](https://github.com/search?utf8=%E2%9C%93&q=amazing+language%3Ago&type=Code) is.
      * 
-     * **Note:** Starting on April 10, 2023, code search on GitHub.com will have a separate
-     * rate limit from other search types, of 10 requests per minute, and all code
-     * search requests will require authentication. For more information, see [this blog post](https://github.blog/changelog/2023-03-10-changes-to-the-code-search-api/).
+     * This endpoint requires you to authenticate and limits you to 10 requests per minute.
      */
     get: operations["search/code"];
   };
@@ -6821,7 +6957,7 @@ export interface paths {
   "/user": {
     /**
      * Get the authenticated user 
-     * @description If the authenticated user is authenticated through basic authentication or OAuth with the `user` scope, then the response lists public and private profile information.
+     * @description If the authenticated user is authenticated with an OAuth token with the `user` scope, then the response lists public and private profile information.
      * 
      * If the authenticated user is authenticated through OAuth without the `user` scope, then the response lists only public profile information.
      */
@@ -8353,19 +8489,19 @@ export interface components {
       url?: string;
       request: {
         /** @description The request headers sent with the webhook delivery. */
-        headers: ({
-          [key: string]: unknown | undefined;
-        }) | null;
+        headers: {
+          [key: string]: unknown;
+        } | null;
         /** @description The webhook payload. */
-        payload: ({
-          [key: string]: unknown | undefined;
-        }) | null;
+        payload: {
+          [key: string]: unknown;
+        } | null;
       };
       response: {
         /** @description The response headers received when the delivery was made. */
-        headers: ({
-          [key: string]: unknown | undefined;
-        }) | null;
+        headers: {
+          [key: string]: unknown;
+        } | null;
         /** @description The response payload received. */
         payload: string | null;
       };
@@ -10342,8 +10478,8 @@ export interface components {
       comments_url: string;
       owner?: components["schemas"]["simple-user"];
       truncated?: boolean;
-      forks?: (Record<string, never>)[];
-      history?: (Record<string, never>)[];
+      forks?: (unknown)[];
+      history?: (unknown)[];
     };
     /**
      * Public User 
@@ -10487,8 +10623,8 @@ export interface components {
         comments_url: string;
         owner?: components["schemas"]["nullable-simple-user"];
         truncated?: boolean;
-        forks?: (Record<string, never>)[];
-        history?: (Record<string, never>)[];
+        forks?: (unknown)[];
+        history?: (unknown)[];
       }) | null;
       url?: string;
       forks_url?: string;
@@ -11970,7 +12106,7 @@ export interface components {
         ref?: string;
       };
       /**
-       * @description The Azure region where this codespace is located. 
+       * @description The initally assigned location of a new codespace. 
        * @example WestUs2 
        * @enum {string}
        */
@@ -15264,17 +15400,50 @@ export interface components {
      * @description A commit.
      */
     "nullable-simple-commit": ({
+      /**
+       * @description SHA for the commit 
+       * @example 7638417db6d59f3c431d3e1f261cc637155684cd
+       */
       id: string;
+      /** @description SHA for the commit's tree */
       tree_id: string;
+      /**
+       * @description Message describing the purpose of the commit 
+       * @example Fix #42
+       */
       message: string;
-      /** Format: date-time */
+      /**
+       * Format: date-time 
+       * @description Timestamp of the commit 
+       * @example 2014-08-09T08:02:04+12:00
+       */
       timestamp: string;
+      /** @description Information about the Git author */
       author: {
+        /**
+         * @description Name of the commit's author 
+         * @example Monalisa Octocat
+         */
         name: string;
+        /**
+         * Format: email 
+         * @description Git email address of the commit's author 
+         * @example monalisa.octocat@example.com
+         */
         email: string;
       } | null;
+      /** @description Information about the Git committer */
       committer: {
+        /**
+         * @description Name of the commit's committer 
+         * @example Monalisa Octocat
+         */
         name: string;
+        /**
+         * Format: email 
+         * @description Git email address of the commit's committer 
+         * @example monalisa.octocat@example.com
+         */
         email: string;
       } | null;
     }) | null;
@@ -15458,6 +15627,23 @@ export interface components {
        */
       comment: string;
     };
+    "review-custom-gates-comment-required": {
+      /** @description The name of the environment to approve or reject. */
+      environment_name: string;
+      /** @description Comment associated with the pending deployment protection rule. **Required when state is not provided.** */
+      comment: string;
+    };
+    "review-custom-gates-state-required": {
+      /** @description The name of the environment to approve or reject. */
+      environment_name: string;
+      /**
+       * @description Whether to approve or reject deployment to the specified environments. 
+       * @enum {string}
+       */
+      state: "approved" | "rejected";
+      /** @description Optional comment to include with the review. */
+      comment?: string;
+    };
     /**
      * @description The type of reviewer. 
      * @example User 
@@ -15539,7 +15725,7 @@ export interface components {
        */
       task: string;
       payload: OneOf<[{
-        [key: string]: unknown | undefined;
+        [key: string]: unknown;
       }, string]>;
       /** @example staging */
       original_environment?: string;
@@ -16337,17 +16523,50 @@ export interface components {
      * @description A commit.
      */
     "simple-commit": {
+      /**
+       * @description SHA for the commit 
+       * @example 7638417db6d59f3c431d3e1f261cc637155684cd
+       */
       id: string;
+      /** @description SHA for the commit's tree */
       tree_id: string;
+      /**
+       * @description Message describing the purpose of the commit 
+       * @example Fix #42
+       */
       message: string;
-      /** Format: date-time */
+      /**
+       * Format: date-time 
+       * @description Timestamp of the commit 
+       * @example 2014-08-09T08:02:04+12:00
+       */
       timestamp: string;
+      /** @description Information about the Git author */
       author: {
+        /**
+         * @description Name of the commit's author 
+         * @example Monalisa Octocat
+         */
         name: string;
+        /**
+         * Format: email 
+         * @description Git email address of the commit's author 
+         * @example monalisa.octocat@example.com
+         */
         email: string;
       } | null;
+      /** @description Information about the Git committer */
       committer: {
+        /**
+         * @description Name of the commit's committer 
+         * @example Monalisa Octocat
+         */
         name: string;
+        /**
+         * Format: email 
+         * @description Git email address of the commit's committer 
+         * @example monalisa.octocat@example.com
+         */
         email: string;
       } | null;
     };
@@ -16563,7 +16782,7 @@ export interface components {
        */
       state?: "configured" | "not-configured";
       /** @description Languages to be analysed. */
-      languages?: ("go" | "javascript" | "python" | "ruby" | "typescript")[];
+      languages?: ("c" | "cpp" | "csharp" | "go" | "java" | "javascript" | "kotlin" | "python" | "ruby" | "typescript")[];
       /**
        * @description CodeQL query suite to be used. 
        * @enum {string}
@@ -18025,6 +18244,54 @@ export interface components {
        * @example release/*
        */
       name: string;
+    };
+    /**
+     * Custom deployment protection rule app 
+     * @description A GitHub App that is providing a custom deployment protection rule.
+     */
+    "custom-deployment-rule-app": {
+      /**
+       * @description The unique identifier of the deployment protection rule integration. 
+       * @example 3515
+       */
+      id: number;
+      /**
+       * @description The slugified name of the deployment protection rule integration. 
+       * @example my-custom-app
+       */
+      slug: string;
+      /**
+       * @description The URL for the endpoint to get details about the app. 
+       * @example https://api.github.com/apps/custom-app-slug
+       */
+      integration_url: string;
+      /**
+       * @description The node ID for the deployment protection rule integration. 
+       * @example MDQ6R2F0ZTM1MTU=
+       */
+      node_id: string;
+    };
+    /**
+     * Deployment protection rule 
+     * @description Deployment protection rule
+     */
+    "deployment-protection-rule": {
+      /**
+       * @description The unique identifier for the deployment protection rule. 
+       * @example 3515
+       */
+      id: number;
+      /**
+       * @description The node ID for the deployment protection rule. 
+       * @example MDQ6R2F0ZTM1MTU=
+       */
+      node_id: string;
+      /**
+       * @description Whether the deployment protection rule is enabled for the environment. 
+       * @example true
+       */
+      enabled: boolean;
+      app: components["schemas"]["custom-deployment-rule-app"];
     };
     /**
      * Short Blob 
@@ -20589,12 +20856,12 @@ export interface components {
      * @description The package's language or package management ecosystem. 
      * @enum {string}
      */
-    "repository-advisory-ecosystems": "rubygems" | "npm" | "pip" | "maven" | "nuget" | "composer" | "go" | "rust" | "erlang" | "actions" | "pub" | "other";
+    "security-advisory-ecosystems": "rubygems" | "npm" | "pip" | "maven" | "nuget" | "composer" | "go" | "rust" | "erlang" | "actions" | "pub" | "other";
     /** @description A product affected by the vulnerability detailed in a repository security advisory. */
     "repository-advisory-vulnerability": {
       /** @description The name of the package affected by the vulnerability. */
       package: ({
-        ecosystem: components["schemas"]["repository-advisory-ecosystems"];
+        ecosystem: components["schemas"]["security-advisory-ecosystems"];
         /** @description The unique package name within its ecosystem. */
         name: string | null;
       }) | null;
@@ -20609,11 +20876,11 @@ export interface components {
      * @description The type of credit the user is receiving. 
      * @enum {string}
      */
-    "repository-advisory-credit-types": "analyst" | "finder" | "reporter" | "coordinator" | "remediation_developer" | "remediation_reviewer" | "remediation_verifier" | "tool" | "sponsor" | "other";
+    "security-advisory-credit-types": "analyst" | "finder" | "reporter" | "coordinator" | "remediation_developer" | "remediation_reviewer" | "remediation_verifier" | "tool" | "sponsor" | "other";
     /** @description A credit given to a user for a repository security advisory. */
     "repository-advisory-credit": {
       user: components["schemas"]["simple-user"];
-      type: components["schemas"]["repository-advisory-credit-types"];
+      type: components["schemas"]["security-advisory-credit-types"];
       /**
        * @description The state of the user's acceptance of the credit. 
        * @enum {string}
@@ -20707,7 +20974,7 @@ export interface components {
       credits: ({
           /** @description The username of the user credited. */
           login?: string;
-          type?: components["schemas"]["repository-advisory-credit-types"];
+          type?: components["schemas"]["security-advisory-credit-types"];
         })[] | null;
       credits_detailed: readonly (components["schemas"]["repository-advisory-credit"])[] | null;
     };
@@ -20722,7 +20989,7 @@ export interface components {
       vulnerabilities: ({
           /** @description The name of the package affected by the vulnerability. */
           package: {
-            ecosystem: components["schemas"]["repository-advisory-ecosystems"];
+            ecosystem: components["schemas"]["security-advisory-ecosystems"];
             /** @description The unique package name within its ecosystem. */
             name?: string | null;
           };
@@ -20739,8 +21006,38 @@ export interface components {
       credits?: ({
           /** @description The username of the user credited. */
           login: string;
-          type: components["schemas"]["repository-advisory-credit-types"];
+          type: components["schemas"]["security-advisory-credit-types"];
         })[] | null;
+      /**
+       * @description The severity of the advisory. You must choose between setting this field or `cvss_vector_string`. 
+       * @enum {string|null}
+       */
+      severity?: "critical" | "high" | "medium" | "low" | null;
+      /** @description The CVSS vector that calculates the severity of the advisory. You must choose between setting this field or `severity`. */
+      cvss_vector_string?: string | null;
+    };
+    "private-vulnerability-report-create": {
+      /** @description A short summary of the advisory. */
+      summary: string;
+      /** @description A detailed description of what the advisory impacts. */
+      description: string;
+      /** @description An array of products affected by the vulnerability detailed in a repository security advisory. */
+      vulnerabilities?: (({
+          /** @description The name of the package affected by the vulnerability. */
+          package: {
+            ecosystem: components["schemas"]["security-advisory-ecosystems"];
+            /** @description The unique package name within its ecosystem. */
+            name?: string | null;
+          };
+          /** @description The range of the package versions affected by the vulnerability. */
+          vulnerable_version_range?: string | null;
+          /** @description The package version(s) that resolve the vulnerability. */
+          patched_versions?: string | null;
+          /** @description The functions in the package that are affected. */
+          vulnerable_functions?: (string)[] | null;
+        })[]) | null;
+      /** @description A list of Common Weakness Enumeration (CWE) IDs. */
+      cwe_ids?: (string)[] | null;
       /**
        * @description The severity of the advisory. You must choose between setting this field or `cvss_vector_string`. 
        * @enum {string|null}
@@ -20760,7 +21057,7 @@ export interface components {
       vulnerabilities?: ({
           /** @description The name of the package affected by the vulnerability. */
           package: {
-            ecosystem: components["schemas"]["repository-advisory-ecosystems"];
+            ecosystem: components["schemas"]["security-advisory-ecosystems"];
             /** @description The unique package name within its ecosystem. */
             name?: string | null;
           };
@@ -20777,7 +21074,7 @@ export interface components {
       credits?: ({
           /** @description The username of the user credited. */
           login: string;
-          type: components["schemas"]["repository-advisory-credit-types"];
+          type: components["schemas"]["security-advisory-credit-types"];
         })[] | null;
       /**
        * @description The severity of the advisory. You must choose between setting this field or `cvss_vector_string`. 
@@ -21674,7 +21971,7 @@ export interface components {
         ref?: string;
       };
       /**
-       * @description The Azure region where this codespace is located. 
+       * @description The initally assigned location of a new codespace. 
        * @example WestUs2 
        * @enum {string}
        */
@@ -21808,7 +22105,7 @@ export interface components {
               email?: string;
               verified?: boolean;
             })[];
-          subkeys?: (Record<string, never>)[];
+          subkeys?: (unknown)[];
           can_sign?: boolean;
           can_encrypt_comms?: boolean;
           can_encrypt_storage?: boolean;
@@ -22197,6 +22494,21 @@ export interface components {
         /** Format: uri */
         url?: string;
       }) | null;
+    };
+    /**
+     * Merge Group 
+     * @description A group of pull requests that the merge queue has grouped together to be merged.
+     */
+    "merge-group": {
+      /** @description The SHA of the merge group. */
+      head_sha: string;
+      /** @description The full ref of the merge group. */
+      head_ref: string;
+      /** @description The SHA of the merge group's parent commit. */
+      base_sha: string;
+      /** @description The full ref of the branch the merge group will be merged into. */
+      base_ref: string;
+      head_commit: components["schemas"]["simple-commit"];
     };
     /**
      * Personal Access Token Request 
@@ -24761,6 +25073,26 @@ export interface components {
         workflow_id: number;
         workflow_url?: string;
       }) | null;
+    };
+    /** deployment protection rule requested event */
+    "webhook-deployment-protection-rule-requested": {
+      /** @enum {string} */
+      action?: "requested";
+      /** @description The name of the environment that has the deployment protection rule. */
+      environment?: string;
+      /** @description The event that triggered the deployment protection rule. */
+      event?: string;
+      /**
+       * Format: uri 
+       * @description The URL to review the deployment protection rule.
+       */
+      deployment_callback_url?: string;
+      deployment?: components["schemas"]["deployment"];
+      pull_requests?: (components["schemas"]["pull-request"])[];
+      repository?: components["schemas"]["repository"];
+      organization?: components["schemas"]["organization-simple"];
+      installation?: components["schemas"]["simple-installation"];
+      sender?: components["schemas"]["simple-user"];
     };
     /** deployment_status created event */
     "webhook-deployment-status-created": {
@@ -38625,50 +38957,21 @@ export interface components {
       /** @enum {string} */
       action: "checks_requested";
       installation?: components["schemas"]["simple-installation"];
-      /** MergeGroup */
-      merge_group: {
-        /** @description The SHA of the merge group. */
-        head_sha: string;
-        /** @description The full ref of the merge group. */
-        head_ref: string;
-        /** @description The SHA of the merge group's parent commit. */
-        base_sha: string;
-        /** @description The full ref of the branch the merge group will be merged into. */
-        base_ref: string;
-        /** SimpleCommit */
-        head_commit: {
-          /**
-           * Committer 
-           * @description Metaproperties for Git author/committer information.
-           */
-          author: {
-            /** Format: date-time */
-            date?: string;
-            /** Format: email */
-            email: string | null;
-            /** @description The git author's name. */
-            name: string;
-            username?: string;
-          };
-          /**
-           * Committer 
-           * @description Metaproperties for Git author/committer information.
-           */
-          committer: {
-            /** Format: date-time */
-            date?: string;
-            /** Format: email */
-            email: string | null;
-            /** @description The git author's name. */
-            name: string;
-            username?: string;
-          };
-          id: string;
-          message: string;
-          timestamp: string;
-          tree_id: string;
-        };
-      };
+      merge_group: components["schemas"]["merge-group"];
+      organization?: components["schemas"]["organization-simple"];
+      repository?: components["schemas"]["repository"];
+      sender?: components["schemas"]["simple-user"];
+    };
+    "webhook-merge-group-destroyed": {
+      /** @enum {string} */
+      action: "destroyed";
+      /**
+       * @description Explains why the merge group is being destroyed. The group could have been merged, removed from the queue (dequeued), or invalidated by an earlier queue entry being dequeued (invalidated). 
+       * @enum {string}
+       */
+      reason?: "merged" | "invalidated" | "dequeued";
+      installation?: components["schemas"]["simple-installation"];
+      merge_group: components["schemas"]["merge-group"];
       organization?: components["schemas"]["organization-simple"];
       repository?: components["schemas"]["repository"];
       sender?: components["schemas"]["simple-user"];
@@ -39559,6 +39862,25 @@ export interface components {
       repository?: components["schemas"]["repository"];
       sender: components["schemas"]["simple-user"];
     };
+    /** Ruby Gems metadata */
+    "webhook-rubygems-metadata": {
+      name?: string;
+      description?: string;
+      readme?: string;
+      homepage?: string;
+      version_info?: {
+        version?: string;
+      };
+      platform?: string;
+      metadata?: {
+        [key: string]: string | undefined;
+      };
+      repo?: string;
+      dependencies?: ({
+          [key: string]: string | undefined;
+        })[];
+      commit_oid?: string;
+    };
     /** package published event */
     "webhook-package-published": {
       /** @enum {string} */
@@ -39664,7 +39986,9 @@ export interface components {
           }) | null;
           created_at?: string;
           description: string;
-          docker_metadata?: (Record<string, never>)[];
+          docker_metadata?: ({
+              tags?: (string)[];
+            })[];
           draft?: boolean;
           /** Format: uri */
           html_url: string;
@@ -39672,7 +39996,7 @@ export interface components {
           installation_command: string;
           manifest?: string;
           metadata: ({
-              [key: string]: unknown | undefined;
+              [key: string]: unknown;
             })[];
           name: string;
           npm_metadata?: ({
@@ -39791,7 +40115,7 @@ export interface components {
             /** Format: uri */
             url: string;
           };
-          rubygems_metadata?: (Record<string, never>)[];
+          rubygems_metadata?: (components["schemas"]["webhook-rubygems-metadata"])[];
           source_url?: string;
           summary: string;
           tag_name?: string;
@@ -39911,14 +40235,18 @@ export interface components {
           body_html: string;
           created_at: string;
           description: string;
-          docker_metadata?: (Record<string, never>)[];
+          docker_metadata?: ({
+              tags?: (string)[];
+            })[];
           draft?: boolean;
           /** Format: uri */
           html_url: string;
           id: number;
           installation_command: string;
           manifest?: string;
-          metadata: (Record<string, never>)[];
+          metadata: ({
+              [key: string]: unknown;
+            })[];
           name: string;
           package_files: ({
               content_type: string;
@@ -39987,7 +40315,7 @@ export interface components {
             /** Format: uri */
             url: string;
           };
-          rubygems_metadata?: (Record<string, never>)[];
+          rubygems_metadata?: (components["schemas"]["webhook-rubygems-metadata"])[];
           /** Format: uri */
           source_url?: string;
           summary: string;
@@ -72262,14 +72590,16 @@ export interface components {
           };
           created_at?: string;
           description: string;
-          docker_metadata?: (Record<string, never>)[];
+          docker_metadata?: ({
+              tags?: (string)[];
+            })[];
           draft?: boolean;
           html_url: string;
           id: number;
           installation_command: string;
           manifest?: string;
           metadata: ({
-              [key: string]: unknown | undefined;
+              [key: string]: unknown;
             })[];
           name: string;
           npm_metadata?: ({
@@ -72368,7 +72698,7 @@ export interface components {
             target_commitish?: string;
             url?: string;
           };
-          rubygems_metadata?: (Record<string, never>)[];
+          rubygems_metadata?: (components["schemas"]["webhook-rubygems-metadata"])[];
           summary: string;
           tag_name?: string;
           target_commitish?: string;
@@ -72447,13 +72777,17 @@ export interface components {
           body_html: string;
           created_at: string;
           description: string;
-          docker_metadata?: (Record<string, unknown> | null)[];
+          docker_metadata?: ({
+              tags?: (string)[];
+            } | null)[];
           draft?: boolean;
           html_url: string;
           id: number;
           installation_command: string;
           manifest?: string;
-          metadata: (Record<string, never>)[];
+          metadata: ({
+              [key: string]: unknown;
+            })[];
           name: string;
           package_files: ({
               content_type?: string;
@@ -72502,7 +72836,7 @@ export interface components {
             target_commitish: string;
             url: string;
           };
-          rubygems_metadata?: (Record<string, never>)[];
+          rubygems_metadata?: (components["schemas"]["webhook-rubygems-metadata"])[];
           summary: string;
           tag_name?: string;
           target_commitish: string;
@@ -73792,9 +74126,9 @@ export interface components {
     "webhook-repository-dispatch-sample": {
       action: string;
       branch: string;
-      client_payload: ({
-        [key: string]: unknown | undefined;
-      }) | null;
+      client_payload: {
+        [key: string]: unknown;
+      } | null;
       enterprise?: components["schemas"]["enterprise"];
       installation: components["schemas"]["simple-installation"];
       organization?: components["schemas"]["organization-simple"];
@@ -77238,9 +77572,9 @@ export interface components {
     /** workflow_dispatch event */
     "webhook-workflow-dispatch": {
       enterprise?: components["schemas"]["enterprise"];
-      inputs: ({
-        [key: string]: unknown | undefined;
-      }) | null;
+      inputs: {
+        [key: string]: unknown;
+      } | null;
       installation?: components["schemas"]["simple-installation"];
       organization?: components["schemas"]["organization-simple"];
       ref: string;
@@ -79536,14 +79870,14 @@ export interface components {
   };
   parameters: {
     /** @description The number of results per page (max 100). */
-    "per-page": number;
+    "per-page"?: number;
     /** @description Used for pagination: the starting delivery from which the page of deliveries is fetched. Refer to the `link` header for the next and previous page cursors. */
-    cursor: string;
+    cursor?: string;
     "delivery-id": number;
     /** @description Page number of the results to fetch. */
-    page: number;
+    page?: number;
     /** @description Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    since: string;
+    since?: string;
     /** @description The unique identifier of the installation. */
     "installation-id": number;
     /** @description The client ID of the GitHub app. */
@@ -79556,99 +79890,99 @@ export interface components {
      * 
      * Can be: `auto_dismissed`, `dismissed`, `fixed`, `open`
      */
-    "dependabot-alert-comma-separated-states": string;
+    "dependabot-alert-comma-separated-states"?: string;
     /**
      * @description A comma-separated list of severities. If specified, only alerts with these severities will be returned.
      * 
      * Can be: `low`, `medium`, `high`, `critical`
      */
-    "dependabot-alert-comma-separated-severities": string;
+    "dependabot-alert-comma-separated-severities"?: string;
     /**
      * @description A comma-separated list of ecosystems. If specified, only alerts for these ecosystems will be returned.
      * 
      * Can be: `composer`, `go`, `maven`, `npm`, `nuget`, `pip`, `pub`, `rubygems`, `rust`
      */
-    "dependabot-alert-comma-separated-ecosystems": string;
+    "dependabot-alert-comma-separated-ecosystems"?: string;
     /** @description A comma-separated list of package names. If specified, only alerts for these packages will be returned. */
-    "dependabot-alert-comma-separated-packages": string;
+    "dependabot-alert-comma-separated-packages"?: string;
     /** @description The scope of the vulnerable dependency. If specified, only alerts with this scope will be returned. */
-    "dependabot-alert-scope": "development" | "runtime";
+    "dependabot-alert-scope"?: "development" | "runtime";
     /**
      * @description The property by which to sort the results.
      * `created` means when the alert was created.
      * `updated` means when the alert's state last changed.
      */
-    "dependabot-alert-sort": "created" | "updated";
+    "dependabot-alert-sort"?: "created" | "updated";
     /** @description The direction to sort the results by. */
-    direction: "asc" | "desc";
+    direction?: "asc" | "desc";
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for results before this cursor. */
-    "pagination-before": string;
+    "pagination-before"?: string;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for results after this cursor. */
-    "pagination-after": string;
+    "pagination-after"?: string;
     /**
      * @description **Deprecated**. The number of results per page (max 100), starting from the first matching result.
      * This parameter must not be used in combination with `last`.
      * Instead, use `per_page` in combination with `after` to fetch the first page of results.
      */
-    "pagination-first": number;
+    "pagination-first"?: number;
     /**
      * @description **Deprecated**. The number of results per page (max 100), starting from the last matching result.
      * This parameter must not be used in combination with `first`.
      * Instead, use `per_page` in combination with `before` to fetch the last page of results.
      */
-    "pagination-last": number;
+    "pagination-last"?: number;
     /** @description Set to `open` or `resolved` to only list secret scanning alerts in a specific state. */
-    "secret-scanning-alert-state": "open" | "resolved";
+    "secret-scanning-alert-state"?: "open" | "resolved";
     /**
      * @description A comma-separated list of secret types to return. By default all secret types are returned.
      * See "[Secret scanning patterns](https://docs.github.com/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)"
      * for a complete list of secret types.
      */
-    "secret-scanning-alert-secret-type": string;
+    "secret-scanning-alert-secret-type"?: string;
     /** @description A comma-separated list of resolutions. Only secret scanning alerts with one of these resolutions are listed. Valid resolutions are `false_positive`, `wont_fix`, `revoked`, `pattern_edited`, `pattern_deleted` or `used_in_tests`. */
-    "secret-scanning-alert-resolution": string;
+    "secret-scanning-alert-resolution"?: string;
     /** @description The property to sort the results by. `created` means when the alert was created. `updated` means when the alert was updated or resolved. */
-    "secret-scanning-alert-sort": "created" | "updated";
+    "secret-scanning-alert-sort"?: "created" | "updated";
     /** @description The unique identifier of the gist. */
     "gist-id": string;
     /** @description The unique identifier of the comment. */
     "comment-id": number;
     /** @description A list of comma separated label names. Example: `bug,ui,@high` */
-    labels: string;
+    labels?: string;
     /** @description account_id parameter */
     "account-id": number;
     /** @description The unique identifier of the plan. */
     "plan-id": number;
     /** @description The property to sort the results by. */
-    sort: "created" | "updated";
+    sort?: "created" | "updated";
     /** @description The account owner of the repository. The name is not case sensitive. */
     owner: string;
     /** @description The name of the repository. The name is not case sensitive. */
     repo: string;
     /** @description If `true`, show notifications marked as read. */
-    all: boolean;
+    all?: boolean;
     /** @description If `true`, only shows notifications in which the user is directly participating or mentioned. */
-    participating: boolean;
+    participating?: boolean;
     /** @description Only show notifications updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    before: string;
+    before?: string;
     /** @description The unique identifier of the notification thread. This corresponds to the value returned in the `id` field when you retrieve notifications (for example with the [`GET /notifications` operation](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user)). */
     "thread-id": number;
     /** @description An organization ID. Only return organizations with an ID greater than this ID. */
-    "since-org": number;
+    "since-org"?: number;
     /** @description The organization name. The name is not case sensitive. */
     org: string;
     /** @description The property by which to sort the results. */
-    "personal-access-token-sort": "created_at";
+    "personal-access-token-sort"?: "created_at";
     /** @description A list of owner usernames to use to filter the results. */
-    "personal-access-token-owner": (string)[];
+    "personal-access-token-owner"?: (string)[];
     /** @description The name of the repository to use to filter the results. */
-    "personal-access-token-repository": string;
+    "personal-access-token-repository"?: string;
     /** @description The permission to use to filter the results. */
-    "personal-access-token-permission": string;
+    "personal-access-token-permission"?: string;
     /** @description Only show fine-grained personal access tokens used before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "personal-access-token-before": string;
+    "personal-access-token-before"?: string;
     /** @description Only show fine-grained personal access tokens used after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "personal-access-token-after": string;
+    "personal-access-token-after"?: string;
     /** @description The unique identifier of the fine-grained personal access token. */
     "fine-grained-personal-access-token-id": number;
     /** @description The unique identifier of the repository. */
@@ -79662,15 +79996,15 @@ export interface components {
     /** @description The name of the secret. */
     "secret-name": string;
     /** @description The number of results per page (max 30). */
-    "variables-per-page": number;
+    "variables-per-page"?: number;
     /** @description The name of the variable. */
     "variable-name": string;
     /** @description The handle for the GitHub user account. */
     username: string;
     /** @description The name of a code scanning tool. Only results by this tool will be listed. You can specify the tool by using either `tool_name` or `tool_guid`, but not both. */
-    "tool-name": components["schemas"]["code-scanning-analysis-tool-name"];
+    "tool-name"?: components["schemas"]["code-scanning-analysis-tool-name"];
     /** @description The GUID of a code scanning tool. Only results by this tool will be listed. Note that some code scanning tools may not include a GUID in their analysis data. You can specify the tool by using either `tool_guid` or `tool_name`, but not both. */
-    "tool-guid": components["schemas"]["code-scanning-analysis-tool-guid"];
+    "tool-guid"?: components["schemas"]["code-scanning-analysis-tool-guid"];
     /** @description The unique identifier of the hook. */
     "hook-id": number;
     /** @description The unique identifier of the invitation. */
@@ -79687,7 +80021,7 @@ export interface components {
      * The `internal` visibility is only supported for GitHub Packages registries that allow for granular permissions. For other ecosystems `internal` is synonymous with `private`.
      * For the list of GitHub Packages registries that support granular permissions, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)."
      */
-    "package-visibility": "public" | "private" | "internal";
+    "package-visibility"?: "public" | "private" | "internal";
     /** @description The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry. */
     "package-type": "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
     /** @description The name of the package. */
@@ -79695,9 +80029,9 @@ export interface components {
     /** @description Unique identifier of the package version. */
     "package-version-id": number;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for events before this cursor. To receive an initial cursor on your first request, include an empty "before" query string. */
-    "secret-scanning-pagination-before-org-repo": string;
+    "secret-scanning-pagination-before-org-repo"?: string;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for events after this cursor.  To receive an initial cursor on your first request, include an empty "after" query string. */
-    "secret-scanning-pagination-after-org-repo": string;
+    "secret-scanning-pagination-after-org-repo"?: string;
     /** @description The slug of the team name. */
     "team-slug": string;
     /** @description The number that identifies the discussion. */
@@ -79726,11 +80060,11 @@ export interface components {
     /** @description The unique identifier of the artifact. */
     "artifact-id": number;
     /** @description The full Git reference for narrowing down the cache. The `ref` for a branch should be formatted as `refs/heads/<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
-    "actions-cache-git-ref-full": string;
+    "actions-cache-git-ref-full"?: string;
     /** @description An explicit key or prefix for identifying the cache */
-    "actions-cache-key": string;
+    "actions-cache-key"?: string;
     /** @description The property to sort the results by. `created_at` means when the cache was created. `last_accessed_at` means when the cache was last accessed. `size_in_bytes` is the size of the cache in bytes. */
-    "actions-cache-list-sort": "created_at" | "last_accessed_at" | "size_in_bytes";
+    "actions-cache-list-sort"?: "created_at" | "last_accessed_at" | "size_in_bytes";
     /** @description A key for identifying the cache. */
     "actions-cache-key-required": string;
     /** @description The unique identifier of the GitHub Actions cache. */
@@ -79738,21 +80072,21 @@ export interface components {
     /** @description The unique identifier of the job. */
     "job-id": number;
     /** @description Returns someone's workflow runs. Use the login for the user who created the `push` associated with the check suite or workflow run. */
-    actor: string;
+    actor?: string;
     /** @description Returns workflow runs associated with a branch. Use the name of the branch of the `push`. */
-    "workflow-run-branch": string;
+    "workflow-run-branch"?: string;
     /** @description Returns workflow run triggered by the event you specify. For example, `push`, `pull_request` or `issue`. For more information, see "[Events that trigger workflows](https://docs.github.com/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows)." */
-    event: string;
+    event?: string;
     /** @description Returns workflow runs with the check run `status` or `conclusion` that you specify. For example, a conclusion can be `success` or a status can be `in_progress`. Only GitHub can set a status of `waiting` or `requested`. */
-    "workflow-run-status": "completed" | "action_required" | "cancelled" | "failure" | "neutral" | "skipped" | "stale" | "success" | "timed_out" | "in_progress" | "queued" | "requested" | "waiting" | "pending";
+    "workflow-run-status"?: "completed" | "action_required" | "cancelled" | "failure" | "neutral" | "skipped" | "stale" | "success" | "timed_out" | "in_progress" | "queued" | "requested" | "waiting" | "pending";
     /** @description Returns workflow runs created within the given date-time range. For more information on the syntax, see "[Understanding the search syntax](https://docs.github.com/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax#query-for-dates)." */
-    created: string;
+    created?: string;
     /** @description If `true` pull requests are omitted from the response (empty array). */
-    "exclude-pull-requests": boolean;
+    "exclude-pull-requests"?: boolean;
     /** @description Returns workflow runs with the `check_suite_id` that you specify. */
-    "workflow-run-check-suite-id": number;
+    "workflow-run-check-suite-id"?: number;
     /** @description Only returns workflow runs that are associated with the specified `head_sha`. */
-    "workflow-run-head-sha": string;
+    "workflow-run-head-sha"?: string;
     /** @description The unique identifier of the workflow run. */
     "run-id": number;
     /** @description The attempt number of the workflow run. */
@@ -79768,17 +80102,17 @@ export interface components {
     /** @description The unique identifier of the check suite. */
     "check-suite-id": number;
     /** @description Returns check runs with the specified `name`. */
-    "check-name": string;
+    "check-name"?: string;
     /** @description Returns check runs with the specified `status`. */
-    status: "queued" | "in_progress" | "completed";
+    status?: "queued" | "in_progress" | "completed";
     /** @description The Git reference for the results you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
-    "git-ref": components["schemas"]["code-scanning-ref"];
+    "git-ref"?: components["schemas"]["code-scanning-ref"];
     /** @description The number that identifies an alert. You can find this at the end of the URL for a code scanning alert within GitHub, and in the `number` field in the response from the `GET /repos/{owner}/{repo}/code-scanning/alerts` operation. */
     "alert-number": components["schemas"]["alert-number"];
     /** @description The SHA of the commit. */
     "commit-sha": string;
     /** @description A comma-separated list of full manifest paths. If specified, only alerts for these manifests will be returned. */
-    "dependabot-alert-comma-separated-manifests": string;
+    "dependabot-alert-comma-separated-manifests"?: string;
     /**
      * @description The number that identifies a Dependabot alert in its repository.
      * You can find this at the end of the URL for a Dependabot alert within GitHub,
@@ -79787,15 +80121,17 @@ export interface components {
      */
     "dependabot-alert-number": components["schemas"]["alert-number"];
     /** @description The full path, relative to the repository root, of the dependency manifest file. */
-    "manifest-path": string;
+    "manifest-path"?: string;
     /** @description deployment_id parameter */
     "deployment-id": number;
     /** @description The name of the environment. */
     "environment-name": string;
     /** @description The unique identifier of the branch policy. */
     "branch-policy-id": number;
+    /** @description The unique identifier of the protection rule. */
+    "protection-rule-id": number;
     /** @description A user ID. Only return users with an ID greater than this ID. */
-    "since-user": number;
+    "since-user"?: number;
     /** @description The number that identifies the issue. */
     "issue-number": number;
     /** @description The unique identifier of the key. */
@@ -79815,27 +80151,27 @@ export interface components {
     /** @description The unique identifier of the tag protection. */
     "tag-protection-id": number;
     /** @description The time frame to display results for. */
-    per: "day" | "week";
+    per?: "day" | "week";
     /** @description A repository ID. Only return repositories with an ID greater than this ID. */
-    "since-repo": number;
+    "since-repo"?: number;
     /** @description Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`. */
-    order: "desc" | "asc";
+    order?: "desc" | "asc";
     /** @description The unique identifier of the team. */
     "team-id": number;
     /** @description ID of the Repository to filter on */
-    "repository-id-in-query": number;
+    "repository-id-in-query"?: number;
     /** @description The ID of the export operation, or `latest`. Currently only `latest` is currently supported. */
     "export-id": string;
     /** @description The unique identifier of the GPG key. */
     "gpg-key-id": number;
     /** @description Only show repositories updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "since-repo-date": string;
+    "since-repo-date"?: string;
     /** @description Only show repositories updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "before-repo-date": string;
+    "before-repo-date"?: string;
     /** @description The unique identifier of the SSH signing key. */
     "ssh-signing-key-id": number;
     /** @description The property to sort the results by. `created` means when the repository was starred. `updated` means when the repository was last pushed to. */
-    "sort-starred": "created" | "updated";
+    "sort-starred"?: "created" | "updated";
   };
   requestBodies: never;
   headers: {
@@ -79910,7 +80246,7 @@ export interface operations {
             client_secret: string;
             webhook_secret: string | null;
             pem: string;
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           });
         };
       };
@@ -80722,7 +81058,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (({
+        "application/json": ({
           /**
            * @description The description of the gist. 
            * @example Example Ruby script
@@ -80741,14 +81077,14 @@ export interface operations {
            * }
            */
           files?: {
-            [key: string]: ((({
+            [key: string]: (({
               /** @description The new content of the file. */
               content?: string;
               /** @description The new filename for the file. */
               filename?: string | null;
-            }) & (Record<string, never> | Record<string, never> | Record<string, never>)) | null) | undefined;
+            }) | null) | undefined;
           };
-        }) & (Record<string, never> | Record<string, never>)) | null;
+        }) | null;
       };
     };
     responses: {
@@ -89750,6 +90086,33 @@ export interface operations {
     };
   };
   /**
+   * Review custom deployment protection rules for a workflow run 
+   * @description Approve or reject custom deployment protection rules provided by a GitHub App for a workflow run. For more information, see "[Using environments for deployment](https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
+   * 
+   * **Note:** GitHub Apps can only review their own custom deployment protection rules.
+   * To approve or reject pending deployments that are waiting for review from a specific person or team, see [`POST /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments`](/rest/actions/workflow-runs#review-pending-deployments-for-a-workflow-run).
+   * 
+   * GitHub Apps must have read and write permission for **Deployments** to use this endpoint.
+   */
+  "actions/review-custom-gates-for-run": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        run_id: components["parameters"]["run-id"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["review-custom-gates-comment-required"] | components["schemas"]["review-custom-gates-state-required"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      204: never;
+    };
+  };
+  /**
    * List jobs for a workflow run 
    * @description Lists jobs for a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
    */
@@ -90399,7 +90762,7 @@ export interface operations {
           ref: string;
           /** @description Input keys and values configured in the workflow file. The maximum number of properties is 10. Any default properties configured in the workflow file will be used when `inputs` are omitted. */
           inputs?: {
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           };
         };
       };
@@ -91808,11 +92171,11 @@ export interface operations {
         "application/json": OneOf<[{
           /** @enum {unknown} */
           status: "completed";
-          [key: string]: unknown | undefined;
+          [key: string]: unknown;
         }, {
           /** @enum {unknown} */
           status?: "queued" | "in_progress";
-          [key: string]: unknown | undefined;
+          [key: string]: unknown;
         }]>;
       };
     };
@@ -91943,14 +92306,14 @@ export interface operations {
               /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
               identifier: string;
             })[];
-        }) & (({
+        }) & ({
           /** @enum {unknown} */
           status?: "completed";
-          [key: string]: unknown | undefined;
-        }) | ({
+          [key: string]: unknown;
+        } | ({
           /** @enum {unknown} */
           status?: "queued" | "in_progress";
-          [key: string]: unknown | undefined;
+          [key: string]: unknown;
         }));
       };
     };
@@ -92408,7 +92771,7 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["code-scanning-analysis"];
           "application/json+sarif": {
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           };
         };
       };
@@ -92828,11 +93191,16 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": {
+        "application/json": ({
           /** @description Git ref (typically a branch name) for this codespace */
           ref?: string;
-          /** @description Location for this codespace. Assigned by IP if not provided */
+          /** @description The requested location for a new codespace. Best efforts are made to respect this upon creation. Assigned by IP if not provided. */
           location?: string;
+          /**
+           * @description The geographic area for this codespace. If not specified, the value is assigned by IP. This property replaces `location`, which is being deprecated. 
+           * @enum {string}
+           */
+          geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest";
           /** @description IP for location auto-detection when proxying a request */
           client_ip?: string;
           /** @description Machine type to use for this codespace */
@@ -92849,7 +93217,7 @@ export interface operations {
           display_name?: string;
           /** @description Duration in minutes after codespace has gone idle in which it will be deleted. Must be integer minutes between 0 and 43200 (30 days). */
           retention_period_minutes?: number;
-        } | null;
+        }) | null;
       };
     };
     responses: {
@@ -94777,7 +95145,7 @@ export interface operations {
           /** @description The [status](https://docs.github.com/rest/commits/statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts. */
           required_contexts?: (string)[];
           payload?: OneOf<[{
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           }, string]>;
           /**
            * @description Name for the target deployment environment (e.g., `production`, `staging`, `qa`). 
@@ -95009,7 +95377,7 @@ export interface operations {
           event_type: string;
           /** @description JSON payload with extra information about the webhook event that your action or workflow may use. The maximum number of top-level properties is 10. */
           client_payload?: {
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           };
         };
       };
@@ -95284,7 +95652,153 @@ export interface operations {
       204: never;
     };
   };
-  /** List repository events */
+  /**
+   * Get all deployment protection rules for an environment 
+   * @description Gets all custom deployment protection rules that are enabled for an environment. Anyone with read access to the repository can use this endpoint. If the repository is private and you want to use a personal access token (classic), you must use an access token with the `repo` scope. GitHub Apps and fine-grained personal access tokens must have the `actions:read` permission to use this endpoint. For more information about environments, see "[Using environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
+   * 
+   * For more information about the app that is providing this custom deployment rule, see the [documentation for the `GET /apps/{app_slug}` endpoint](https://docs.github.com/rest/apps/apps#get-an-app).
+   */
+  "repos/get-all-deployment-protection-rules": {
+    parameters: {
+      path: {
+        environment_name: components["parameters"]["environment-name"];
+        repo: components["parameters"]["repo"];
+        owner: components["parameters"]["owner"];
+      };
+    };
+    responses: {
+      /** @description List of deployment protection rules */
+      200: {
+        content: {
+          "application/json": {
+            /**
+             * @description The number of enabled custom deployment protection rules for this environment 
+             * @example 10
+             */
+            total_count?: number;
+            custom_deployment_protection_rules?: (components["schemas"]["deployment-protection-rule"])[];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Create a custom deployment protection rule on an environment 
+   * @description Enable a custom deployment protection rule for an environment.
+   * 
+   * You must authenticate using an access token with the `repo` scope to use this endpoint. Enabling a custom protection rule requires admin or owner permissions to the repository. GitHub Apps must have the `actions:write` permission to use this endpoint.
+   * 
+   * For more information about the app that is providing this custom deployment rule, see the [documentation for the `GET /apps/{app_slug}` endpoint](https://docs.github.com/rest/apps/apps#get-an-app).
+   */
+  "repos/create-deployment-protection-rule": {
+    parameters: {
+      path: {
+        environment_name: components["parameters"]["environment-name"];
+        repo: components["parameters"]["repo"];
+        owner: components["parameters"]["owner"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The ID of the custom app that will be enabled on the environment. */
+          integration_id?: number;
+        };
+      };
+    };
+    responses: {
+      /** @description The enabled custom deployment protection rule */
+      201: {
+        content: {
+          "application/json": components["schemas"]["deployment-protection-rule"];
+        };
+      };
+    };
+  };
+  /**
+   * List custom deployment rule integrations available for an environment 
+   * @description Gets all custom deployment protection rule integrations that are available for an environment. Anyone with read access to the repository can use this endpoint. If the repository is private and you want to use a personal access token (classic), you must use an access token with the `repo` scope. GitHub Apps and fine-grained personal access tokens must have the `actions:read` permission to use this endpoint.
+   * 
+   * For more information about environments, see "[Using environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
+   * 
+   * For more information about the app that is providing this custom deployment rule, see "[GET an app](https://docs.github.com/rest/apps/apps#get-an-app)".
+   */
+  "repos/list-custom-deployment-rule-integrations": {
+    parameters: {
+      query: {
+        page?: components["parameters"]["page"];
+        per_page?: components["parameters"]["per-page"];
+      };
+      path: {
+        environment_name: components["parameters"]["environment-name"];
+        repo: components["parameters"]["repo"];
+        owner: components["parameters"]["owner"];
+      };
+    };
+    responses: {
+      /** @description A list of custom deployment rule integrations available for this environment. */
+      200: {
+        content: {
+          "application/json": {
+            /**
+             * @description The total number of custom deployment protection rule integrations available for this environment. 
+             * @example 35
+             */
+            total_count?: number;
+            available_custom_deployment_protection_rule_integrations?: (components["schemas"]["custom-deployment-rule-app"])[];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Get a custom deployment protection rule 
+   * @description Gets an enabled custom deployment protection rule for an environment. Anyone with read access to the repository can use this endpoint. If the repository is private and you want to use a personal access token (classic), you must use an access token with the `repo` scope. GitHub Apps and fine-grained personal access tokens must have the `actions:read` permission to use this endpoint. For more information about environments, see "[Using environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
+   * 
+   * For more information about the app that is providing this custom deployment rule, see [`GET /apps/{app_slug}`](https://docs.github.com/rest/apps/apps#get-an-app).
+   */
+  "repos/get-custom-deployment-protection-rule": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        environment_name: components["parameters"]["environment-name"];
+        protection_rule_id: components["parameters"]["protection-rule-id"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["deployment-protection-rule"];
+        };
+      };
+    };
+  };
+  /**
+   * Disable a custom protection rule for an environment 
+   * @description Disables a custom deployment protection rule for an environment.
+   * 
+   * You must authenticate using an access token with the `repo` scope to use this endpoint. Removing a custom protection rule requires admin or owner permissions to the repository. GitHub Apps must have the `actions:write` permission to use this endpoint. For more information, see "[Get an app](https://docs.github.com/rest/apps/apps#get-an-app)".
+   */
+  "repos/disable-deployment-protection-rule": {
+    parameters: {
+      path: {
+        environment_name: components["parameters"]["environment-name"];
+        repo: components["parameters"]["repo"];
+        owner: components["parameters"]["owner"];
+        protection_rule_id: components["parameters"]["protection-rule-id"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      204: never;
+    };
+  };
+  /**
+   * List repository events 
+   * @description **Note**: This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
+   */
   "activity/list-repo-events": {
     parameters: {
       query: {
@@ -95654,8 +96168,6 @@ export interface operations {
           ref: string;
           /** @description The SHA1 value for this reference. */
           sha: string;
-          /** @example "refs/heads/newbranch" */
-          key?: string;
         };
       };
     };
@@ -96307,6 +96819,10 @@ export interface operations {
    * Get an import status 
    * @description View the progress of an import.
    * 
+   * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+   * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+   * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
+   * 
    * **Import status**
    * 
    * This section includes details about the possible values of the `status` field of the Import Progress response.
@@ -96361,6 +96877,7 @@ export interface operations {
   /**
    * Start an import 
    * @description Start a source import to a GitHub repository using GitHub Importer. Importing into a GitHub repository with GitHub Actions enabled is not supported and will return a status `422 Unprocessable Entity` response.
+   * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
    */
   "migrations/start-import": {
     parameters: {
@@ -96407,6 +96924,10 @@ export interface operations {
   /**
    * Cancel an import 
    * @description Stop an import for a repository.
+   * 
+   * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+   * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+   * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
    */
   "migrations/cancel-import": {
     parameters: {
@@ -96429,6 +96950,10 @@ export interface operations {
    * Some servers (e.g. TFS servers) can have several projects at a single URL. In those cases the import progress will
    * have the status `detection_found_multiple` and the Import Progress response will include a `project_choices` array.
    * You can select the project to import by providing one of the objects in the `project_choices` array in the update request.
+   * 
+   * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+   * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+   * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
    */
   "migrations/update-import": {
     parameters: {
@@ -96473,6 +96998,10 @@ export interface operations {
    * @description Each type of source control system represents authors in a different way. For example, a Git commit author has a display name and an email address, but a Subversion commit author just has a username. The GitHub Importer will make the author information valid, but the author might not be correct. For example, it will change the bare Subversion username `hubot` into something like `hubot <hubot@12341234-abab-fefe-8787-fedcba987654>`.
    * 
    * This endpoint and the [Map a commit author](https://docs.github.com/rest/migrations/source-imports#map-a-commit-author) endpoint allow you to provide correct Git author information.
+   * 
+   * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+   * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+   * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
    */
   "migrations/get-commit-authors": {
     parameters: {
@@ -96497,7 +97026,12 @@ export interface operations {
   };
   /**
    * Map a commit author 
-   * @description Update an author's identity for the import. Your application can continue updating authors any time before you push new commits to the repository.
+   * @description Update an author's identity for the import. Your application can continue updating authors any time before you push
+   * new commits to the repository.
+   * 
+   * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+   * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+   * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
    */
   "migrations/map-commit-author": {
     parameters: {
@@ -96532,6 +97066,10 @@ export interface operations {
   /**
    * Get large files 
    * @description List files larger than 100MB found during the import
+   * 
+   * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+   * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+   * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
    */
   "migrations/get-large-files": {
     parameters: {
@@ -96552,7 +97090,15 @@ export interface operations {
   };
   /**
    * Update Git LFS preference 
-   * @description You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability is powered by [Git LFS](https://git-lfs.com). You can learn more about our LFS feature and working with large files [on our help site](https://docs.github.com/repositories/working-with-files/managing-large-files).
+   * @description You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability
+   * is powered by [Git LFS](https://git-lfs.com).
+   * 
+   * You can learn more about our LFS feature and working with large files [on our help
+   * site](https://docs.github.com/repositories/working-with-files/managing-large-files).
+   * 
+   * **Warning:** Support for importing Mercurial, Subversion and Team Foundation Version Control repositories will end
+   * on October 17, 2023. For more details, see [changelog](https://gh.io/github-importer-non-git-eol). In the coming weeks, we will update
+   * these docs to reflect relevant changes to the API and will contact all integrators using the "Source imports" API.
    */
   "migrations/set-lfs-preference": {
     parameters: {
@@ -98303,7 +98849,12 @@ export interface operations {
       205: never;
     };
   };
-  /** Get a GitHub Pages site */
+  /**
+   * Get a GitHub Pages site 
+   * @description Gets information about a GitHub Pages site.
+   * 
+   * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+   */
   "repos/get-pages": {
     parameters: {
       path: {
@@ -98336,7 +98887,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": ({
+        "application/json": {
           /** @description Specify a custom domain for the repository. Sending a `null` value will remove the custom domain. For more about custom domains, see "[Using a custom domain with GitHub Pages](https://docs.github.com/articles/using-a-custom-domain-with-github-pages/)." */
           cname?: string | null;
           /** @description Specify whether HTTPS should be enforced for the repository. */
@@ -98355,7 +98906,7 @@ export interface operations {
              */
             path: "/" | "/docs";
           });
-        }) & (Record<string, never> | Record<string, never> | Record<string, never> | Record<string, never> | Record<string, never>);
+        };
       };
     };
     responses: {
@@ -98381,7 +98932,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (({
+        "application/json": ({
           /**
            * @description The process in which the Page will be built. Possible values are `"legacy"` and `"workflow"`. 
            * @enum {string}
@@ -98398,7 +98949,7 @@ export interface operations {
              */
             path?: "/" | "/docs";
           };
-        }) & (Record<string, never> | Record<string, never>)) | null;
+        }) | null;
       };
     };
     responses: {
@@ -98433,7 +98984,12 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** List GitHub Pages builds */
+  /**
+   * List GitHub Pages builds 
+   * @description Lists builts of a GitHub Pages site.
+   * 
+   * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+   */
   "repos/list-pages-builds": {
     parameters: {
       query: {
@@ -98479,7 +99035,12 @@ export interface operations {
       };
     };
   };
-  /** Get latest Pages build */
+  /**
+   * Get latest Pages build 
+   * @description Gets information about the single most recent build of a GitHub Pages site.
+   * 
+   * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+   */
   "repos/get-latest-pages-build": {
     parameters: {
       path: {
@@ -98496,7 +99057,12 @@ export interface operations {
       };
     };
   };
-  /** Get GitHub Pages build */
+  /**
+   * Get GitHub Pages build 
+   * @description Gets information about a GitHub Pages build.
+   * 
+   * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+   */
   "repos/get-pages-build": {
     parameters: {
       path: {
@@ -99053,9 +99619,14 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": {
-          /** @description Location for this codespace. Assigned by IP if not provided */
+        "application/json": ({
+          /** @description The requested location for a new codespace. Best efforts are made to respect this upon creation. Assigned by IP if not provided. */
           location?: string;
+          /**
+           * @description The geographic area for this codespace. If not specified, the value is assigned by IP. This property replaces `location`, which is being deprecated. 
+           * @enum {string}
+           */
+          geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest";
           /** @description IP for location auto-detection when proxying a request */
           client_ip?: string;
           /** @description Machine type to use for this codespace */
@@ -99072,7 +99643,7 @@ export interface operations {
           display_name?: string;
           /** @description Duration in minutes after codespace has gone idle in which it will be deleted. Must be integer minutes between 0 and 43200 (30 days). */
           retention_period_minutes?: number;
-        } | null;
+        }) | null;
       };
     };
     responses: {
@@ -99164,8 +99735,8 @@ export interface operations {
            * @enum {string}
            */
           side?: "LEFT" | "RIGHT";
-          /** @description The line of the blob in the pull request diff that the comment applies to. For a multi-line comment, the last line of the range that your comment applies to. */
-          line: number;
+          /** @description **Required unless using `subject_type:file`**. The line of the blob in the pull request diff that the comment applies to. For a multi-line comment, the last line of the range that your comment applies to. */
+          line?: number;
           /** @description **Required when using multi-line comments unless using `in_reply_to`**. The `start_line` is the first line in the pull request diff that your multi-line comment applies to. To learn more about multi-line comments, see "[Commenting on a pull request](https://docs.github.com/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)" in the GitHub Help documentation. */
           start_line?: number;
           /**
@@ -99297,7 +99868,10 @@ export interface operations {
       503: components["responses"]["service_unavailable"];
     };
   };
-  /** Check if a pull request has been merged */
+  /**
+   * Check if a pull request has been merged 
+   * @description Checks if a pull request has been merged into the base branch. The HTTP status of the response indicates whether or not the pull request has been merged; the response body is empty.
+   */
   "pulls/check-if-merged": {
     parameters: {
       path: {
@@ -99315,7 +99889,8 @@ export interface operations {
   };
   /**
    * Merge a pull request 
-   * @description This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+   * @description Merges a pull request into the base branch.
+   * This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
    */
   "pulls/merge": {
     parameters: {
@@ -99398,7 +99973,8 @@ export interface operations {
   };
   /**
    * Request reviewers for a pull request 
-   * @description This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+   * @description Requests reviews for a pull request from a given set of users and/or teams.
+   * This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
    */
   "pulls/request-reviewers": {
     parameters: {
@@ -99415,7 +99991,7 @@ export interface operations {
           reviewers?: (string)[];
           /** @description An array of team `slug`s that will be requested. */
           team_reviewers?: (string)[];
-        } & (Record<string, never> | Record<string, never>);
+        };
       };
     };
     responses: {
@@ -99430,7 +100006,10 @@ export interface operations {
       422: never;
     };
   };
-  /** Remove requested reviewers from a pull request */
+  /**
+   * Remove requested reviewers from a pull request 
+   * @description Removes review requests from a pull request for a given set of users and/or teams.
+   */
   "pulls/remove-requested-reviewers": {
     parameters: {
       path: {
@@ -99548,7 +100127,10 @@ export interface operations {
       422: components["responses"]["validation_failed_simple"];
     };
   };
-  /** Get a review for a pull request */
+  /**
+   * Get a review for a pull request 
+   * @description Retrieves a pull request review by its ID.
+   */
   "pulls/get-review": {
     parameters: {
       path: {
@@ -99599,7 +100181,10 @@ export interface operations {
       422: components["responses"]["validation_failed_simple"];
     };
   };
-  /** Delete a pending review for a pull request */
+  /**
+   * Delete a pending review for a pull request 
+   * @description Deletes a pull request review that has not been submitted. Submitted reviews cannot be deleted.
+   */
   "pulls/delete-pending-review": {
     parameters: {
       path: {
@@ -100727,6 +101312,35 @@ export interface operations {
     };
   };
   /**
+   * Privately report a security vulnerability 
+   * @description Report a security vulnerability to the maintainers of the repository.
+   * See "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)" for more information about private vulnerability reporting.
+   */
+  "security-advisories/create-private-vulnerability-report": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["private-vulnerability-report-create"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["repository-advisory"];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+    };
+  };
+  /**
    * Get a repository security advisory 
    * @description Get a repository security advisory using its GitHub Security Advisory (GHSA) identifier.
    * You can access any published security advisory on a public repository.
@@ -100900,6 +101514,8 @@ export interface operations {
    * @description Returns the total commit counts for the `owner` and total commit counts in `all`. `all` is everyone combined, including the `owner` in the last 52 weeks. If you'd like to get the commit counts for non-owners, you can subtract `owner` from `all`.
    * 
    * The array order is oldest week (index 0) to most recent week.
+   * 
+   * The most recent week is seven days ago at UTC midnight to today at UTC midnight.
    */
   "repos/get-participation-stats": {
     parameters: {
@@ -101906,9 +102522,7 @@ export interface operations {
    * *   You must always include at least one search term when searching source code. For example, searching for [`language:go`](https://github.com/search?utf8=%E2%9C%93&q=language%3Ago&type=Code) is not valid, while [`amazing
    * language:go`](https://github.com/search?utf8=%E2%9C%93&q=amazing+language%3Ago&type=Code) is.
    * 
-   * **Note:** Starting on April 10, 2023, code search on GitHub.com will have a separate
-   * rate limit from other search types, of 10 requests per minute, and all code
-   * search requests will require authentication. For more information, see [this blog post](https://github.blog/changelog/2023-03-10-changes-to-the-code-search-api/).
+   * This endpoint requires you to authenticate and limits you to 10 requests per minute.
    */
   "search/code": {
     parameters: {
@@ -101917,12 +102531,12 @@ export interface operations {
         q: string;
         /**
          * @deprecated 
-         * @description **Note: This field is deprecated, and will be ignored after April 10, 2023 (except on GitHub Enterprise Server).** Sorts the results of your query. Can only be `indexed`, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results)
+         * @description **This field is deprecated.** Sorts the results of your query. Can only be `indexed`, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results)
          */
         sort?: "indexed";
         /**
          * @deprecated 
-         * @description **Note: This field is deprecated, and will be ignored after April 10, 2023 (except on GitHub Enterprise Server).** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`.
+         * @description **This field is deprecated.** Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`.
          */
         order?: "desc" | "asc";
         per_page?: components["parameters"]["per-page"];
@@ -103223,7 +103837,7 @@ export interface operations {
   };
   /**
    * Get the authenticated user 
-   * @description If the authenticated user is authenticated through basic authentication or OAuth with the `user` scope, then the response lists public and private profile information.
+   * @description If the authenticated user is authenticated with an OAuth token with the `user` scope, then the response lists public and private profile information.
    * 
    * If the authenticated user is authenticated through OAuth without the `user` scope, then the response lists only public profile information.
    */
@@ -103428,8 +104042,13 @@ export interface operations {
           repository_id: number;
           /** @description Git ref (typically a branch name) for this codespace */
           ref?: string;
-          /** @description Location for this codespace. Assigned by IP if not provided */
+          /** @description The requested location for a new codespace. Best efforts are made to respect this upon creation. Assigned by IP if not provided. */
           location?: string;
+          /**
+           * @description The geographic area for this codespace. If not specified, the value is assigned by IP. This property replaces `location`, which is being deprecated. 
+           * @enum {string}
+           */
+          geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest";
           /** @description IP for location auto-detection when proxying a request */
           client_ip?: string;
           /** @description Machine type to use for this codespace */
@@ -103454,8 +104073,13 @@ export interface operations {
             /** @description Repository id for this codespace */
             repository_id: number;
           };
-          /** @description Location for this codespace. Assigned by IP if not provided */
+          /** @description The requested location for a new codespace. Best efforts are made to respect this upon creation. Assigned by IP if not provided. */
           location?: string;
+          /**
+           * @description The geographic area for this codespace. If not specified, the value is assigned by IP. This property replaces `location`, which is being deprecated. 
+           * @enum {string}
+           */
+          geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest";
           /** @description Machine type to use for this codespace */
           machine?: string;
           /** @description Path to devcontainer.json config to use for this codespace */
