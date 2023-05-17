@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: auto/update
 
       - name: Generate TypeScript types from OpenAPI schema
         id: update
@@ -38,17 +40,14 @@ jobs:
             echo "updated=0" >> $GITHUB_OUTPUT
           fi
 
-          # Git add if the file was created.
-          if [[ $(git status --short ${{ matrix.schema.output }}) ]]; then
-            git add ${{ matrix.schema.output }}
-          fi
+          # Git add if the changes are untracked.
+          git add ${{ matrix.schema.output }}
 
       - name: Commit changes, if any
         id: git-commit
         if: steps.update.outputs.updated == 1
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: auto/update
           commit_message: |-
             Update github_api_types using GitHub Actions
             The action workflow was triggered by ref:
