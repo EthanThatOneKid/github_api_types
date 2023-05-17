@@ -18,8 +18,6 @@ jobs:
         schema:
           - url: https://github.com/github/rest-api-description/raw/main/descriptions/api.github.com/api.github.com.yaml
             output: ./mod.ts
-          - url: https://github.com/github/rest-api-description/raw/main/descriptions/api.github.com/api.github.com.2022-11-28.yaml
-            output: ./api.github.com.2022-11-28/mod.ts
 
     steps:
       - name: Checkout code
