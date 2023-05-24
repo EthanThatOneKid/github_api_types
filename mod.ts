@@ -80303,7 +80303,7 @@ export interface operations {
    */
   "apps/list-webhook-deliveries": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         cursor?: components["parameters"]["cursor"];
         redelivery?: boolean;
@@ -80367,7 +80367,7 @@ export interface operations {
    */
   "apps/list-installation-requests-for-authenticated-app": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -80391,7 +80391,7 @@ export interface operations {
    */
   "apps/list-installations": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         since?: components["parameters"]["since"];
@@ -80766,7 +80766,7 @@ export interface operations {
    */
   "dependabot/list-alerts-for-enterprise": {
     parameters: {
-      query: {
+      query?: {
         state?: components["parameters"]["dependabot-alert-comma-separated-states"];
         severity?: components["parameters"]["dependabot-alert-comma-separated-severities"];
         ecosystem?: components["parameters"]["dependabot-alert-comma-separated-ecosystems"];
@@ -80804,7 +80804,7 @@ export interface operations {
    */
   "secret-scanning/list-alerts-for-enterprise": {
     parameters: {
-      query: {
+      query?: {
         state?: components["parameters"]["secret-scanning-alert-state"];
         secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
         resolution?: components["parameters"]["secret-scanning-alert-resolution"];
@@ -80838,7 +80838,7 @@ export interface operations {
    */
   "activity/list-public-events": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -80885,7 +80885,7 @@ export interface operations {
    */
   "gists/list": {
     parameters: {
-      query: {
+      query?: {
         since?: components["parameters"]["since"];
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -80963,7 +80963,7 @@ export interface operations {
    */
   "gists/list-public": {
     parameters: {
-      query: {
+      query?: {
         since?: components["parameters"]["since"];
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -80990,7 +80990,7 @@ export interface operations {
    */
   "gists/list-starred": {
     parameters: {
-      query: {
+      query?: {
         since?: components["parameters"]["since"];
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -81100,7 +81100,7 @@ export interface operations {
   /** List gist comments */
   "gists/list-comments": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -81225,7 +81225,7 @@ export interface operations {
   /** List gist commits */
   "gists/list-commits": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -81252,7 +81252,7 @@ export interface operations {
   /** List gist forks */
   "gists/list-forks": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -81416,7 +81416,7 @@ export interface operations {
    */
   "apps/list-repos-accessible-to-installation": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -81469,7 +81469,7 @@ export interface operations {
    */
   "issues/list": {
     parameters: {
-      query: {
+      query?: {
         /** @description Indicates which sorts of issues to return. `assigned` means issues assigned to you. `created` means issues created by you. `mentioned` means issues mentioning you. `subscribed` means issues you're subscribed to updates for. `all` or `repos` means all issues you can see, regardless of participation or creation. */
         filter?: "assigned" | "created" | "mentioned" | "subscribed" | "repos" | "all";
         /** @description Indicates the state of the issues to return. */
@@ -81505,7 +81505,7 @@ export interface operations {
   /** Get all commonly used licenses */
   "licenses/get-all-commonly-used": {
     parameters: {
-      query: {
+      query?: {
         featured?: boolean;
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -81635,7 +81635,7 @@ export interface operations {
    */
   "apps/list-plans": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -81662,7 +81662,7 @@ export interface operations {
    */
   "apps/list-accounts-for-plan": {
     parameters: {
-      query: {
+      query?: {
         sort?: components["parameters"]["sort"];
         /** @description To return the oldest accounts first, set to `asc`. Ignored without the `sort` parameter. */
         direction?: "asc" | "desc";
@@ -81720,7 +81720,7 @@ export interface operations {
    */
   "apps/list-plans-stubbed": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -81746,7 +81746,7 @@ export interface operations {
    */
   "apps/list-accounts-for-plan-stubbed": {
     parameters: {
-      query: {
+      query?: {
         sort?: components["parameters"]["sort"];
         /** @description To return the oldest accounts first, set to `asc`. Ignored without the `sort` parameter. */
         direction?: "asc" | "desc";
@@ -81792,7 +81792,7 @@ export interface operations {
   /** List public events for a network of repositories */
   "activity/list-public-events-for-repo-network": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -81820,7 +81820,7 @@ export interface operations {
    */
   "activity/list-notifications-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         all?: components["parameters"]["all"];
         participating?: components["parameters"]["participating"];
         since?: components["parameters"]["since"];
@@ -82004,7 +82004,7 @@ export interface operations {
    */
   "meta/get-octocat": {
     parameters: {
-      query: {
+      query?: {
         /** @description The words to show in Octocat's speech bubble */
         s?: string;
       };
@@ -82026,7 +82026,7 @@ export interface operations {
    */
   "orgs/list": {
     parameters: {
-      query: {
+      query?: {
         since?: components["parameters"]["since-org"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -82054,7 +82054,7 @@ export interface operations {
    */
   "orgs/list-pat-grant-requests": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         sort?: components["parameters"]["personal-access-token-sort"];
@@ -82166,7 +82166,7 @@ export interface operations {
    */
   "orgs/list-pat-grant-request-repositories": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -82200,7 +82200,7 @@ export interface operations {
    */
   "orgs/list-pat-grants": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         sort?: components["parameters"]["personal-access-token-sort"];
@@ -82307,7 +82307,7 @@ export interface operations {
    */
   "orgs/list-pat-grant-repositories": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -82562,7 +82562,7 @@ export interface operations {
    */
   "actions/get-actions-cache-usage-by-repo-for-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -82688,7 +82688,7 @@ export interface operations {
    */
   "actions/list-selected-repositories-enabled-github-actions-organization": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -82869,7 +82869,7 @@ export interface operations {
    */
   "actions/list-required-workflows": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -83133,7 +83133,7 @@ export interface operations {
    */
   "actions/list-self-hosted-runners-for-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -83398,7 +83398,7 @@ export interface operations {
    */
   "actions/list-org-secrets": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -83596,7 +83596,7 @@ export interface operations {
    */
   "actions/list-selected-repos-for-org-secret": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -83685,7 +83685,7 @@ export interface operations {
    */
   "actions/list-org-variables": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["variables-per-page"];
         page?: components["parameters"]["page"];
       };
@@ -83825,7 +83825,7 @@ export interface operations {
    */
   "actions/list-selected-repos-for-org-variable": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -83918,7 +83918,7 @@ export interface operations {
    */
   "orgs/list-blocked-users": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -83993,7 +83993,7 @@ export interface operations {
    */
   "code-scanning/list-alerts-for-org": {
     parameters: {
-      query: {
+      query?: {
         tool_name?: components["parameters"]["tool-name"];
         tool_guid?: components["parameters"]["tool-guid"];
         before?: components["parameters"]["pagination-before"];
@@ -84034,7 +84034,7 @@ export interface operations {
    */
   "codespaces/list-in-organization": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -84161,7 +84161,7 @@ export interface operations {
    */
   "codespaces/list-org-secrets": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -84365,7 +84365,7 @@ export interface operations {
    */
   "codespaces/list-selected-repos-for-org-secret": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -84468,7 +84468,7 @@ export interface operations {
    */
   "dependabot/list-alerts-for-org": {
     parameters: {
-      query: {
+      query?: {
         state?: components["parameters"]["dependabot-alert-comma-separated-states"];
         severity?: components["parameters"]["dependabot-alert-comma-separated-severities"];
         ecosystem?: components["parameters"]["dependabot-alert-comma-separated-ecosystems"];
@@ -84506,7 +84506,7 @@ export interface operations {
    */
   "dependabot/list-org-secrets": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -84704,7 +84704,7 @@ export interface operations {
    */
   "dependabot/list-selected-repos-for-org-secret": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -84812,7 +84812,7 @@ export interface operations {
   /** List public organization events */
   "activity/list-public-org-events": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -84835,7 +84835,7 @@ export interface operations {
    */
   "orgs/list-failed-invitations": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -84859,7 +84859,7 @@ export interface operations {
   /** List organization webhooks */
   "orgs/list-webhooks": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -85080,7 +85080,7 @@ export interface operations {
    */
   "orgs/list-webhook-deliveries": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         cursor?: components["parameters"]["cursor"];
         redelivery?: boolean;
@@ -85186,7 +85186,7 @@ export interface operations {
    */
   "orgs/list-app-installations": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -85274,7 +85274,7 @@ export interface operations {
    */
   "orgs/list-pending-invitations": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         /** @description Filter invitations by their member role. */
@@ -85369,7 +85369,7 @@ export interface operations {
    */
   "orgs/list-invitation-teams": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -85402,7 +85402,7 @@ export interface operations {
    */
   "issues/list-for-org": {
     parameters: {
-      query: {
+      query?: {
         /** @description Indicates which sorts of issues to return. `assigned` means issues assigned to you. `created` means issues created by you. `mentioned` means issues mentioning you. `subscribed` means issues you're subscribed to updates for. `all` or `repos` means all issues you can see, regardless of participation or creation. */
         filter?: "assigned" | "created" | "mentioned" | "subscribed" | "repos" | "all";
         /** @description Indicates the state of the issues to return. */
@@ -85438,7 +85438,7 @@ export interface operations {
    */
   "orgs/list-members": {
     parameters: {
-      query: {
+      query?: {
         /** @description Filter members returned in the list. `2fa_disabled` means that only members without [two-factor authentication](https://github.com/blog/1614-two-factor-authentication) enabled will be returned. This options is only available for organization owners. */
         filter?: "2fa_disabled" | "all";
         /** @description Filter members returned by their role. */
@@ -85508,7 +85508,7 @@ export interface operations {
    */
   "codespaces/get-codespaces-for-user-in-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -85679,7 +85679,7 @@ export interface operations {
    */
   "migrations/list-for-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         /** @description Exclude attributes from the API response to improve performance */
@@ -85785,7 +85785,7 @@ export interface operations {
    */
   "migrations/get-status-for-org": {
     parameters: {
-      query: {
+      query?: {
         /** @description Exclude attributes from the API response to improve performance */
         exclude?: ("repositories")[];
       };
@@ -85867,7 +85867,7 @@ export interface operations {
    */
   "migrations/list-repos-for-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -85895,7 +85895,7 @@ export interface operations {
    */
   "orgs/list-outside-collaborators": {
     parameters: {
-      query: {
+      query?: {
         /** @description Filter the list of outside collaborators. `2fa_disabled` means that only outside collaborators without [two-factor authentication](https://github.com/blog/1614-two-factor-authentication) enabled will be returned. */
         filter?: "2fa_disabled" | "all";
         per_page?: components["parameters"]["per-page"];
@@ -86072,7 +86072,7 @@ export interface operations {
    */
   "packages/restore-package-for-org": {
     parameters: {
-      query: {
+      query?: {
         /** @description package token */
         token?: string;
       };
@@ -86098,7 +86098,7 @@ export interface operations {
    */
   "packages/get-all-package-versions-for-package-owned-by-org": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
         /** @description The state of the package, either active or deleted. */
@@ -86206,7 +86206,7 @@ export interface operations {
    */
   "projects/list-for-org": {
     parameters: {
-      query: {
+      query?: {
         /** @description Indicates the state of the projects to return. */
         state?: "open" | "closed" | "all";
         per_page?: components["parameters"]["per-page"];
@@ -86269,7 +86269,7 @@ export interface operations {
    */
   "orgs/list-public-members": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -86344,7 +86344,7 @@ export interface operations {
    */
   "repos/list-for-org": {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies the types of repositories you want returned. */
         type?: "all" | "public" | "private" | "forks" | "sources" | "member";
         /** @description The property to sort the results by. */
@@ -86683,7 +86683,7 @@ export interface operations {
    */
   "secret-scanning/list-alerts-for-org": {
     parameters: {
-      query: {
+      query?: {
         state?: components["parameters"]["secret-scanning-alert-state"];
         secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
         resolution?: components["parameters"]["secret-scanning-alert-resolution"];
@@ -86852,7 +86852,7 @@ export interface operations {
    */
   "teams/list": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -87055,7 +87055,7 @@ export interface operations {
    */
   "teams/list-discussions-in-org": {
     parameters: {
-      query: {
+      query?: {
         direction?: components["parameters"]["direction"];
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -87201,7 +87201,7 @@ export interface operations {
    */
   "teams/list-discussion-comments-in-org": {
     parameters: {
-      query: {
+      query?: {
         direction?: components["parameters"]["direction"];
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -87341,7 +87341,7 @@ export interface operations {
    */
   "reactions/list-for-team-discussion-comment-in-org": {
     parameters: {
-      query: {
+      query?: {
         /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         per_page?: components["parameters"]["per-page"];
@@ -87436,7 +87436,7 @@ export interface operations {
    */
   "reactions/list-for-team-discussion-in-org": {
     parameters: {
-      query: {
+      query?: {
         /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         per_page?: components["parameters"]["per-page"];
@@ -87528,7 +87528,7 @@ export interface operations {
    */
   "teams/list-pending-invitations-in-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -87557,7 +87557,7 @@ export interface operations {
    */
   "teams/list-members-in-org": {
     parameters: {
-      query: {
+      query?: {
         /** @description Filters members returned by their role in the team. */
         role?: "member" | "maintainer" | "all";
         per_page?: components["parameters"]["per-page"];
@@ -87692,7 +87692,7 @@ export interface operations {
    */
   "teams/list-projects-in-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -87804,7 +87804,7 @@ export interface operations {
    */
   "teams/list-repos-in-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -87918,7 +87918,7 @@ export interface operations {
    */
   "teams/list-child-in-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -88179,7 +88179,7 @@ export interface operations {
   /** List project cards */
   "projects/list-cards": {
     parameters: {
-      query: {
+      query?: {
         /** @description Filters the project cards that are returned by the card's state. */
         archived_state?: "all" | "archived" | "not_archived";
         per_page?: components["parameters"]["per-page"];
@@ -88416,7 +88416,7 @@ export interface operations {
    */
   "projects/list-collaborators": {
     parameters: {
-      query: {
+      query?: {
         /** @description Filters the collaborators by their affiliation. `outside` means outside collaborators of a project that are not a member of the project's organization. `direct` means collaborators with permissions to a project, regardless of organization membership status. `all` means all collaborators the authenticated user can see. */
         affiliation?: "outside" | "direct" | "all";
         per_page?: components["parameters"]["per-page"];
@@ -88526,7 +88526,7 @@ export interface operations {
   /** List project columns */
   "projects/list-columns": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -88609,7 +88609,7 @@ export interface operations {
    */
   "actions/list-repo-required-workflows": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -88921,7 +88921,7 @@ export interface operations {
    */
   "actions/list-artifacts-for-repo": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         /** @description Filters artifacts by exact match on their name field. */
@@ -89037,7 +89037,7 @@ export interface operations {
    */
   "actions/get-actions-cache-list": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         ref?: components["parameters"]["actions-cache-git-ref-full"];
@@ -89250,7 +89250,7 @@ export interface operations {
    */
   "actions/list-repo-organization-secrets": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -89280,7 +89280,7 @@ export interface operations {
    */
   "actions/list-repo-organization-variables": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["variables-per-page"];
         page?: components["parameters"]["page"];
       };
@@ -89507,7 +89507,7 @@ export interface operations {
    */
   "actions/list-required-workflow-runs": {
     parameters: {
-      query: {
+      query?: {
         actor?: components["parameters"]["actor"];
         branch?: components["parameters"]["workflow-run-branch"];
         event?: components["parameters"]["event"];
@@ -89546,7 +89546,7 @@ export interface operations {
    */
   "actions/list-self-hosted-runners-for-repo": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -89828,7 +89828,7 @@ export interface operations {
    */
   "actions/list-workflow-runs-for-repo": {
     parameters: {
-      query: {
+      query?: {
         actor?: components["parameters"]["actor"];
         branch?: components["parameters"]["workflow-run-branch"];
         event?: components["parameters"]["event"];
@@ -89866,7 +89866,7 @@ export interface operations {
    */
   "actions/get-workflow-run": {
     parameters: {
-      query: {
+      query?: {
         exclude_pull_requests?: components["parameters"]["exclude-pull-requests"];
       };
       path: {
@@ -89955,7 +89955,7 @@ export interface operations {
    */
   "actions/list-workflow-run-artifacts": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -89989,7 +89989,7 @@ export interface operations {
    */
   "actions/get-workflow-run-attempt": {
     parameters: {
-      query: {
+      query?: {
         exclude_pull_requests?: components["parameters"]["exclude-pull-requests"];
       };
       path: {
@@ -90014,7 +90014,7 @@ export interface operations {
    */
   "actions/list-jobs-for-workflow-run-attempt": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -90117,7 +90117,7 @@ export interface operations {
    */
   "actions/list-jobs-for-workflow-run": {
     parameters: {
-      query: {
+      query?: {
         /** @description Filters jobs by their `completed_at` timestamp. `latest` returns jobs from the most recent execution of the workflow run. `all` returns all jobs for a workflow run, including from old executions of the workflow run. */
         filter?: "latest" | "all";
         per_page?: components["parameters"]["per-page"];
@@ -90347,7 +90347,7 @@ export interface operations {
    */
   "actions/list-repo-secrets": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -90543,7 +90543,7 @@ export interface operations {
    */
   "actions/list-repo-variables": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["variables-per-page"];
         page?: components["parameters"]["page"];
       };
@@ -90674,7 +90674,7 @@ export interface operations {
    */
   "actions/list-repo-workflows": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -90798,7 +90798,7 @@ export interface operations {
    */
   "actions/list-workflow-runs": {
     parameters: {
-      query: {
+      query?: {
         actor?: components["parameters"]["actor"];
         branch?: components["parameters"]["workflow-run-branch"];
         event?: components["parameters"]["event"];
@@ -90860,7 +90860,7 @@ export interface operations {
    */
   "issues/list-assignees": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -90917,7 +90917,7 @@ export interface operations {
    */
   "repos/list-autolinks": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
       };
       path: {
@@ -91053,7 +91053,7 @@ export interface operations {
   /** List branches */
   "repos/list-branches": {
     parameters: {
-      query: {
+      query?: {
         /** @description Setting to `true` returns only protected branches. When set to `false`, only unprotected branches are returned. Omitting this parameter returns all branches. */
         protected?: boolean;
         per_page?: components["parameters"]["per-page"];
@@ -92331,7 +92331,7 @@ export interface operations {
    */
   "checks/list-annotations": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -92492,7 +92492,7 @@ export interface operations {
    */
   "checks/list-for-suite": {
     parameters: {
-      query: {
+      query?: {
         check_name?: components["parameters"]["check-name"];
         status?: components["parameters"]["status"];
         /** @description Filters check runs by their `completed_at` timestamp. `latest` returns the most recent check runs. */
@@ -92559,7 +92559,7 @@ export interface operations {
    */
   "code-scanning/list-alerts-for-repo": {
     parameters: {
-      query: {
+      query?: {
         tool_name?: components["parameters"]["tool-name"];
         tool_guid?: components["parameters"]["tool-guid"];
         page?: components["parameters"]["page"];
@@ -92658,7 +92658,7 @@ export interface operations {
    */
   "code-scanning/list-alert-instances": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
         ref?: components["parameters"]["git-ref"];
@@ -92703,7 +92703,7 @@ export interface operations {
    */
   "code-scanning/list-recent-analyses": {
     parameters: {
-      query: {
+      query?: {
         tool_name?: components["parameters"]["tool-name"];
         tool_guid?: components["parameters"]["tool-guid"];
         page?: components["parameters"]["page"];
@@ -92849,7 +92849,7 @@ export interface operations {
    */
   "code-scanning/delete-analysis": {
     parameters: {
-      query: {
+      query?: {
         /** @description Allow deletion if the specified analysis is the last in a set. If you attempt to delete the final analysis in a set without setting this parameter to `true`, you'll get a 400 response with the message: `Analysis is last of its type and deletion may result in the loss of historical alert data. Please specify confirm_delete.` */
         confirm_delete?: string | null;
       };
@@ -93118,7 +93118,7 @@ export interface operations {
    */
   "repos/codeowners-errors": {
     parameters: {
-      query: {
+      query?: {
         /** @description A branch, tag or commit name used to determine which version of the CODEOWNERS file to use. Default: the repository's default branch (e.g. `main`) */
         ref?: string;
       };
@@ -93148,7 +93148,7 @@ export interface operations {
    */
   "codespaces/list-in-repository-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -93250,7 +93250,7 @@ export interface operations {
    */
   "codespaces/list-devcontainers-in-repository-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -93290,7 +93290,7 @@ export interface operations {
    */
   "codespaces/repo-machines-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         /** @description The location to check for available machines. Assigned by IP if not provided. */
         location?: string;
         /** @description IP for location auto-detection when proxying a request */
@@ -93328,7 +93328,7 @@ export interface operations {
    */
   "codespaces/pre-flight-with-repo-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         /** @description The branch or commit to check for a default devcontainer path. If not specified, the default branch will be checked. */
         ref?: string;
         /** @description An alternative IP for default location auto-detection, such as when proxying a request. */
@@ -93363,7 +93363,7 @@ export interface operations {
    */
   "codespaces/list-repo-secrets": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -93566,7 +93566,7 @@ export interface operations {
    */
   "repos/list-collaborators": {
     parameters: {
-      query: {
+      query?: {
         /** @description Filter collaborators returned by their affiliation. `outside` means all outside collaborators of an organization-owned repository. `direct` means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. `all` means all collaborators the authenticated user can see. */
         affiliation?: "outside" | "direct" | "all";
         /** @description Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned. */
@@ -93722,7 +93722,7 @@ export interface operations {
    */
   "repos/list-commit-comments-for-repo": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -93810,7 +93810,7 @@ export interface operations {
    */
   "reactions/list-for-commit-comment": {
     parameters: {
-      query: {
+      query?: {
         /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a commit comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         per_page?: components["parameters"]["per-page"];
@@ -93927,7 +93927,7 @@ export interface operations {
    */
   "repos/list-commits": {
     parameters: {
-      query: {
+      query?: {
         /** @description SHA or branch to start listing commits from. Default: the repository’s default branch (usually `main`). */
         sha?: string;
         /** @description Only commits containing this file path will be returned. */
@@ -93993,7 +93993,7 @@ export interface operations {
    */
   "repos/list-comments-for-commit": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -94064,7 +94064,7 @@ export interface operations {
    */
   "repos/list-pull-requests-associated-with-commit": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -94127,7 +94127,7 @@ export interface operations {
    */
   "repos/get-commit": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -94159,7 +94159,7 @@ export interface operations {
    */
   "checks/list-for-ref": {
     parameters: {
-      query: {
+      query?: {
         check_name?: components["parameters"]["check-name"];
         status?: components["parameters"]["status"];
         /** @description Filters check runs by their `completed_at` timestamp. `latest` returns the most recent check runs. */
@@ -94198,7 +94198,7 @@ export interface operations {
    */
   "checks/list-suites-for-ref": {
     parameters: {
-      query: {
+      query?: {
         /**
          * @description Filters check suites by GitHub App `id`. 
          * @example 1
@@ -94243,7 +94243,7 @@ export interface operations {
    */
   "repos/get-combined-status-for-ref": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -94272,7 +94272,7 @@ export interface operations {
    */
   "repos/list-commit-statuses-for-ref": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -94378,7 +94378,7 @@ export interface operations {
    */
   "repos/compare-commits": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -94443,7 +94443,7 @@ export interface operations {
    */
   "repos/get-content": {
     parameters: {
-      query: {
+      query?: {
         /** @description The name of the commit/branch/tag. Default: the repository’s default branch. */
         ref?: string;
       };
@@ -94600,7 +94600,7 @@ export interface operations {
    */
   "repos/list-contributors": {
     parameters: {
-      query: {
+      query?: {
         /** @description Set to `1` or `true` to include anonymous contributors in results. */
         anon?: string;
         per_page?: components["parameters"]["per-page"];
@@ -94635,7 +94635,7 @@ export interface operations {
    */
   "dependabot/list-alerts-for-repo": {
     parameters: {
-      query: {
+      query?: {
         state?: components["parameters"]["dependabot-alert-comma-separated-states"];
         severity?: components["parameters"]["dependabot-alert-comma-separated-severities"];
         ecosystem?: components["parameters"]["dependabot-alert-comma-separated-ecosystems"];
@@ -94757,7 +94757,7 @@ export interface operations {
    */
   "dependabot/list-repo-secrets": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -94953,7 +94953,7 @@ export interface operations {
    */
   "dependency-graph/diff-range": {
     parameters: {
-      query: {
+      query?: {
         name?: components["parameters"]["manifest-path"];
       };
       path: {
@@ -95042,7 +95042,7 @@ export interface operations {
    */
   "repos/list-deployments": {
     parameters: {
-      query: {
+      query?: {
         /** @description The SHA recorded at creation time. */
         sha?: string;
         /** @description The name of the ref. This can be a branch, tag, or SHA. */
@@ -95237,7 +95237,7 @@ export interface operations {
    */
   "repos/list-deployment-statuses": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -95395,7 +95395,7 @@ export interface operations {
    */
   "repos/get-all-environments": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -95520,7 +95520,7 @@ export interface operations {
    */
   "repos/list-deployment-branch-policies": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -95724,7 +95724,7 @@ export interface operations {
    */
   "repos/list-custom-deployment-rule-integrations": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -95800,7 +95800,7 @@ export interface operations {
    */
   "activity/list-repo-events": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -95821,7 +95821,7 @@ export interface operations {
   /** List forks */
   "repos/list-forks": {
     parameters: {
-      query: {
+      query?: {
         /** @description The sort order. `stargazers` will sort by star count. */
         sort?: "newest" | "oldest" | "stargazers" | "watchers";
         per_page?: components["parameters"]["per-page"];
@@ -96448,7 +96448,7 @@ export interface operations {
    */
   "git/get-tree": {
     parameters: {
-      query: {
+      query?: {
         /** @description Setting this parameter to any value returns the objects or subtrees referenced by the tree specified in `:tree_sha`. For example, setting `recursive` to any of the following will enable returning objects or subtrees: `0`, `1`, `"true"`, and `"false"`. Omit this parameter to prevent recursively returning objects or subtrees. */
         recursive?: string;
       };
@@ -96475,7 +96475,7 @@ export interface operations {
    */
   "repos/list-webhooks": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -96711,7 +96711,7 @@ export interface operations {
    */
   "repos/list-webhook-deliveries": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         cursor?: components["parameters"]["cursor"];
         redelivery?: boolean;
@@ -97004,7 +97004,7 @@ export interface operations {
    */
   "migrations/get-commit-authors": {
     parameters: {
-      query: {
+      query?: {
         since?: components["parameters"]["since-user"];
       };
       path: {
@@ -97223,7 +97223,7 @@ export interface operations {
    */
   "repos/list-invitations": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -97298,7 +97298,7 @@ export interface operations {
    */
   "issues/list-for-repo": {
     parameters: {
-      query: {
+      query?: {
         /** @description If an `integer` is passed, it should refer to a milestone by its `number` field. If the string `*` is passed, issues with any milestone are accepted. If the string `none` is passed, issues without milestones are returned. */
         milestone?: string;
         /** @description Indicates the state of the issues to return. */
@@ -97398,7 +97398,7 @@ export interface operations {
    */
   "issues/list-comments-for-repo": {
     parameters: {
-      query: {
+      query?: {
         sort?: components["parameters"]["sort"];
         /** @description Either `asc` or `desc`. Ignored without the `sort` parameter. */
         direction?: "asc" | "desc";
@@ -97500,7 +97500,7 @@ export interface operations {
    */
   "reactions/list-for-issue-comment": {
     parameters: {
-      query: {
+      query?: {
         /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         per_page?: components["parameters"]["per-page"];
@@ -97587,7 +97587,7 @@ export interface operations {
   /** List issue events for a repository */
   "issues/list-events-for-repo": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -97819,7 +97819,7 @@ export interface operations {
    */
   "issues/list-comments": {
     parameters: {
-      query: {
+      query?: {
         since?: components["parameters"]["since"];
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -97891,7 +97891,7 @@ export interface operations {
   /** List issue events */
   "issues/list-events": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -97917,7 +97917,7 @@ export interface operations {
   /** List labels for an issue */
   "issues/list-labels-on-issue": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -98122,7 +98122,7 @@ export interface operations {
    */
   "reactions/list-for-issue": {
     parameters: {
-      query: {
+      query?: {
         /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         per_page?: components["parameters"]["per-page"];
@@ -98210,7 +98210,7 @@ export interface operations {
   /** List timeline events for an issue */
   "issues/list-events-for-timeline": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -98237,7 +98237,7 @@ export interface operations {
   /** List deploy keys */
   "repos/list-deploy-keys": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -98338,7 +98338,7 @@ export interface operations {
   /** List labels for a repository */
   "issues/list-labels-for-repo": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -98611,7 +98611,7 @@ export interface operations {
   /** List milestones */
   "issues/list-milestones": {
     parameters: {
-      query: {
+      query?: {
         /** @description The state of the milestone. Either `open`, `closed`, or `all`. */
         state?: "open" | "closed" | "all";
         /** @description What to sort results by. Either `due_on` or `completeness`. */
@@ -98759,7 +98759,7 @@ export interface operations {
   /** List labels for issues in a milestone */
   "issues/list-labels-for-milestone": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -98787,7 +98787,7 @@ export interface operations {
    */
   "activity/list-repo-notifications-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         all?: components["parameters"]["all"];
         participating?: components["parameters"]["participating"];
         since?: components["parameters"]["since"];
@@ -98991,7 +98991,7 @@ export interface operations {
    */
   "repos/list-pages-builds": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -99165,7 +99165,7 @@ export interface operations {
    */
   "projects/list-for-repo": {
     parameters: {
-      query: {
+      query?: {
         /** @description Indicates the state of the projects to return. */
         state?: "open" | "closed" | "all";
         per_page?: components["parameters"]["per-page"];
@@ -99234,7 +99234,7 @@ export interface operations {
    */
   "pulls/list": {
     parameters: {
-      query: {
+      query?: {
         /** @description Either `open`, `closed`, or `all` to filter by state. */
         state?: "open" | "closed" | "all";
         /** @description Filter pulls by head user or head organization and branch name in the format of `user:ref-name` or `organization:ref-name`. For example: `github:new-script-format` or `octocat:test-branch`. */
@@ -99333,7 +99333,7 @@ export interface operations {
    */
   "pulls/list-review-comments-for-repo": {
     parameters: {
-      query: {
+      query?: {
         sort?: "created" | "updated" | "created_at";
         /** @description The direction to sort results. Ignored without `sort` parameter. */
         direction?: "asc" | "desc";
@@ -99433,7 +99433,7 @@ export interface operations {
    */
   "reactions/list-for-pull-request-review-comment": {
     parameters: {
-      query: {
+      query?: {
         /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a pull request review comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         per_page?: components["parameters"]["per-page"];
@@ -99670,7 +99670,7 @@ export interface operations {
    */
   "pulls/list-review-comments": {
     parameters: {
-      query: {
+      query?: {
         sort?: components["parameters"]["sort"];
         /** @description The direction to sort results. Ignored without `sort` parameter. */
         direction?: "asc" | "desc";
@@ -99814,7 +99814,7 @@ export interface operations {
    */
   "pulls/list-commits": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -99842,7 +99842,7 @@ export interface operations {
    */
   "pulls/list-files": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -100043,7 +100043,7 @@ export interface operations {
    */
   "pulls/list-reviews": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -100210,7 +100210,7 @@ export interface operations {
    */
   "pulls/list-comments-for-review": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -100351,7 +100351,7 @@ export interface operations {
    */
   "repos/get-readme": {
     parameters: {
-      query: {
+      query?: {
         /** @description The name of the commit/branch/tag. Default: the repository’s default branch. */
         ref?: string;
       };
@@ -100379,7 +100379,7 @@ export interface operations {
    */
   "repos/get-readme-in-directory": {
     parameters: {
-      query: {
+      query?: {
         /** @description The name of the commit/branch/tag. Default: the repository’s default branch. */
         ref?: string;
       };
@@ -100409,7 +100409,7 @@ export interface operations {
    */
   "repos/list-releases": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -100746,7 +100746,7 @@ export interface operations {
   /** List release assets */
   "repos/list-release-assets": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -100824,7 +100824,7 @@ export interface operations {
    */
   "reactions/list-for-release": {
     parameters: {
-      query: {
+      query?: {
         /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a release. */
         content?: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes";
         per_page?: components["parameters"]["per-page"];
@@ -100935,7 +100935,7 @@ export interface operations {
    */
   "repos/get-repo-rulesets": {
     parameters: {
-      query: {
+      query?: {
         /** @description Include rulesets configured at higher levels that apply to this repository */
         includes_parents?: boolean;
       };
@@ -101008,7 +101008,7 @@ export interface operations {
    */
   "repos/get-repo-ruleset": {
     parameters: {
-      query: {
+      query?: {
         /** @description Include rulesets configured at higher levels that apply to this repository */
         includes_parents?: boolean;
       };
@@ -101109,7 +101109,7 @@ export interface operations {
    */
   "secret-scanning/list-alerts-for-repo": {
     parameters: {
-      query: {
+      query?: {
         state?: components["parameters"]["secret-scanning-alert-state"];
         secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
         resolution?: components["parameters"]["secret-scanning-alert-resolution"];
@@ -101217,7 +101217,7 @@ export interface operations {
    */
   "secret-scanning/list-locations-for-alert": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -101252,7 +101252,7 @@ export interface operations {
    */
   "security-advisories/list-repository-advisories": {
     parameters: {
-      query: {
+      query?: {
         direction?: components["parameters"]["direction"];
         /** @description The property to sort the results by. */
         sort?: "created" | "updated" | "published";
@@ -101414,7 +101414,7 @@ export interface operations {
    */
   "activity/list-stargazers-for-repo": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -101617,7 +101617,7 @@ export interface operations {
    */
   "activity/list-watchers-for-repo": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -101707,7 +101707,7 @@ export interface operations {
   /** List repository tags */
   "repos/list-tags": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -101826,7 +101826,7 @@ export interface operations {
   /** List repository teams */
   "repos/list-teams": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -101850,7 +101850,7 @@ export interface operations {
   /** Get all repository topics */
   "repos/get-all-topics": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -101902,7 +101902,7 @@ export interface operations {
    */
   "repos/get-clones": {
     parameters: {
-      query: {
+      query?: {
         per?: components["parameters"]["per"];
       };
       path: {
@@ -101968,7 +101968,7 @@ export interface operations {
    */
   "repos/get-views": {
     parameters: {
-      query: {
+      query?: {
         per?: components["parameters"]["per"];
       };
       path: {
@@ -102154,7 +102154,7 @@ export interface operations {
    */
   "repos/list-public": {
     parameters: {
-      query: {
+      query?: {
         since?: components["parameters"]["since-repo"];
       };
     };
@@ -102179,7 +102179,7 @@ export interface operations {
    */
   "actions/list-environment-secrets": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -102375,7 +102375,7 @@ export interface operations {
    */
   "actions/list-environment-variables": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["variables-per-page"];
         page?: components["parameters"]["page"];
       };
@@ -102918,7 +102918,7 @@ export interface operations {
    */
   "teams/list-discussions-legacy": {
     parameters: {
-      query: {
+      query?: {
         direction?: components["parameters"]["direction"];
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -103062,7 +103062,7 @@ export interface operations {
    */
   "teams/list-discussion-comments-legacy": {
     parameters: {
-      query: {
+      query?: {
         direction?: components["parameters"]["direction"];
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -103202,7 +103202,7 @@ export interface operations {
    */
   "reactions/list-for-team-discussion-comment-legacy": {
     parameters: {
-      query: {
+      query?: {
         /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         per_page?: components["parameters"]["per-page"];
@@ -103270,7 +103270,7 @@ export interface operations {
    */
   "reactions/list-for-team-discussion-legacy": {
     parameters: {
-      query: {
+      query?: {
         /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
         per_page?: components["parameters"]["per-page"];
@@ -103336,7 +103336,7 @@ export interface operations {
    */
   "teams/list-pending-invitations-legacy": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -103365,7 +103365,7 @@ export interface operations {
    */
   "teams/list-members-legacy": {
     parameters: {
-      query: {
+      query?: {
         /** @description Filters members returned by their role in the team. */
         role?: "member" | "maintainer" | "all";
         per_page?: components["parameters"]["per-page"];
@@ -103583,7 +103583,7 @@ export interface operations {
    */
   "teams/list-projects-legacy": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -103698,7 +103698,7 @@ export interface operations {
    */
   "teams/list-repos-legacy": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -103811,7 +103811,7 @@ export interface operations {
    */
   "teams/list-child-legacy": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -103918,7 +103918,7 @@ export interface operations {
    */
   "users/list-blocked-by-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -104000,7 +104000,7 @@ export interface operations {
    */
   "codespaces/list-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         repository_id?: components["parameters"]["repository-id-in-query"];
@@ -104120,7 +104120,7 @@ export interface operations {
    */
   "codespaces/list-secrets-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -104752,7 +104752,7 @@ export interface operations {
    */
   "users/list-emails-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -104832,7 +104832,7 @@ export interface operations {
    */
   "users/list-followers-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -104858,7 +104858,7 @@ export interface operations {
    */
   "users/list-followed-by-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -104945,7 +104945,7 @@ export interface operations {
    */
   "users/list-gpg-keys-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -105050,7 +105050,7 @@ export interface operations {
    */
   "apps/list-installations-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -105085,7 +105085,7 @@ export interface operations {
    */
   "apps/list-installation-repos-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -105211,7 +105211,7 @@ export interface operations {
    */
   "issues/list-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         /** @description Indicates which sorts of issues to return. `assigned` means issues assigned to you. `created` means issues created by you. `mentioned` means issues mentioning you. `subscribed` means issues you're subscribed to updates for. `all` or `repos` means all issues you can see, regardless of participation or creation. */
         filter?: "assigned" | "created" | "mentioned" | "subscribed" | "repos" | "all";
         /** @description Indicates the state of the issues to return. */
@@ -105245,7 +105245,7 @@ export interface operations {
    */
   "users/list-public-ssh-keys-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -105346,7 +105346,7 @@ export interface operations {
    */
   "apps/list-subscriptions-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -105372,7 +105372,7 @@ export interface operations {
    */
   "apps/list-subscriptions-for-authenticated-user-stubbed": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -105394,7 +105394,7 @@ export interface operations {
   /** List organization memberships for the authenticated user */
   "orgs/list-memberships-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         /** @description Indicates the state of the memberships to return. If not specified, the API returns both active and pending memberships. */
         state?: "active" | "pending";
         per_page?: components["parameters"]["per-page"];
@@ -105471,7 +105471,7 @@ export interface operations {
    */
   "migrations/list-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -105572,7 +105572,7 @@ export interface operations {
    */
   "migrations/get-status-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         exclude?: (string)[];
       };
       path: {
@@ -105675,7 +105675,7 @@ export interface operations {
    */
   "migrations/list-repos-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -105706,7 +105706,7 @@ export interface operations {
    */
   "orgs/list-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -105808,7 +105808,7 @@ export interface operations {
    */
   "packages/restore-package-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         /** @description package token */
         token?: string;
       };
@@ -105833,7 +105833,7 @@ export interface operations {
    */
   "packages/get-all-package-versions-for-package-owned-by-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
         per_page?: components["parameters"]["per-page"];
         /** @description The state of the package, either active or deleted. */
@@ -105968,7 +105968,7 @@ export interface operations {
    */
   "users/list-public-emails-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -105997,7 +105997,7 @@ export interface operations {
    */
   "repos/list-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         /** @description Limit results to repositories with the specified visibility. */
         visibility?: "all" | "public" | "private";
         /**
@@ -106206,7 +106206,7 @@ export interface operations {
    */
   "repos/list-invitations-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106265,7 +106265,7 @@ export interface operations {
    */
   "users/list-social-accounts-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106348,7 +106348,7 @@ export interface operations {
    */
   "users/list-ssh-signing-keys-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106451,7 +106451,7 @@ export interface operations {
    */
   "activity/list-repos-starred-by-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         sort?: components["parameters"]["sort-starred"];
         direction?: components["parameters"]["direction"];
         per_page?: components["parameters"]["per-page"];
@@ -106539,7 +106539,7 @@ export interface operations {
    */
   "activity/list-watched-repos-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106565,7 +106565,7 @@ export interface operations {
    */
   "teams/list-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106593,7 +106593,7 @@ export interface operations {
    */
   "users/list": {
     parameters: {
-      query: {
+      query?: {
         since?: components["parameters"]["since-user"];
         per_page?: components["parameters"]["per-page"];
       };
@@ -106666,7 +106666,7 @@ export interface operations {
    */
   "activity/list-events-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106689,7 +106689,7 @@ export interface operations {
    */
   "activity/list-org-events-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106710,7 +106710,7 @@ export interface operations {
   /** List public events for a user */
   "activity/list-public-events-for-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106733,7 +106733,7 @@ export interface operations {
    */
   "users/list-followers-for-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106759,7 +106759,7 @@ export interface operations {
    */
   "users/list-following-for-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106800,7 +106800,7 @@ export interface operations {
    */
   "gists/list-for-user": {
     parameters: {
-      query: {
+      query?: {
         since?: components["parameters"]["since"];
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -106828,7 +106828,7 @@ export interface operations {
    */
   "users/list-gpg-keys-for-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106861,7 +106861,7 @@ export interface operations {
    */
   "users/get-context-for-user": {
     parameters: {
-      query: {
+      query?: {
         /** @description Identifies which additional information you'd like to receive about the person's hovercard. Can be `organization`, `repository`, `issue`, `pull_request`. **Required** when using `subject_id`. */
         subject_type?: "organization" | "repository" | "issue" | "pull_request";
         /** @description Uses the ID for the `subject_type` you specified. **Required** when using `subject_type`. */
@@ -106909,7 +106909,7 @@ export interface operations {
    */
   "users/list-public-keys-for-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -106937,7 +106937,7 @@ export interface operations {
    */
   "orgs/list-for-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -107049,7 +107049,7 @@ export interface operations {
    */
   "packages/restore-package-for-user": {
     parameters: {
-      query: {
+      query?: {
         /** @description package token */
         token?: string;
       };
@@ -107174,7 +107174,7 @@ export interface operations {
   /** List user projects */
   "projects/list-for-user": {
     parameters: {
-      query: {
+      query?: {
         /** @description Indicates the state of the projects to return. */
         state?: "open" | "closed" | "all";
         per_page?: components["parameters"]["per-page"];
@@ -107203,7 +107203,7 @@ export interface operations {
    */
   "activity/list-received-events-for-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -107223,7 +107223,7 @@ export interface operations {
   /** List public events received by a user */
   "activity/list-received-public-events-for-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -107246,7 +107246,7 @@ export interface operations {
    */
   "repos/list-for-user": {
     parameters: {
-      query: {
+      query?: {
         /** @description Limit results to repositories of the specified type. */
         type?: "all" | "owner" | "member";
         /** @description The property to sort the results by. */
@@ -107347,7 +107347,7 @@ export interface operations {
    */
   "users/list-social-accounts-for-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -107373,7 +107373,7 @@ export interface operations {
    */
   "users/list-ssh-signing-keys-for-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -107401,7 +107401,7 @@ export interface operations {
    */
   "activity/list-repos-starred-by-user": {
     parameters: {
-      query: {
+      query?: {
         sort?: components["parameters"]["sort-starred"];
         direction?: components["parameters"]["direction"];
         per_page?: components["parameters"]["per-page"];
@@ -107429,7 +107429,7 @@ export interface operations {
    */
   "activity/list-repos-watched-by-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
