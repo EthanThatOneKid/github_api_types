@@ -840,6 +840,15 @@ export interface paths {
      */
     get: operations["actions/list-runner-applications-for-org"];
   };
+  "/orgs/{org}/actions/runners/generate-jitconfig": {
+    /**
+     * Create configuration for a just-in-time runner for an organization 
+     * @description Generates a configuration that can be passed to the runner application at startup.
+     * 
+     * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+     */
+    post: operations["actions/generate-runner-jitconfig-for-org"];
+  };
   "/orgs/{org}/actions/runners/registration-token": {
     /**
      * Create a registration token for an organization 
@@ -963,7 +972,7 @@ export interface paths {
      * token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to
      * use this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js*
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -988,7 +997,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -1004,7 +1013,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -1017,7 +1026,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -1212,7 +1221,7 @@ export interface paths {
      * [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). You must authenticate using an access
      * token with the `admin:org` scope to use this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -1237,7 +1246,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -1253,7 +1262,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -1266,7 +1275,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -1355,7 +1364,7 @@ export interface paths {
      * token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization
      * permission to use this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -1380,7 +1389,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -1396,7 +1405,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -1409,7 +1418,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -1869,7 +1878,10 @@ export interface paths {
     get: operations["orgs/list-public-members"];
   };
   "/orgs/{org}/public_members/{username}": {
-    /** Check public organization membership for a user */
+    /**
+     * Check public organization membership for a user 
+     * @description Check if the provided user is a public member of the organization.
+     */
     get: operations["orgs/check-public-membership-for-user"];
     /**
      * Set public organization membership for the authenticated user 
@@ -1878,7 +1890,10 @@ export interface paths {
      * Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
      */
     put: operations["orgs/set-public-membership-for-authenticated-user"];
-    /** Remove public organization membership for the authenticated user */
+    /**
+     * Remove public organization membership for the authenticated user 
+     * @description Removes the public membership for the authenticated user from the specified organization, unless public visibility is enforced by default.
+     */
     delete: operations["orgs/remove-public-membership-for-authenticated-user"];
   };
   "/orgs/{org}/repos": {
@@ -2331,9 +2346,15 @@ export interface paths {
     post: operations["orgs/enable-or-disable-security-product-on-all-org-repos"];
   };
   "/projects/columns/cards/{card_id}": {
-    /** Get a project card */
+    /**
+     * Get a project card 
+     * @description Gets information about a project card.
+     */
     get: operations["projects/get-card"];
-    /** Delete a project card */
+    /**
+     * Delete a project card 
+     * @description Deletes a project card
+     */
     delete: operations["projects/delete-card"];
     /** Update an existing project card */
     patch: operations["projects/update-card"];
@@ -2343,15 +2364,24 @@ export interface paths {
     post: operations["projects/move-card"];
   };
   "/projects/columns/{column_id}": {
-    /** Get a project column */
+    /**
+     * Get a project column 
+     * @description Gets information about a project column.
+     */
     get: operations["projects/get-column"];
-    /** Delete a project column */
+    /**
+     * Delete a project column 
+     * @description Deletes a project column.
+     */
     delete: operations["projects/delete-column"];
     /** Update an existing project column */
     patch: operations["projects/update-column"];
   };
   "/projects/columns/{column_id}/cards": {
-    /** List project cards */
+    /**
+     * List project cards 
+     * @description Lists the project cards in a project.
+     */
     get: operations["projects/list-cards"];
     /** Create a project card */
     post: operations["projects/create-card"];
@@ -2404,9 +2434,15 @@ export interface paths {
     get: operations["projects/get-permission-for-user"];
   };
   "/projects/{project_id}/columns": {
-    /** List project columns */
+    /**
+     * List project columns 
+     * @description Lists the project columns in a project.
+     */
     get: operations["projects/list-columns"];
-    /** Create a project column */
+    /**
+     * Create a project column 
+     * @description Creates a new project column.
+     */
     post: operations["projects/create-column"];
   };
   "/rate_limit": {
@@ -2684,6 +2720,15 @@ export interface paths {
      * You must authenticate using an access token with the `repo` scope to use this endpoint.
      */
     get: operations["actions/list-runner-applications-for-repo"];
+  };
+  "/repos/{owner}/{repo}/actions/runners/generate-jitconfig": {
+    /**
+     * Create configuration for a just-in-time runner for a repository 
+     * @description Generates a configuration that can be passed to the runner application at startup.
+     * 
+     * You must authenticate using an access token with the `repo` scope to use this endpoint.
+     */
+    post: operations["actions/generate-runner-jitconfig-for-repo"];
   };
   "/repos/{owner}/{repo}/actions/runners/registration-token": {
     /**
@@ -2965,7 +3010,7 @@ export interface paths {
      * token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use
      * this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -2990,7 +3035,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -3006,7 +3051,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -3019,7 +3064,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -4419,7 +4464,7 @@ export interface paths {
      * token with the `repo` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` repository
      * permission to use this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -4444,7 +4489,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -4460,7 +4505,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -4473,7 +4518,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -5291,11 +5336,17 @@ export interface paths {
     delete: operations["reactions/delete-for-issue-comment"];
   };
   "/repos/{owner}/{repo}/issues/events": {
-    /** List issue events for a repository */
+    /**
+     * List issue events for a repository 
+     * @description Lists events for a repository.
+     */
     get: operations["issues/list-events-for-repo"];
   };
   "/repos/{owner}/{repo}/issues/events/{event_id}": {
-    /** Get an issue event */
+    /**
+     * Get an issue event 
+     * @description Gets a single event by the event id.
+     */
     get: operations["issues/get-event"];
   };
   "/repos/{owner}/{repo}/issues/{issue_number}": {
@@ -5365,20 +5416,32 @@ export interface paths {
     post: operations["issues/create-comment"];
   };
   "/repos/{owner}/{repo}/issues/{issue_number}/events": {
-    /** List issue events */
+    /**
+     * List issue events 
+     * @description Lists all events for an issue.
+     */
     get: operations["issues/list-events"];
   };
   "/repos/{owner}/{repo}/issues/{issue_number}/labels": {
-    /** List labels for an issue */
+    /**
+     * List labels for an issue 
+     * @description Lists all labels for an issue.
+     */
     get: operations["issues/list-labels-on-issue"];
     /**
      * Set labels for an issue 
      * @description Removes any previous labels and sets the new labels for an issue.
      */
     put: operations["issues/set-labels"];
-    /** Add labels to an issue */
+    /**
+     * Add labels to an issue 
+     * @description Adds labels to an issue. If you provide an empty array of labels, all labels are removed from the issue.
+     */
     post: operations["issues/add-labels"];
-    /** Remove all labels from an issue */
+    /**
+     * Remove all labels from an issue 
+     * @description Removes all labels from an issue.
+     */
     delete: operations["issues/remove-all-labels"];
   };
   "/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}": {
@@ -5424,7 +5487,10 @@ export interface paths {
     delete: operations["reactions/delete-for-issue"];
   };
   "/repos/{owner}/{repo}/issues/{issue_number}/timeline": {
-    /** List timeline events for an issue */
+    /**
+     * List timeline events for an issue 
+     * @description List all timeline events for an issue.
+     */
     get: operations["issues/list-events-for-timeline"];
   };
   "/repos/{owner}/{repo}/keys": {
@@ -5446,17 +5512,32 @@ export interface paths {
     delete: operations["repos/delete-deploy-key"];
   };
   "/repos/{owner}/{repo}/labels": {
-    /** List labels for a repository */
+    /**
+     * List labels for a repository 
+     * @description Lists all labels for a repository.
+     */
     get: operations["issues/list-labels-for-repo"];
-    /** Create a label */
+    /**
+     * Create a label 
+     * @description Creates a label for the specified repository with the given name and color. The name and color parameters are required. The color must be a valid [hexadecimal color code](http://www.color-hex.com/).
+     */
     post: operations["issues/create-label"];
   };
   "/repos/{owner}/{repo}/labels/{name}": {
-    /** Get a label */
+    /**
+     * Get a label 
+     * @description Gets a label using the given name.
+     */
     get: operations["issues/get-label"];
-    /** Delete a label */
+    /**
+     * Delete a label 
+     * @description Deletes a label using the given label name.
+     */
     delete: operations["issues/delete-label"];
-    /** Update a label */
+    /**
+     * Update a label 
+     * @description Updates a label using the given label name.
+     */
     patch: operations["issues/update-label"];
   };
   "/repos/{owner}/{repo}/languages": {
@@ -5499,21 +5580,36 @@ export interface paths {
     post: operations["repos/merge"];
   };
   "/repos/{owner}/{repo}/milestones": {
-    /** List milestones */
+    /**
+     * List milestones 
+     * @description Lists milestones for a repository.
+     */
     get: operations["issues/list-milestones"];
-    /** Create a milestone */
+    /**
+     * Create a milestone 
+     * @description Creates a milestone.
+     */
     post: operations["issues/create-milestone"];
   };
   "/repos/{owner}/{repo}/milestones/{milestone_number}": {
-    /** Get a milestone */
+    /**
+     * Get a milestone 
+     * @description Gets a milestone using the given milestone number.
+     */
     get: operations["issues/get-milestone"];
-    /** Delete a milestone */
+    /**
+     * Delete a milestone 
+     * @description Deletes a milestone using the given milestone number.
+     */
     delete: operations["issues/delete-milestone"];
     /** Update a milestone */
     patch: operations["issues/update-milestone"];
   };
   "/repos/{owner}/{repo}/milestones/{milestone_number}/labels": {
-    /** List labels for issues in a milestone */
+    /**
+     * List labels for issues in a milestone 
+     * @description Lists labels for issues in a milestone.
+     */
     get: operations["issues/list-labels-for-milestone"];
   };
   "/repos/{owner}/{repo}/notifications": {
@@ -6251,7 +6347,18 @@ export interface paths {
     get: operations["repos/download-tarball-archive"];
   };
   "/repos/{owner}/{repo}/teams": {
-    /** List repository teams */
+    /**
+     * List repository teams 
+     * @description Lists the teams that have access to the specified repository and that are also visible to the authenticated user.
+     * 
+     * For a public repository, a team is listed only if that team added the public repository explicitly.
+     * 
+     * Personal access tokens require the following scopes:
+     * * `public_repo` to call this endpoint on a public repository
+     * * `repo` to call this endpoint on a private repository (this scope also includes public repositories)
+     * 
+     * This endpoint is not compatible with fine-grained personal access tokens.
+     */
     get: operations["repos/list-teams"];
   };
   "/repos/{owner}/{repo}/topics": {
@@ -6377,7 +6484,7 @@ export interface paths {
      * token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use
      * this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -6402,7 +6509,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -6418,7 +6525,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -6431,7 +6538,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -7047,7 +7154,7 @@ export interface paths {
      * 
      * GitHub Apps must have write access to the `codespaces_user_secrets` user permission and `codespaces_secrets` repository permission on all referenced repositories to use this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -7072,7 +7179,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -7088,7 +7195,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -7101,7 +7208,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -7391,7 +7498,7 @@ export interface paths {
     put: operations["apps/add-repo-to-installation-for-authenticated-user"];
     /**
      * Remove a repository from an app installation 
-     * @description Remove a single repository from an installation. The authenticated user must have admin access to the repository.
+     * @description Remove a single repository from an installation. The authenticated user must have admin access to the repository. The installation must have the `repository_selection` of `selected`.
      * 
      * You must use a personal access token (which you can create via the [command line](https://docs.github.com/github/authenticating-to-github/creating-a-personal-access-token) or [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication)) to access this endpoint.
      */
@@ -7465,13 +7572,22 @@ export interface paths {
     get: operations["apps/list-subscriptions-for-authenticated-user-stubbed"];
   };
   "/user/memberships/orgs": {
-    /** List organization memberships for the authenticated user */
+    /**
+     * List organization memberships for the authenticated user 
+     * @description Lists all of the authenticated user's organization memberships.
+     */
     get: operations["orgs/list-memberships-for-authenticated-user"];
   };
   "/user/memberships/orgs/{org}": {
-    /** Get an organization membership for the authenticated user */
+    /**
+     * Get an organization membership for the authenticated user 
+     * @description If the authenticated user is an active or pending member of the organization, this endpoint will return the user's membership. If the authenticated user is not affiliated with the organization, a `404` is returned. This endpoint will return a `403` if the request is made by a GitHub App that is blocked by the organization.
+     */
     get: operations["orgs/get-membership-for-authenticated-user"];
-    /** Update an organization membership for the authenticated user */
+    /**
+     * Update an organization membership for the authenticated user 
+     * @description Converts the authenticated user to an active member of the organization, if that user has a pending invitation from the organization.
+     */
     patch: operations["orgs/update-membership-for-authenticated-user"];
   };
   "/user/migrations": {
@@ -7962,7 +8078,10 @@ export interface paths {
     post: operations["packages/restore-package-version-for-user"];
   };
   "/users/{username}/projects": {
-    /** List user projects */
+    /**
+     * List user projects 
+     * @description Lists projects for a user.
+     */
     get: operations["projects/list-for-user"];
   };
   "/users/{username}/received_events": {
@@ -10985,6 +11104,12 @@ export interface components {
        * ]
        */
       dependabot?: (string)[];
+      domains?: {
+        website?: (string)[];
+        codespaces?: (string)[];
+        copilot?: (string)[];
+        packages?: (string)[];
+      };
     };
     "security-and-analysis": ({
       advanced_security?: {
@@ -12976,7 +13101,7 @@ export interface components {
     "org-ruleset-conditions": components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-name-target"];
     /**
      * creation 
-     * @description Parameters to be used for the creation rule
+     * @description Only allow users with bypass permission to create matching refs.
      */
     "repository-rule-creation": {
       /** @enum {string} */
@@ -12984,7 +13109,7 @@ export interface components {
     };
     /**
      * update 
-     * @description Parameters to be used for the update rule
+     * @description Only allow users with bypass permission to update matching refs.
      */
     "repository-rule-update": {
       /** @enum {string} */
@@ -12996,7 +13121,7 @@ export interface components {
     };
     /**
      * deletion 
-     * @description Parameters to be used for the deletion rule
+     * @description Only allow users with bypass permissions to delete matching refs.
      */
     "repository-rule-deletion": {
       /** @enum {string} */
@@ -13004,7 +13129,7 @@ export interface components {
     };
     /**
      * required_linear_history 
-     * @description Parameters to be used for the required_linear_history rule
+     * @description Prevent merge commits from being pushed to matching branches.
      */
     "repository-rule-required-linear-history": {
       /** @enum {string} */
@@ -13012,7 +13137,7 @@ export interface components {
     };
     /**
      * required_deployments 
-     * @description Parameters to be used for the required_deployments rule
+     * @description Choose which environments must be successfully deployed to before branches can be merged into a branch that matches this rule.
      */
     "repository-rule-required-deployments": {
       /** @enum {string} */
@@ -13024,7 +13149,7 @@ export interface components {
     };
     /**
      * required_signatures 
-     * @description Parameters to be used for the required_signatures rule
+     * @description Commits pushed to matching branches must have verified signatures.
      */
     "repository-rule-required-signatures": {
       /** @enum {string} */
@@ -13032,7 +13157,7 @@ export interface components {
     };
     /**
      * pull_request 
-     * @description Parameters to be used for the pull_request rule
+     * @description Require all commits be made to a non-target branch and submitted via a pull request before they can be merged.
      */
     "repository-rule-pull-request": {
       /** @enum {string} */
@@ -13062,7 +13187,7 @@ export interface components {
     };
     /**
      * required_status_checks 
-     * @description Parameters to be used for the required_status_checks rule
+     * @description Choose which status checks must pass before branches can be merged into a branch that matches this rule. When enabled, commits must first be pushed to another branch, then merged or pushed directly to a branch that matches this rule after status checks have passed.
      */
     "repository-rule-required-status-checks": {
       /** @enum {string} */
@@ -13076,7 +13201,7 @@ export interface components {
     };
     /**
      * non_fast_forward 
-     * @description Parameters to be used for the non_fast_forward rule
+     * @description Prevent users with push access from force pushing to branches.
      */
     "repository-rule-non-fast-forward": {
       /** @enum {string} */
@@ -13230,6 +13355,10 @@ export interface components {
       };
       conditions?: components["schemas"]["repository-ruleset-conditions"] | components["schemas"]["org-ruleset-conditions"];
       rules?: (components["schemas"]["repository-rule"])[];
+      /** Format: date-time */
+      created_at?: string;
+      /** Format: date-time */
+      updated_at?: string;
     };
     /**
      * Team Simple 
@@ -79809,6 +79938,16 @@ export interface components {
       };
     };
     /** @description Response */
+    actions_runner_jitconfig: {
+      content: {
+        "application/json": {
+          runner: components["schemas"]["runner"];
+          /** @description The base64 encoded runner configuration. */
+          encoded_jit_config: string;
+        };
+      };
+    };
+    /** @description Response */
     actions_runner_labels: {
       content: {
         "application/json": {
@@ -83178,6 +83317,41 @@ export interface operations {
     };
   };
   /**
+   * Create configuration for a just-in-time runner for an organization 
+   * @description Generates a configuration that can be passed to the runner application at startup.
+   * 
+   * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+   */
+  "actions/generate-runner-jitconfig-for-org": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The name of the new runner. */
+          name: string;
+          /** @description The ID of the runner group to register the runner to. */
+          runner_group_id: number;
+          /** @description The names of the custom labels to add to the runner. **Minimum items**: 1. **Maximum items**: 100. */
+          labels: (string)[];
+          /**
+           * @description The working directory to be used for job execution, relative to the runner install directory. 
+           * @default _work
+           */
+          work_folder?: string;
+        };
+      };
+    };
+    responses: {
+      201: components["responses"]["actions_runner_jitconfig"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed_simple"];
+    };
+  };
+  /**
    * Create a registration token for an organization 
    * @description Returns a token that you can pass to the `config` script. The token expires after one hour.
    * 
@@ -83467,7 +83641,7 @@ export interface operations {
    * token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to
    * use this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js*
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -83492,7 +83666,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -83508,7 +83682,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -83521,7 +83695,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -84233,7 +84407,7 @@ export interface operations {
    * [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). You must authenticate using an access
    * token with the `admin:org` scope to use this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -84258,7 +84432,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -84274,7 +84448,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -84287,7 +84461,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -84575,7 +84749,7 @@ export interface operations {
    * token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization
    * permission to use this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -84600,7 +84774,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -84616,7 +84790,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -84629,7 +84803,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -86289,7 +86463,10 @@ export interface operations {
       };
     };
   };
-  /** Check public organization membership for a user */
+  /**
+   * Check public organization membership for a user 
+   * @description Check if the provided user is a public member of the organization.
+   */
   "orgs/check-public-membership-for-user": {
     parameters: {
       path: {
@@ -86323,7 +86500,10 @@ export interface operations {
       403: components["responses"]["forbidden"];
     };
   };
-  /** Remove public organization membership for the authenticated user */
+  /**
+   * Remove public organization membership for the authenticated user 
+   * @description Removes the public membership for the authenticated user from the specified organization, unless public visibility is enforced by default.
+   */
   "orgs/remove-public-membership-for-authenticated-user": {
     parameters: {
       path: {
@@ -86532,6 +86712,10 @@ export interface operations {
    */
   "repos/get-org-rulesets": {
     parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
       path: {
         org: components["parameters"]["org"];
       };
@@ -87965,7 +88149,10 @@ export interface operations {
       422: never;
     };
   };
-  /** Get a project card */
+  /**
+   * Get a project card 
+   * @description Gets information about a project card.
+   */
   "projects/get-card": {
     parameters: {
       path: {
@@ -87985,7 +88172,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Delete a project card */
+  /**
+   * Delete a project card 
+   * @description Deletes a project card
+   */
   "projects/delete-card": {
     parameters: {
       path: {
@@ -88111,7 +88301,10 @@ export interface operations {
       };
     };
   };
-  /** Get a project column */
+  /**
+   * Get a project column 
+   * @description Gets information about a project column.
+   */
   "projects/get-column": {
     parameters: {
       path: {
@@ -88131,7 +88324,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Delete a project column */
+  /**
+   * Delete a project column 
+   * @description Deletes a project column.
+   */
   "projects/delete-column": {
     parameters: {
       path: {
@@ -88176,7 +88372,10 @@ export interface operations {
       403: components["responses"]["forbidden"];
     };
   };
-  /** List project cards */
+  /**
+   * List project cards 
+   * @description Lists the project cards in a project.
+   */
   "projects/list-cards": {
     parameters: {
       query?: {
@@ -88523,7 +88722,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** List project columns */
+  /**
+   * List project columns 
+   * @description Lists the project columns in a project.
+   */
   "projects/list-columns": {
     parameters: {
       query?: {
@@ -88549,7 +88751,10 @@ export interface operations {
       403: components["responses"]["forbidden"];
     };
   };
-  /** Create a project column */
+  /**
+   * Create a project column 
+   * @description Creates a new project column.
+   */
   "projects/create-column": {
     parameters: {
       path: {
@@ -89593,6 +89798,42 @@ export interface operations {
     };
   };
   /**
+   * Create configuration for a just-in-time runner for a repository 
+   * @description Generates a configuration that can be passed to the runner application at startup.
+   * 
+   * You must authenticate using an access token with the `repo` scope to use this endpoint.
+   */
+  "actions/generate-runner-jitconfig-for-repo": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The name of the new runner. */
+          name: string;
+          /** @description The ID of the runner group to register the runner to. */
+          runner_group_id: number;
+          /** @description The names of the custom labels to add to the runner. **Minimum items**: 1. **Maximum items**: 100. */
+          labels: (string)[];
+          /**
+           * @description The working directory to be used for job execution, relative to the runner install directory. 
+           * @default _work
+           */
+          work_folder?: string;
+        };
+      };
+    };
+    responses: {
+      201: components["responses"]["actions_runner_jitconfig"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed_simple"];
+    };
+  };
+  /**
    * Create a registration token for a repository 
    * @description Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate
    * using an access token with the `repo` scope to use this endpoint.
@@ -90419,7 +90660,7 @@ export interface operations {
    * token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use
    * this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -90444,7 +90685,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -90460,7 +90701,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -90473,7 +90714,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -94829,7 +95070,7 @@ export interface operations {
    * token with the `repo` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` repository
    * permission to use this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -94854,7 +95095,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -94870,7 +95111,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -94883,7 +95124,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -97383,6 +97624,7 @@ export interface operations {
           "application/json": components["schemas"]["issue"];
         };
       };
+      400: components["responses"]["bad_request"];
       403: components["responses"]["forbidden"];
       404: components["responses"]["not_found"];
       410: components["responses"]["gone"];
@@ -97584,7 +97826,10 @@ export interface operations {
       204: never;
     };
   };
-  /** List issue events for a repository */
+  /**
+   * List issue events for a repository 
+   * @description Lists events for a repository.
+   */
   "issues/list-events-for-repo": {
     parameters: {
       query?: {
@@ -97609,7 +97854,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Get an issue event */
+  /**
+   * Get an issue event 
+   * @description Gets a single event by the event id.
+   */
   "issues/get-event": {
     parameters: {
       path: {
@@ -97888,7 +98136,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** List issue events */
+  /**
+   * List issue events 
+   * @description Lists all events for an issue.
+   */
   "issues/list-events": {
     parameters: {
       query?: {
@@ -97914,7 +98165,10 @@ export interface operations {
       410: components["responses"]["gone"];
     };
   };
-  /** List labels for an issue */
+  /**
+   * List labels for an issue 
+   * @description Lists all labels for an issue.
+   */
   "issues/list-labels-on-issue": {
     parameters: {
       query?: {
@@ -97981,7 +98235,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Add labels to an issue */
+  /**
+   * Add labels to an issue 
+   * @description Adds labels to an issue. If you provide an empty array of labels, all labels are removed from the issue.
+   */
   "issues/add-labels": {
     parameters: {
       path: {
@@ -98017,7 +98274,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Remove all labels from an issue */
+  /**
+   * Remove all labels from an issue 
+   * @description Removes all labels from an issue.
+   */
   "issues/remove-all-labels": {
     parameters: {
       path: {
@@ -98207,7 +98467,10 @@ export interface operations {
       204: never;
     };
   };
-  /** List timeline events for an issue */
+  /**
+   * List timeline events for an issue 
+   * @description List all timeline events for an issue.
+   */
   "issues/list-events-for-timeline": {
     parameters: {
       query?: {
@@ -98335,7 +98598,10 @@ export interface operations {
       204: never;
     };
   };
-  /** List labels for a repository */
+  /**
+   * List labels for a repository 
+   * @description Lists all labels for a repository.
+   */
   "issues/list-labels-for-repo": {
     parameters: {
       query?: {
@@ -98360,7 +98626,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Create a label */
+  /**
+   * Create a label 
+   * @description Creates a label for the specified repository with the given name and color. The name and color parameters are required. The color must be a valid [hexadecimal color code](http://www.color-hex.com/).
+   */
   "issues/create-label": {
     parameters: {
       path: {
@@ -98395,7 +98664,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Get a label */
+  /**
+   * Get a label 
+   * @description Gets a label using the given name.
+   */
   "issues/get-label": {
     parameters: {
       path: {
@@ -98414,7 +98686,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Delete a label */
+  /**
+   * Delete a label 
+   * @description Deletes a label using the given label name.
+   */
   "issues/delete-label": {
     parameters: {
       path: {
@@ -98428,7 +98703,10 @@ export interface operations {
       204: never;
     };
   };
-  /** Update a label */
+  /**
+   * Update a label 
+   * @description Updates a label using the given label name.
+   */
   "issues/update-label": {
     parameters: {
       path: {
@@ -98608,7 +98886,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** List milestones */
+  /**
+   * List milestones 
+   * @description Lists milestones for a repository.
+   */
   "issues/list-milestones": {
     parameters: {
       query?: {
@@ -98639,7 +98920,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Create a milestone */
+  /**
+   * Create a milestone 
+   * @description Creates a milestone.
+   */
   "issues/create-milestone": {
     parameters: {
       path: {
@@ -98683,7 +98967,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Get a milestone */
+  /**
+   * Get a milestone 
+   * @description Gets a milestone using the given milestone number.
+   */
   "issues/get-milestone": {
     parameters: {
       path: {
@@ -98702,7 +98989,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Delete a milestone */
+  /**
+   * Delete a milestone 
+   * @description Deletes a milestone using the given milestone number.
+   */
   "issues/delete-milestone": {
     parameters: {
       path: {
@@ -98756,7 +99046,10 @@ export interface operations {
       };
     };
   };
-  /** List labels for issues in a milestone */
+  /**
+   * List labels for issues in a milestone 
+   * @description Lists labels for issues in a milestone.
+   */
   "issues/list-labels-for-milestone": {
     parameters: {
       query?: {
@@ -100914,6 +101207,10 @@ export interface operations {
    */
   "repos/get-branch-rules": {
     parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
@@ -100936,6 +101233,8 @@ export interface operations {
   "repos/get-repo-rulesets": {
     parameters: {
       query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
         /** @description Include rulesets configured at higher levels that apply to this repository */
         includes_parents?: boolean;
       };
@@ -101823,7 +102122,18 @@ export interface operations {
       302: never;
     };
   };
-  /** List repository teams */
+  /**
+   * List repository teams 
+   * @description Lists the teams that have access to the specified repository and that are also visible to the authenticated user.
+   * 
+   * For a public repository, a team is listed only if that team added the public repository explicitly.
+   * 
+   * Personal access tokens require the following scopes:
+   * * `public_repo` to call this endpoint on a public repository
+   * * `repo` to call this endpoint on a private repository (this scope also includes public repositories)
+   * 
+   * This endpoint is not compatible with fine-grained personal access tokens.
+   */
   "repos/list-teams": {
     parameters: {
       query?: {
@@ -101845,6 +102155,7 @@ export interface operations {
           "application/json": (components["schemas"]["team"])[];
         };
       };
+      404: components["responses"]["not_found"];
     };
   };
   /** Get all repository topics */
@@ -102251,7 +102562,7 @@ export interface operations {
    * token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use
    * this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -102276,7 +102587,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -102292,7 +102603,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -102305,7 +102616,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -104190,7 +104501,7 @@ export interface operations {
    * 
    * GitHub Apps must have write access to the `codespaces_user_secrets` user permission and `codespaces_secrets` repository permission on all referenced repositories to use this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -104215,7 +104526,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -104231,7 +104542,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -104244,7 +104555,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -105135,7 +105446,7 @@ export interface operations {
   };
   /**
    * Remove a repository from an app installation 
-   * @description Remove a single repository from an installation. The authenticated user must have admin access to the repository.
+   * @description Remove a single repository from an installation. The authenticated user must have admin access to the repository. The installation must have the `repository_selection` of `selected`.
    * 
    * You must use a personal access token (which you can create via the [command line](https://docs.github.com/github/authenticating-to-github/creating-a-personal-access-token) or [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication)) to access this endpoint.
    */
@@ -105152,6 +105463,8 @@ export interface operations {
       304: components["responses"]["not_modified"];
       403: components["responses"]["forbidden"];
       404: components["responses"]["not_found"];
+      /** @description Returned when the application is installed on `all` repositories in the organization, or if this request would remove the last repository that the application has access to in the organization. */
+      422: never;
     };
   };
   /**
@@ -105391,7 +105704,10 @@ export interface operations {
       401: components["responses"]["requires_authentication"];
     };
   };
-  /** List organization memberships for the authenticated user */
+  /**
+   * List organization memberships for the authenticated user 
+   * @description Lists all of the authenticated user's organization memberships.
+   */
   "orgs/list-memberships-for-authenticated-user": {
     parameters: {
       query?: {
@@ -105417,7 +105733,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Get an organization membership for the authenticated user */
+  /**
+   * Get an organization membership for the authenticated user 
+   * @description If the authenticated user is an active or pending member of the organization, this endpoint will return the user's membership. If the authenticated user is not affiliated with the organization, a `404` is returned. This endpoint will return a `403` if the request is made by a GitHub App that is blocked by the organization.
+   */
   "orgs/get-membership-for-authenticated-user": {
     parameters: {
       path: {
@@ -105435,7 +105754,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Update an organization membership for the authenticated user */
+  /**
+   * Update an organization membership for the authenticated user 
+   * @description Converts the authenticated user to an active member of the organization, if that user has a pending invitation from the organization.
+   */
   "orgs/update-membership-for-authenticated-user": {
     parameters: {
       path: {
@@ -107171,7 +107493,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** List user projects */
+  /**
+   * List user projects 
+   * @description Lists projects for a user.
+   */
   "projects/list-for-user": {
     parameters: {
       query?: {
