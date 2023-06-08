@@ -611,7 +611,7 @@ export interface paths {
      * Update an organization 
      * @description **Parameter Deprecation Notice:** GitHub will replace and discontinue `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes).
      * 
-     * Enables an authenticated organization owner with the `admin:org` scope to update the organization's profile and member privileges.
+     * Enables an authenticated organization owner with the `admin:org` scope or the `repo` scope to update the organization's profile and member privileges.
      */
     patch: operations["orgs/update"];
   };
@@ -13350,6 +13350,10 @@ export interface components {
       _links?: {
         self?: {
           /** @description The URL of the ruleset */
+          href?: string;
+        };
+        html?: {
+          /** @description The html URL of the ruleset */
           href?: string;
         };
       };
@@ -82519,7 +82523,7 @@ export interface operations {
    * Update an organization 
    * @description **Parameter Deprecation Notice:** GitHub will replace and discontinue `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes).
    * 
-   * Enables an authenticated organization owner with the `admin:org` scope to update the organization's profile and member privileges.
+   * Enables an authenticated organization owner with the `admin:org` scope or the `repo` scope to update the organization's profile and member privileges.
    */
   "orgs/update": {
     parameters: {
