@@ -439,6 +439,8 @@ export interface paths {
      * Get GitHub meta information 
      * @description Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)."
      * 
+     * The API's response also includes a list of GitHub's domain names.
+     * 
      * The values shown in the documentation's response are example values. You must always query the API directly to get the latest values.
      * 
      * **Note:** This endpoint returns both IPv4 and IPv6 addresses. However, not all features support IPv6. You should refer to the specific documentation for each feature to determine if IPv6 is supported.
@@ -4075,7 +4077,30 @@ export interface paths {
      * You are limited to sending 50 invitations to a repository per 24 hour period. Note there is no limit if you are inviting organization members to an organization repository.
      */
     put: operations["repos/add-collaborator"];
-    /** Remove a repository collaborator */
+    /**
+     * Remove a repository collaborator 
+     * @description Removes a collaborator from a repository.
+     * 
+     * To use this endpoint, the authenticated user must either be an administrator of the repository or target themselves for removal.
+     * 
+     * This endpoint also:
+     * - Cancels any outstanding invitations
+     * - Unasigns the user from any issues
+     * - Removes access to organization projects if the user is not an organization member and is not a collaborator on any other organization repositories.
+     * - Unstars the repository
+     * - Updates access permissions to packages
+     * 
+     * Removing a user as a collaborator has the following effects on forks:
+     *  - If the user had access to a fork through their membership to this repository, the user will also be removed from the fork.
+     *  - If the user had their own fork of the repository, the fork will be deleted.
+     *  - If the user still has read access to the repository, open pull requests by this user from a fork will be denied.
+     * 
+     * **Note**: A user can still have access to the repository through organization permissions like base repository permissions.
+     * 
+     * Although the API responds immediately, the additional permission updates might take some extra time to complete in the background.
+     * 
+     * For more information on fork permissions, see "[About permissions and visibility of forks](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/about-permissions-and-visibility-of-forks)".
+     */
     delete: operations["repos/remove-collaborator"];
   };
   "/repos/{owner}/{repo}/collaborators/{username}/permission": {
@@ -4434,6 +4459,8 @@ export interface paths {
      * @description You must use an access token with the `security_events` scope to use this endpoint with private repositories.
      * You can also use tokens with the `public_repo` scope for public repositories only.
      * GitHub Apps must have **Dependabot alerts** write permission to use this endpoint.
+     * 
+     * To use this endpoint, you must have access to security alerts for the repository. For more information, see "[Granting access to security alerts](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-security-and-analysis-settings-for-your-repository#granting-access-to-security-alerts)."
      */
     patch: operations["dependabot/update-alert"];
   };
@@ -16915,7 +16942,7 @@ export interface components {
        */
       state?: "configured" | "not-configured";
       /** @description Languages to be analysed. */
-      languages?: ("c" | "cpp" | "csharp" | "go" | "java" | "javascript" | "kotlin" | "python" | "ruby" | "typescript")[];
+      languages?: ("c-cpp" | "csharp" | "go" | "java-kotlin" | "javascript-typescript" | "javascript" | "python" | "ruby" | "typescript")[];
       /**
        * @description CodeQL query suite to be used. 
        * @enum {string}
@@ -80099,7 +80126,7 @@ export interface components {
     sort?: "created" | "updated";
     /** @description The account owner of the repository. The name is not case sensitive. */
     owner: string;
-    /** @description The name of the repository. The name is not case sensitive. */
+    /** @description The name of the repository without the `.git` extension. The name is not case sensitive. */
     repo: string;
     /** @description If `true`, show notifications marked as read. */
     all?: boolean;
@@ -81916,6 +81943,8 @@ export interface operations {
   /**
    * Get GitHub meta information 
    * @description Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)."
+   * 
+   * The API's response also includes a list of GitHub's domain names.
    * 
    * The values shown in the documentation's response are example values. You must always query the API directly to get the latest values.
    * 
@@ -93923,7 +93952,30 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Remove a repository collaborator */
+  /**
+   * Remove a repository collaborator 
+   * @description Removes a collaborator from a repository.
+   * 
+   * To use this endpoint, the authenticated user must either be an administrator of the repository or target themselves for removal.
+   * 
+   * This endpoint also:
+   * - Cancels any outstanding invitations
+   * - Unasigns the user from any issues
+   * - Removes access to organization projects if the user is not an organization member and is not a collaborator on any other organization repositories.
+   * - Unstars the repository
+   * - Updates access permissions to packages
+   * 
+   * Removing a user as a collaborator has the following effects on forks:
+   *  - If the user had access to a fork through their membership to this repository, the user will also be removed from the fork.
+   *  - If the user had their own fork of the repository, the fork will be deleted.
+   *  - If the user still has read access to the repository, open pull requests by this user from a fork will be denied.
+   * 
+   * **Note**: A user can still have access to the repository through organization permissions like base repository permissions.
+   * 
+   * Although the API responds immediately, the additional permission updates might take some extra time to complete in the background.
+   * 
+   * For more information on fork permissions, see "[About permissions and visibility of forks](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/about-permissions-and-visibility-of-forks)".
+   */
   "repos/remove-collaborator": {
     parameters: {
       path: {
@@ -93933,8 +93985,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Response */
+      /** @description No Content when collaborator was removed from the repository. */
       204: never;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
@@ -94954,6 +95008,8 @@ export interface operations {
    * @description You must use an access token with the `security_events` scope to use this endpoint with private repositories.
    * You can also use tokens with the `public_repo` scope for public repositories only.
    * GitHub Apps must have **Dependabot alerts** write permission to use this endpoint.
+   * 
+   * To use this endpoint, you must have access to security alerts for the repository. For more information, see "[Granting access to security alerts](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-security-and-analysis-settings-for-your-repository#granting-access-to-security-alerts)."
    */
   "dependabot/update-alert": {
     parameters: {
