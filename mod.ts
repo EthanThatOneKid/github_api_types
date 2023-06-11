@@ -514,82 +514,6 @@ export interface paths {
      */
     get: operations["orgs/list"];
   };
-  "/organizations/{org}/personal-access-token-requests": {
-    /**
-     * List requests to access organization resources with fine-grained personal access tokens 
-     * @description Lists requests from organization members to access organization resources with a fine-grained personal access token. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_token_requests: read` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    get: operations["orgs/list-pat-grant-requests"];
-    /**
-     * Review requests to access organization resources with fine-grained personal access tokens 
-     * @description Approves or denies multiple pending requests to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_token_requests: write` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    post: operations["orgs/review-pat-grant-requests-in-bulk"];
-  };
-  "/organizations/{org}/personal-access-token-requests/{pat_request_id}": {
-    /**
-     * Review a request to access organization resources with a fine-grained personal access token 
-     * @description Approves or denies a pending request to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_token_requests: write` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    post: operations["orgs/review-pat-grant-request"];
-  };
-  "/organizations/{org}/personal-access-token-requests/{pat_request_id}/repositories": {
-    /**
-     * List repositories requested to be accessed by a fine-grained personal access token 
-     * @description Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_token_requests: read` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    get: operations["orgs/list-pat-grant-request-repositories"];
-  };
-  "/organizations/{org}/personal-access-tokens": {
-    /**
-     * List fine-grained personal access tokens with access to organization resources 
-     * @description Lists approved fine-grained personal access tokens owned by organization members that can access organization resources. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_tokens: read` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    get: operations["orgs/list-pat-grants"];
-    /**
-     * Update the access to organization resources via fine-grained personal access tokens 
-     * @description Updates the access organization members have to organization resources via fine-grained personal access tokens. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_tokens: write` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    post: operations["orgs/update-pat-accesses"];
-  };
-  "/organizations/{org}/personal-access-tokens/{pat_id}": {
-    /**
-     * Update the access a fine-grained personal access token has to organization resources 
-     * @description Updates the access an organization member has to organization resources via a fine-grained personal access token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_tokens: write` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    post: operations["orgs/update-pat-access"];
-  };
-  "/organizations/{org}/personal-access-tokens/{pat_id}/repositories": {
-    /**
-     * List repositories a fine-grained personal access token has access to 
-     * @description Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_tokens: read` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    get: operations["orgs/list-pat-grant-repositories"];
-  };
   "/orgs/{org}": {
     /**
      * Get an organization 
@@ -1859,6 +1783,82 @@ export interface paths {
      * - If the `package_type` belongs to a GitHub Packages registry that supports granular permissions, you must have admin permissions to the package whose version you want to restore. For the list of these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)."
      */
     post: operations["packages/restore-package-version-for-org"];
+  };
+  "/orgs/{org}/personal-access-token-requests": {
+    /**
+     * List requests to access organization resources with fine-grained personal access tokens 
+     * @description Lists requests from organization members to access organization resources with a fine-grained personal access token. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_token_requests: read` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    get: operations["orgs/list-pat-grant-requests"];
+    /**
+     * Review requests to access organization resources with fine-grained personal access tokens 
+     * @description Approves or denies multiple pending requests to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_token_requests: write` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    post: operations["orgs/review-pat-grant-requests-in-bulk"];
+  };
+  "/orgs/{org}/personal-access-token-requests/{pat_request_id}": {
+    /**
+     * Review a request to access organization resources with a fine-grained personal access token 
+     * @description Approves or denies a pending request to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_token_requests: write` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    post: operations["orgs/review-pat-grant-request"];
+  };
+  "/orgs/{org}/personal-access-token-requests/{pat_request_id}/repositories": {
+    /**
+     * List repositories requested to be accessed by a fine-grained personal access token 
+     * @description Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_token_requests: read` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    get: operations["orgs/list-pat-grant-request-repositories"];
+  };
+  "/orgs/{org}/personal-access-tokens": {
+    /**
+     * List fine-grained personal access tokens with access to organization resources 
+     * @description Lists approved fine-grained personal access tokens owned by organization members that can access organization resources. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_tokens: read` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    get: operations["orgs/list-pat-grants"];
+    /**
+     * Update the access to organization resources via fine-grained personal access tokens 
+     * @description Updates the access organization members have to organization resources via fine-grained personal access tokens. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_tokens: write` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    post: operations["orgs/update-pat-accesses"];
+  };
+  "/orgs/{org}/personal-access-tokens/{pat_id}": {
+    /**
+     * Update the access a fine-grained personal access token has to organization resources 
+     * @description Updates the access an organization member has to organization resources via a fine-grained personal access token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_tokens: write` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    post: operations["orgs/update-pat-access"];
+  };
+  "/orgs/{org}/personal-access-tokens/{pat_id}/repositories": {
+    /**
+     * List repositories a fine-grained personal access token has access to 
+     * @description Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_tokens: read` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    get: operations["orgs/list-pat-grant-repositories"];
   };
   "/orgs/{org}/projects": {
     /**
@@ -6740,6 +6740,8 @@ export interface paths {
      * `q=tom+repos:%3E42+followers:%3E1000`
      * 
      * This query searches for users with the name `tom`. The results are restricted to users with more than 42 repositories and over 1,000 followers.
+     * 
+     * This endpoint does not accept authentication and will only include publicly visible users. As an alternative, you can use the GraphQL API. The GraphQL API requires authentication and will return private users, including Enterprise Managed Users (EMUs), that you are authorized to view. For more information, see "[GraphQL Queries](https://docs.github.com/graphql/reference/queries#search)."
      */
     get: operations["search/users"];
   };
@@ -11454,80 +11456,6 @@ export interface components {
       description: string | null;
     };
     /**
-     * Simple Organization Programmatic Access Grant Request 
-     * @description Minimal representation of an organization programmatic access grant request for enumerations
-     */
-    "organization-programmatic-access-grant-request": {
-      /** @description Unique identifier of the request for access via fine-grained personal access token. The `pat_request_id` used to review PAT requests. */
-      id: number;
-      /** @description Reason for requesting access. */
-      reason: string | null;
-      owner: components["schemas"]["simple-user"];
-      /**
-       * @description Type of repository selection requested. 
-       * @enum {string}
-       */
-      repository_selection: "none" | "all" | "subset";
-      /** @description URL to the list of repositories requested to be accessed via fine-grained personal access token. Should only be followed when `repository_selection` is `subset`. */
-      repositories_url: string;
-      /** @description Permissions requested, categorized by type of permission. */
-      permissions: {
-        organization?: {
-          [key: string]: string | undefined;
-        };
-        repository?: {
-          [key: string]: string | undefined;
-        };
-        other?: {
-          [key: string]: string | undefined;
-        };
-      };
-      /** @description Date and time when the request for access was created. */
-      created_at: string;
-      /** @description Whether the associated fine-grained personal access token has expired. */
-      token_expired: boolean;
-      /** @description Date and time when the associated fine-grained personal access token expires. */
-      token_expires_at: string | null;
-      /** @description Date and time when the associated fine-grained personal access token was last used for authentication. */
-      token_last_used_at: string | null;
-    };
-    /**
-     * Organization Programmatic Access Grant 
-     * @description Minimal representation of an organization programmatic access grant for enumerations
-     */
-    "organization-programmatic-access-grant": {
-      /** @description Unique identifier of the fine-grained personal access token. The `pat_id` used to get details about an approved fine-grained personal access token. */
-      id: number;
-      owner: components["schemas"]["simple-user"];
-      /**
-       * @description Type of repository selection requested. 
-       * @enum {string}
-       */
-      repository_selection: "none" | "all" | "subset";
-      /** @description URL to the list of repositories the fine-grained personal access token can access. Only follow when `repository_selection` is `subset`. */
-      repositories_url: string;
-      /** @description Permissions requested, categorized by type of permission. */
-      permissions: {
-        organization?: {
-          [key: string]: string | undefined;
-        };
-        repository?: {
-          [key: string]: string | undefined;
-        };
-        other?: {
-          [key: string]: string | undefined;
-        };
-      };
-      /** @description Date and time when the fine-grained personal access token was approved to access the organization. */
-      access_granted_at: string;
-      /** @description Whether the associated fine-grained personal access token has expired. */
-      token_expired: boolean;
-      /** @description Date and time when the associated fine-grained personal access token expires. */
-      token_expires_at: string | null;
-      /** @description Date and time when the associated fine-grained personal access token was last used for authentication. */
-      token_last_used_at: string | null;
-    };
-    /**
      * Organization Full 
      * @description Organization Full
      */
@@ -13011,6 +12939,80 @@ export interface components {
           tag?: (string)[];
         };
       };
+    };
+    /**
+     * Simple Organization Programmatic Access Grant Request 
+     * @description Minimal representation of an organization programmatic access grant request for enumerations
+     */
+    "organization-programmatic-access-grant-request": {
+      /** @description Unique identifier of the request for access via fine-grained personal access token. The `pat_request_id` used to review PAT requests. */
+      id: number;
+      /** @description Reason for requesting access. */
+      reason: string | null;
+      owner: components["schemas"]["simple-user"];
+      /**
+       * @description Type of repository selection requested. 
+       * @enum {string}
+       */
+      repository_selection: "none" | "all" | "subset";
+      /** @description URL to the list of repositories requested to be accessed via fine-grained personal access token. Should only be followed when `repository_selection` is `subset`. */
+      repositories_url: string;
+      /** @description Permissions requested, categorized by type of permission. */
+      permissions: {
+        organization?: {
+          [key: string]: string | undefined;
+        };
+        repository?: {
+          [key: string]: string | undefined;
+        };
+        other?: {
+          [key: string]: string | undefined;
+        };
+      };
+      /** @description Date and time when the request for access was created. */
+      created_at: string;
+      /** @description Whether the associated fine-grained personal access token has expired. */
+      token_expired: boolean;
+      /** @description Date and time when the associated fine-grained personal access token expires. */
+      token_expires_at: string | null;
+      /** @description Date and time when the associated fine-grained personal access token was last used for authentication. */
+      token_last_used_at: string | null;
+    };
+    /**
+     * Organization Programmatic Access Grant 
+     * @description Minimal representation of an organization programmatic access grant for enumerations
+     */
+    "organization-programmatic-access-grant": {
+      /** @description Unique identifier of the fine-grained personal access token. The `pat_id` used to get details about an approved fine-grained personal access token. */
+      id: number;
+      owner: components["schemas"]["simple-user"];
+      /**
+       * @description Type of repository selection requested. 
+       * @enum {string}
+       */
+      repository_selection: "none" | "all" | "subset";
+      /** @description URL to the list of repositories the fine-grained personal access token can access. Only follow when `repository_selection` is `subset`. */
+      repositories_url: string;
+      /** @description Permissions requested, categorized by type of permission. */
+      permissions: {
+        organization?: {
+          [key: string]: string | undefined;
+        };
+        repository?: {
+          [key: string]: string | undefined;
+        };
+        other?: {
+          [key: string]: string | undefined;
+        };
+      };
+      /** @description Date and time when the fine-grained personal access token was approved to access the organization. */
+      access_granted_at: string;
+      /** @description Whether the associated fine-grained personal access token has expired. */
+      token_expired: boolean;
+      /** @description Date and time when the associated fine-grained personal access token expires. */
+      token_expires_at: string | null;
+      /** @description Date and time when the associated fine-grained personal access token was last used for authentication. */
+      token_last_used_at: string | null;
     };
     /**
      * Project 
@@ -14846,6 +14848,7 @@ export interface components {
         core: components["schemas"]["rate-limit"];
         graphql?: components["schemas"]["rate-limit"];
         search: components["schemas"]["rate-limit"];
+        code_search?: components["schemas"]["rate-limit"];
         source_import?: components["schemas"]["rate-limit"];
         integration_manifest?: components["schemas"]["rate-limit"];
         code_scanning_upload?: components["schemas"]["rate-limit"];
@@ -41548,6 +41551,7 @@ export interface components {
     "webhook-projects-v2-project-closed": {
       /** @enum {string} */
       action: "closed";
+      installation?: components["schemas"]["simple-installation"];
       organization: components["schemas"]["organization-simple"];
       projects_v2: components["schemas"]["projects-v2"];
       sender: components["schemas"]["simple-user"];
@@ -41556,6 +41560,7 @@ export interface components {
     "webhook-projects-v2-project-created": {
       /** @enum {string} */
       action: "created";
+      installation?: components["schemas"]["simple-installation"];
       organization: components["schemas"]["organization-simple"];
       projects_v2: components["schemas"]["projects-v2"];
       sender: components["schemas"]["simple-user"];
@@ -41564,6 +41569,7 @@ export interface components {
     "webhook-projects-v2-project-deleted": {
       /** @enum {string} */
       action: "deleted";
+      installation?: components["schemas"]["simple-installation"];
       organization: components["schemas"]["organization-simple"];
       projects_v2: components["schemas"]["projects-v2"];
       sender: components["schemas"]["simple-user"];
@@ -41590,6 +41596,7 @@ export interface components {
           to?: string;
         };
       };
+      installation?: components["schemas"]["simple-installation"];
       organization: components["schemas"]["organization-simple"];
       projects_v2: components["schemas"]["projects-v2"];
       sender: components["schemas"]["simple-user"];
@@ -41700,6 +41707,7 @@ export interface components {
     "webhook-projects-v2-project-reopened": {
       /** @enum {string} */
       action: "reopened";
+      installation?: components["schemas"]["simple-installation"];
       organization: components["schemas"]["organization-simple"];
       projects_v2: components["schemas"]["projects-v2"];
       sender: components["schemas"]["simple-user"];
@@ -79954,14 +79962,6 @@ export interface components {
         "application/json": components["schemas"]["basic-error"];
       };
     };
-    /** @description Internal Error */
-    internal_error: {
-      content: {
-        "application/json": components["schemas"]["basic-error"];
-      };
-    };
-    /** @description A header with no content is returned. */
-    no_content: never;
     /** @description Conflict */
     conflict: {
       content: {
@@ -79996,8 +79996,16 @@ export interface components {
         };
       };
     };
+    /** @description Internal Error */
+    internal_error: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
+      };
+    };
     /** @description The value of `per_page` multiplied by `page` cannot be greater than 10000. */
     package_es_list_error: never;
+    /** @description A header with no content is returned. */
+    no_content: never;
     /** @description Gone */
     gone: {
       content: {
@@ -80140,20 +80148,6 @@ export interface components {
     "since-org"?: number;
     /** @description The organization name. The name is not case sensitive. */
     org: string;
-    /** @description The property by which to sort the results. */
-    "personal-access-token-sort"?: "created_at";
-    /** @description A list of owner usernames to use to filter the results. */
-    "personal-access-token-owner"?: (string)[];
-    /** @description The name of the repository to use to filter the results. */
-    "personal-access-token-repository"?: string;
-    /** @description The permission to use to filter the results. */
-    "personal-access-token-permission"?: string;
-    /** @description Only show fine-grained personal access tokens used before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "personal-access-token-before"?: string;
-    /** @description Only show fine-grained personal access tokens used after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "personal-access-token-after"?: string;
-    /** @description The unique identifier of the fine-grained personal access token. */
-    "fine-grained-personal-access-token-id": number;
     /** @description The unique identifier of the repository. */
     "repository-id": number;
     /** @description The unique identifier of the required workflow. */
@@ -80197,6 +80191,20 @@ export interface components {
     "package-name": string;
     /** @description Unique identifier of the package version. */
     "package-version-id": number;
+    /** @description The property by which to sort the results. */
+    "personal-access-token-sort"?: "created_at";
+    /** @description A list of owner usernames to use to filter the results. */
+    "personal-access-token-owner"?: (string)[];
+    /** @description The name of the repository to use to filter the results. */
+    "personal-access-token-repository"?: string;
+    /** @description The permission to use to filter the results. */
+    "personal-access-token-permission"?: string;
+    /** @description Only show fine-grained personal access tokens used before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    "personal-access-token-before"?: string;
+    /** @description Only show fine-grained personal access tokens used after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    "personal-access-token-after"?: string;
+    /** @description The unique identifier of the fine-grained personal access token. */
+    "fine-grained-personal-access-token-id": number;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for events before this cursor. To receive an initial cursor on your first request, include an empty "before" query string. */
     "secret-scanning-pagination-before-org-repo"?: string;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for events after this cursor.  To receive an initial cursor on your first request, include an empty "after" query string. */
@@ -82215,293 +82223,6 @@ export interface operations {
         };
       };
       304: components["responses"]["not_modified"];
-    };
-  };
-  /**
-   * List requests to access organization resources with fine-grained personal access tokens 
-   * @description Lists requests from organization members to access organization resources with a fine-grained personal access token. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_token_requests: read` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/list-pat-grant-requests": {
-    parameters: {
-      query?: {
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-        sort?: components["parameters"]["personal-access-token-sort"];
-        direction?: components["parameters"]["direction"];
-        owner?: components["parameters"]["personal-access-token-owner"];
-        repository?: components["parameters"]["personal-access-token-repository"];
-        permission?: components["parameters"]["personal-access-token-permission"];
-        last_used_before?: components["parameters"]["personal-access-token-before"];
-        last_used_after?: components["parameters"]["personal-access-token-after"];
-      };
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        headers: {
-          Link: components["headers"]["link"];
-        };
-        content: {
-          "application/json": (components["schemas"]["organization-programmatic-access-grant-request"])[];
-        };
-      };
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * Review requests to access organization resources with fine-grained personal access tokens 
-   * @description Approves or denies multiple pending requests to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_token_requests: write` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/review-pat-grant-requests-in-bulk": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /** @description Unique identifiers of the requests for access via fine-grained personal access token. Must be formed of between 1 and 100 `pat_request_id` values. */
-          pat_request_ids?: (number)[];
-          /**
-           * @description Action to apply to the requests. 
-           * @enum {string}
-           */
-          action: "approve" | "deny";
-          /** @description Reason for approving or denying the requests. Max 1024 characters. */
-          reason?: string | null;
-        };
-      };
-    };
-    responses: {
-      202: components["responses"]["accepted"];
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * Review a request to access organization resources with a fine-grained personal access token 
-   * @description Approves or denies a pending request to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_token_requests: write` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/review-pat-grant-request": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        /** @description Unique identifier of the request for access via fine-grained personal access token. */
-        pat_request_id: number;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @description Action to apply to the request. 
-           * @enum {string}
-           */
-          action: "approve" | "deny";
-          /** @description Reason for approving or denying the request. Max 1024 characters. */
-          reason?: string | null;
-        };
-      };
-    };
-    responses: {
-      204: components["responses"]["no_content"];
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * List repositories requested to be accessed by a fine-grained personal access token 
-   * @description Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_token_requests: read` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/list-pat-grant-request-repositories": {
-    parameters: {
-      query?: {
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-      };
-      path: {
-        org: components["parameters"]["org"];
-        /** @description Unique identifier of the request for access via fine-grained personal access token. */
-        pat_request_id: number;
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        headers: {
-          Link: components["headers"]["link"];
-        };
-        content: {
-          "application/json": (components["schemas"]["minimal-repository"])[];
-        };
-      };
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * List fine-grained personal access tokens with access to organization resources 
-   * @description Lists approved fine-grained personal access tokens owned by organization members that can access organization resources. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_tokens: read` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/list-pat-grants": {
-    parameters: {
-      query?: {
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-        sort?: components["parameters"]["personal-access-token-sort"];
-        direction?: components["parameters"]["direction"];
-        owner?: components["parameters"]["personal-access-token-owner"];
-        repository?: components["parameters"]["personal-access-token-repository"];
-        permission?: components["parameters"]["personal-access-token-permission"];
-        last_used_before?: components["parameters"]["personal-access-token-before"];
-        last_used_after?: components["parameters"]["personal-access-token-after"];
-      };
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        headers: {
-          Link: components["headers"]["link"];
-        };
-        content: {
-          "application/json": (components["schemas"]["organization-programmatic-access-grant"])[];
-        };
-      };
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * Update the access to organization resources via fine-grained personal access tokens 
-   * @description Updates the access organization members have to organization resources via fine-grained personal access tokens. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_tokens: write` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/update-pat-accesses": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @description Action to apply to the fine-grained personal access token. 
-           * @enum {string}
-           */
-          action: "revoke";
-          /** @description The IDs of the fine-grained personal access tokens. */
-          pat_ids: (number)[];
-        };
-      };
-    };
-    responses: {
-      202: components["responses"]["accepted"];
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * Update the access a fine-grained personal access token has to organization resources 
-   * @description Updates the access an organization member has to organization resources via a fine-grained personal access token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_tokens: write` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/update-pat-access": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        pat_id: components["parameters"]["fine-grained-personal-access-token-id"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @description Action to apply to the fine-grained personal access token. 
-           * @enum {string}
-           */
-          action: "revoke";
-        };
-      };
-    };
-    responses: {
-      204: components["responses"]["no_content"];
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * List repositories a fine-grained personal access token has access to 
-   * @description Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_tokens: read` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/list-pat-grant-repositories": {
-    parameters: {
-      query?: {
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-      };
-      path: {
-        org: components["parameters"]["org"];
-        /** @description Unique identifier of the fine-grained personal access token. */
-        pat_id: number;
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        headers: {
-          Link: components["headers"]["link"];
-        };
-        content: {
-          "application/json": (components["schemas"]["minimal-repository"])[];
-        };
-      };
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      500: components["responses"]["internal_error"];
     };
   };
   /**
@@ -86405,6 +86126,293 @@ export interface operations {
       401: components["responses"]["requires_authentication"];
       403: components["responses"]["forbidden"];
       404: components["responses"]["not_found"];
+    };
+  };
+  /**
+   * List requests to access organization resources with fine-grained personal access tokens 
+   * @description Lists requests from organization members to access organization resources with a fine-grained personal access token. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_token_requests: read` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/list-pat-grant-requests": {
+    parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        sort?: components["parameters"]["personal-access-token-sort"];
+        direction?: components["parameters"]["direction"];
+        owner?: components["parameters"]["personal-access-token-owner"];
+        repository?: components["parameters"]["personal-access-token-repository"];
+        permission?: components["parameters"]["personal-access-token-permission"];
+        last_used_before?: components["parameters"]["personal-access-token-before"];
+        last_used_after?: components["parameters"]["personal-access-token-after"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        headers: {
+          Link: components["headers"]["link"];
+        };
+        content: {
+          "application/json": (components["schemas"]["organization-programmatic-access-grant-request"])[];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Review requests to access organization resources with fine-grained personal access tokens 
+   * @description Approves or denies multiple pending requests to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_token_requests: write` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/review-pat-grant-requests-in-bulk": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description Unique identifiers of the requests for access via fine-grained personal access token. Must be formed of between 1 and 100 `pat_request_id` values. */
+          pat_request_ids?: (number)[];
+          /**
+           * @description Action to apply to the requests. 
+           * @enum {string}
+           */
+          action: "approve" | "deny";
+          /** @description Reason for approving or denying the requests. Max 1024 characters. */
+          reason?: string | null;
+        };
+      };
+    };
+    responses: {
+      202: components["responses"]["accepted"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Review a request to access organization resources with a fine-grained personal access token 
+   * @description Approves or denies a pending request to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_token_requests: write` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/review-pat-grant-request": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        /** @description Unique identifier of the request for access via fine-grained personal access token. */
+        pat_request_id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /**
+           * @description Action to apply to the request. 
+           * @enum {string}
+           */
+          action: "approve" | "deny";
+          /** @description Reason for approving or denying the request. Max 1024 characters. */
+          reason?: string | null;
+        };
+      };
+    };
+    responses: {
+      204: components["responses"]["no_content"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * List repositories requested to be accessed by a fine-grained personal access token 
+   * @description Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_token_requests: read` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/list-pat-grant-request-repositories": {
+    parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+        /** @description Unique identifier of the request for access via fine-grained personal access token. */
+        pat_request_id: number;
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        headers: {
+          Link: components["headers"]["link"];
+        };
+        content: {
+          "application/json": (components["schemas"]["minimal-repository"])[];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * List fine-grained personal access tokens with access to organization resources 
+   * @description Lists approved fine-grained personal access tokens owned by organization members that can access organization resources. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_tokens: read` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/list-pat-grants": {
+    parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        sort?: components["parameters"]["personal-access-token-sort"];
+        direction?: components["parameters"]["direction"];
+        owner?: components["parameters"]["personal-access-token-owner"];
+        repository?: components["parameters"]["personal-access-token-repository"];
+        permission?: components["parameters"]["personal-access-token-permission"];
+        last_used_before?: components["parameters"]["personal-access-token-before"];
+        last_used_after?: components["parameters"]["personal-access-token-after"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        headers: {
+          Link: components["headers"]["link"];
+        };
+        content: {
+          "application/json": (components["schemas"]["organization-programmatic-access-grant"])[];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Update the access to organization resources via fine-grained personal access tokens 
+   * @description Updates the access organization members have to organization resources via fine-grained personal access tokens. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_tokens: write` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/update-pat-accesses": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /**
+           * @description Action to apply to the fine-grained personal access token. 
+           * @enum {string}
+           */
+          action: "revoke";
+          /** @description The IDs of the fine-grained personal access tokens. */
+          pat_ids: (number)[];
+        };
+      };
+    };
+    responses: {
+      202: components["responses"]["accepted"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Update the access a fine-grained personal access token has to organization resources 
+   * @description Updates the access an organization member has to organization resources via a fine-grained personal access token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_tokens: write` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/update-pat-access": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        pat_id: components["parameters"]["fine-grained-personal-access-token-id"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /**
+           * @description Action to apply to the fine-grained personal access token. 
+           * @enum {string}
+           */
+          action: "revoke";
+        };
+      };
+    };
+    responses: {
+      204: components["responses"]["no_content"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * List repositories a fine-grained personal access token has access to 
+   * @description Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_tokens: read` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/list-pat-grant-repositories": {
+    parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+        /** @description Unique identifier of the fine-grained personal access token. */
+        pat_id: number;
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        headers: {
+          Link: components["headers"]["link"];
+        };
+        content: {
+          "application/json": (components["schemas"]["minimal-repository"])[];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
     };
   };
   /**
@@ -101023,7 +101031,8 @@ export interface operations {
           "application/json": components["schemas"]["release"];
         };
       };
-      404: components["responses"]["not_found"];
+      /** @description Unauthorized */
+      401: never;
     };
   };
   /**
@@ -103140,6 +103149,8 @@ export interface operations {
    * `q=tom+repos:%3E42+followers:%3E1000`
    * 
    * This query searches for users with the name `tom`. The results are restricted to users with more than 42 repositories and over 1,000 followers.
+   * 
+   * This endpoint does not accept authentication and will only include publicly visible users. As an alternative, you can use the GraphQL API. The GraphQL API requires authentication and will return private users, including Enterprise Managed Users (EMUs), that you are authorized to view. For more information, see "[GraphQL Queries](https://docs.github.com/graphql/reference/queries#search)."
    */
   "search/users": {
     parameters: {
