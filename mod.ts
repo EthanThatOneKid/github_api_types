@@ -3567,6 +3567,8 @@ export interface paths {
      * @description Triggers GitHub to rerequest an existing check run, without pushing new code to a repository. This endpoint will trigger the [`check_run` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) event with the action `rerequested`. When a check run is `rerequested`, its `status` is reset to `queued` and the `conclusion` is cleared.
      * 
      * To rerequest a check run, your GitHub App must have the `checks:read` permission on a private repository or pull access to a public repository.
+     * 
+     * For more information about how to re-run GitHub Actions jobs, see "[Re-run a job from a workflow run](https://docs.github.com/rest/actions/workflow-runs#re-run-a-job-from-a-workflow-run)".
      */
     post: operations["checks/rerequest-run"];
   };
@@ -6122,7 +6124,9 @@ export interface paths {
   "/repos/{owner}/{repo}/rules/branches/{branch}": {
     /**
      * Get rules for a branch 
-     * @description Returns all rules that apply to the specified branch.
+     * @description Returns all rules that apply to the specified branch. The branch does not need to exist; rules that would apply to a
+     * branch with that name will be returned. All rules that apply will be returned, regardless of the level at which they
+     * are configured.
      */
     get: operations["repos/get-branch-rules"];
   };
@@ -92640,6 +92644,8 @@ export interface operations {
    * @description Triggers GitHub to rerequest an existing check run, without pushing new code to a repository. This endpoint will trigger the [`check_run` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) event with the action `rerequested`. When a check run is `rerequested`, its `status` is reset to `queued` and the `conclusion` is cleared.
    * 
    * To rerequest a check run, your GitHub App must have the `checks:read` permission on a private repository or pull access to a public repository.
+   * 
+   * For more information about how to re-run GitHub Actions jobs, see "[Re-run a job from a workflow run](https://docs.github.com/rest/actions/workflow-runs#re-run-a-job-from-a-workflow-run)".
    */
   "checks/rerequest-run": {
     parameters: {
@@ -101272,7 +101278,9 @@ export interface operations {
   };
   /**
    * Get rules for a branch 
-   * @description Returns all rules that apply to the specified branch.
+   * @description Returns all rules that apply to the specified branch. The branch does not need to exist; rules that would apply to a
+   * branch with that name will be returned. All rules that apply will be returned, regardless of the level at which they
+   * are configured.
    */
   "repos/get-branch-rules": {
     parameters: {
