@@ -1100,6 +1100,7 @@ export interface paths {
   "/orgs/{org}/codespaces/billing": {
     /**
      * Manage access control for organization codespaces 
+     * @deprecated 
      * @description Sets which users can access codespaces in an organization. This is synonymous with granting or revoking codespaces billing permissions for users according to the visibility.
      * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
@@ -1108,12 +1109,14 @@ export interface paths {
   "/orgs/{org}/codespaces/billing/selected_users": {
     /**
      * Add users to Codespaces billing for an organization 
+     * @deprecated 
      * @description Codespaces for the specified users will be billed to the organization.
      * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     post: operations["codespaces/set-codespaces-billing-users"];
     /**
      * Removes users from Codespaces billing for an organization 
+     * @deprecated 
      * @description Codespaces for the specified users will no longer be billed to the organization.
      * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
@@ -4108,7 +4111,13 @@ export interface paths {
   "/repos/{owner}/{repo}/collaborators/{username}/permission": {
     /**
      * Get repository permissions for a user 
-     * @description Checks the repository permission of a collaborator. The possible repository permissions are `admin`, `write`, `read`, and `none`.
+     * @description Checks the repository permission of a collaborator. The possible repository
+     * permissions are `admin`, `write`, `read`, and `none`.
+     * 
+     * *Note*: The `permission` attribute provides the legacy base roles of `admin`, `write`, `read`, and `none`, where the
+     * `maintain` role is mapped to `write` and the `triage` role is mapped to `read`. To determine the role assigned to the
+     * collaborator, see the `role_name` attribute, which will provide the full role name, including custom roles. The
+     * `permissions` hash can also be used to determine which base level of access the collaborator has to the repository.
      */
     get: operations["repos/get-collaborator-permission-level"];
   };
@@ -4893,8 +4902,9 @@ export interface paths {
   };
   "/repos/{owner}/{repo}/git/commits/{commit_sha}": {
     /**
-     * Get a commit 
-     * @description Gets a Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).
+     * Get a commit object 
+     * @description Gets a Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects).
+     * To get the contents of a commit, see "[Get a commit](/rest/commits/commits#get-a-commit)."
      * 
      * **Signature verification object**
      * 
@@ -6327,7 +6337,10 @@ export interface paths {
     get: operations["activity/list-watchers-for-repo"];
   };
   "/repos/{owner}/{repo}/subscription": {
-    /** Get a repository subscription */
+    /**
+     * Get a repository subscription 
+     * @description Gets information about whether the authenticated user is subscribed to the repository.
+     */
     get: operations["activity/get-repo-subscription"];
     /**
      * Set a repository subscription 
@@ -7883,14 +7896,20 @@ export interface paths {
     get: operations["activity/list-repos-starred-by-authenticated-user"];
   };
   "/user/starred/{owner}/{repo}": {
-    /** Check if a repository is starred by the authenticated user */
+    /**
+     * Check if a repository is starred by the authenticated user 
+     * @description Whether the authenticated user has starred the repository.
+     */
     get: operations["activity/check-repo-is-starred-by-authenticated-user"];
     /**
      * Star a repository for the authenticated user 
      * @description Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
      */
     put: operations["activity/star-repo-for-authenticated-user"];
-    /** Unstar a repository for the authenticated user */
+    /**
+     * Unstar a repository for the authenticated user 
+     * @description Unstar a repository that the authenticated user has previously starred.
+     */
     delete: operations["activity/unstar-repo-for-authenticated-user"];
   };
   "/user/subscriptions": {
@@ -80292,6 +80311,8 @@ export interface components {
     "alert-number": components["schemas"]["alert-number"];
     /** @description The SHA of the commit. */
     "commit-sha": string;
+    /** @description The commit reference. Can be a commit SHA, branch name (`heads/BRANCH_NAME`), or tag name (`tags/TAG_NAME`). For more information, see "[Git References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation. */
+    "commit-ref": string;
     /** @description A comma-separated list of full manifest paths. If specified, only alerts for these manifests will be returned. */
     "dependabot-alert-comma-separated-manifests"?: string;
     /**
@@ -83993,6 +84014,7 @@ export interface operations {
   };
   /**
    * Manage access control for organization codespaces 
+   * @deprecated 
    * @description Sets which users can access codespaces in an organization. This is synonymous with granting or revoking codespaces billing permissions for users according to the visibility.
    * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
@@ -84028,6 +84050,7 @@ export interface operations {
   };
   /**
    * Add users to Codespaces billing for an organization 
+   * @deprecated 
    * @description Codespaces for the specified users will be billed to the organization.
    * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
@@ -84058,6 +84081,7 @@ export interface operations {
   };
   /**
    * Removes users from Codespaces billing for an organization 
+   * @deprecated 
    * @description Codespaces for the specified users will no longer be billed to the organization.
    * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
@@ -94007,7 +94031,13 @@ export interface operations {
   };
   /**
    * Get repository permissions for a user 
-   * @description Checks the repository permission of a collaborator. The possible repository permissions are `admin`, `write`, `read`, and `none`.
+   * @description Checks the repository permission of a collaborator. The possible repository
+   * permissions are `admin`, `write`, `read`, and `none`.
+   * 
+   * *Note*: The `permission` attribute provides the legacy base roles of `admin`, `write`, `read`, and `none`, where the
+   * `maintain` role is mapped to `write` and the `triage` role is mapped to `read`. To determine the role assigned to the
+   * collaborator, see the `role_name` attribute, which will provide the full role name, including custom roles. The
+   * `permissions` hash can also be used to determine which base level of access the collaborator has to the repository.
    */
   "repos/get-collaborator-permission-level": {
     parameters: {
@@ -94447,8 +94477,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -94484,8 +94513,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -94524,8 +94552,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -94563,8 +94590,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -94592,8 +94618,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -96358,8 +96383,9 @@ export interface operations {
     };
   };
   /**
-   * Get a commit 
-   * @description Gets a Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).
+   * Get a commit object 
+   * @description Gets a Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects).
+   * To get the contents of a commit, see "[Get a commit](/rest/commits/commits#get-a-commit)."
    * 
    * **Signature verification object**
    * 
@@ -96423,8 +96449,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -96450,8 +96475,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -96505,8 +96529,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -102014,7 +102037,10 @@ export interface operations {
       };
     };
   };
-  /** Get a repository subscription */
+  /**
+   * Get a repository subscription 
+   * @description Gets information about whether the authenticated user is subscribed to the repository.
+   */
   "activity/get-repo-subscription": {
     parameters: {
       path: {
@@ -106875,7 +106901,10 @@ export interface operations {
       403: components["responses"]["forbidden"];
     };
   };
-  /** Check if a repository is starred by the authenticated user */
+  /**
+   * Check if a repository is starred by the authenticated user 
+   * @description Whether the authenticated user has starred the repository.
+   */
   "activity/check-repo-is-starred-by-authenticated-user": {
     parameters: {
       path: {
@@ -106917,7 +106946,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Unstar a repository for the authenticated user */
+  /**
+   * Unstar a repository for the authenticated user 
+   * @description Unstar a repository that the authenticated user has previously starred.
+   */
   "activity/unstar-repo-for-authenticated-user": {
     parameters: {
       path: {
