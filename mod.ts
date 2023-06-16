@@ -175,11 +175,17 @@ export interface paths {
     get: operations["apps/get-by-slug"];
   };
   "/codes_of_conduct": {
-    /** Get all codes of conduct */
+    /**
+     * Get all codes of conduct 
+     * @description Returns array of all GitHub's codes of conduct.
+     */
     get: operations["codes-of-conduct/get-all-codes-of-conduct"];
   };
   "/codes_of_conduct/{key}": {
-    /** Get a code of conduct */
+    /**
+     * Get a code of conduct 
+     * @description Returns information about the specified GitHub code of conduct.
+     */
     get: operations["codes-of-conduct/get-conduct-code"];
   };
   "/emojis": {
@@ -1068,11 +1074,20 @@ export interface paths {
     get: operations["orgs/list-blocked-users"];
   };
   "/orgs/{org}/blocks/{username}": {
-    /** Check if a user is blocked by an organization */
+    /**
+     * Check if a user is blocked by an organization 
+     * @description Returns a 204 if the given user is blocked by the given organization. Returns a 404 if the organization is not blocking the user, or if the user account has been identified as spam by GitHub.
+     */
     get: operations["orgs/check-blocked-user"];
-    /** Block a user from an organization */
+    /**
+     * Block a user from an organization 
+     * @description Blocks the given user on behalf of the specified organization and returns a 204. If the organization cannot block the given user a 422 is returned.
+     */
     put: operations["orgs/block-user"];
-    /** Unblock a user from an organization */
+    /**
+     * Unblock a user from an organization 
+     * @description Unblocks the given user on behalf of the specified organization.
+     */
     delete: operations["orgs/unblock-user"];
   };
   "/orgs/{org}/code-scanning/alerts": {
@@ -7129,11 +7144,20 @@ export interface paths {
     get: operations["users/list-blocked-by-authenticated-user"];
   };
   "/user/blocks/{username}": {
-    /** Check if a user is blocked by the authenticated user */
+    /**
+     * Check if a user is blocked by the authenticated user 
+     * @description Returns a 204 if the given user is blocked by the authenticated user. Returns a 404 if the given user is not blocked by the authenticated user, or if the given user account has been identified as spam by GitHub.
+     */
     get: operations["users/check-blocked"];
-    /** Block a user */
+    /**
+     * Block a user 
+     * @description Blocks the given user and returns a 204. If the authenticated user cannot block the given user a 422 is returned.
+     */
     put: operations["users/block"];
-    /** Unblock a user */
+    /**
+     * Unblock a user 
+     * @description Unblocks the given user and returns a 204.
+     */
     delete: operations["users/unblock"];
   };
   "/user/codespaces": {
@@ -16993,6 +17017,8 @@ export interface components {
        * @enum {string}
        */
       query_suite?: "default" | "extended";
+      /** @description CodeQL languages to be analyzed. Supported values are: `c-cpp`, `csharp`, `go`, `java-kotlin`, `javascript-typescript`, `python`, and `ruby`. */
+      languages?: ("c-cpp" | "csharp" | "go" | "java-kotlin" | "javascript-typescript" | "python" | "ruby")[];
     };
     /**
      * @description You can use `run_url` to track the status of the run. This includes a property status and conclusion.
@@ -80913,7 +80939,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Get all codes of conduct */
+  /**
+   * Get all codes of conduct 
+   * @description Returns array of all GitHub's codes of conduct.
+   */
   "codes-of-conduct/get-all-codes-of-conduct": {
     responses: {
       /** @description Response */
@@ -80925,7 +80954,10 @@ export interface operations {
       304: components["responses"]["not_modified"];
     };
   };
-  /** Get a code of conduct */
+  /**
+   * Get a code of conduct 
+   * @description Returns information about the specified GitHub code of conduct.
+   */
   "codes-of-conduct/get-conduct-code": {
     parameters: {
       path: {
@@ -83888,7 +83920,10 @@ export interface operations {
       };
     };
   };
-  /** Check if a user is blocked by an organization */
+  /**
+   * Check if a user is blocked by an organization 
+   * @description Returns a 204 if the given user is blocked by the given organization. Returns a 404 if the organization is not blocking the user, or if the user account has been identified as spam by GitHub.
+   */
   "orgs/check-blocked-user": {
     parameters: {
       path: {
@@ -83907,7 +83942,10 @@ export interface operations {
       };
     };
   };
-  /** Block a user from an organization */
+  /**
+   * Block a user from an organization 
+   * @description Blocks the given user on behalf of the specified organization and returns a 204. If the organization cannot block the given user a 422 is returned.
+   */
   "orgs/block-user": {
     parameters: {
       path: {
@@ -83921,7 +83959,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Unblock a user from an organization */
+  /**
+   * Unblock a user from an organization 
+   * @description Unblocks the given user on behalf of the specified organization.
+   */
   "orgs/unblock-user": {
     parameters: {
       path: {
@@ -104352,7 +104393,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Check if a user is blocked by the authenticated user */
+  /**
+   * Check if a user is blocked by the authenticated user 
+   * @description Returns a 204 if the given user is blocked by the authenticated user. Returns a 404 if the given user is not blocked by the authenticated user, or if the given user account has been identified as spam by GitHub.
+   */
   "users/check-blocked": {
     parameters: {
       path: {
@@ -104373,7 +104417,10 @@ export interface operations {
       };
     };
   };
-  /** Block a user */
+  /**
+   * Block a user 
+   * @description Blocks the given user and returns a 204. If the authenticated user cannot block the given user a 422 is returned.
+   */
   "users/block": {
     parameters: {
       path: {
@@ -104390,7 +104437,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Unblock a user */
+  /**
+   * Unblock a user 
+   * @description Unblocks the given user and returns a 204.
+   */
   "users/unblock": {
     parameters: {
       path: {
