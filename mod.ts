@@ -22897,6 +22897,8 @@ export interface components {
         pull_request_reviews_enforcement_level: "off" | "non_admins" | "everyone";
         repository_id: number;
         require_code_owner_review: boolean;
+        /** @description Whether the most recent push must be approved by someone other than the person who pushed it */
+        require_last_push_approval?: boolean;
         required_approving_review_count: number;
         /** @enum {string} */
         required_conversation_resolution_level: "off" | "non_admins" | "everyone";
@@ -22949,6 +22951,8 @@ export interface components {
         pull_request_reviews_enforcement_level: "off" | "non_admins" | "everyone";
         repository_id: number;
         require_code_owner_review: boolean;
+        /** @description Whether the most recent push must be approved by someone other than the person who pushed it */
+        require_last_push_approval?: boolean;
         required_approving_review_count: number;
         /** @enum {string} */
         required_conversation_resolution_level: "off" | "non_admins" | "everyone";
@@ -23027,6 +23031,8 @@ export interface components {
         pull_request_reviews_enforcement_level: "off" | "non_admins" | "everyone";
         repository_id: number;
         require_code_owner_review: boolean;
+        /** @description Whether the most recent push must be approved by someone other than the person who pushed it */
+        require_last_push_approval?: boolean;
         required_approving_review_count: number;
         /** @enum {string} */
         required_conversation_resolution_level: "off" | "non_admins" | "everyone";
