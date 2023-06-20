@@ -161,7 +161,7 @@ export interface paths {
   "/applications/{client_id}/token/scoped": {
     /**
      * Create a scoped access token 
-     * @description Use a non-scoped user-to-server access token to create a repository scoped and/or permission scoped user-to-server access token. You can specify which repositories the token can access and which permissions are granted to the token. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the `client_id` and `client_secret` of the GitHub App as the username and password. Invalid tokens will return `404 NOT FOUND`.
+     * @description Use a non-scoped user access token to create a repository scoped and/or permission scoped user access token. You can specify which repositories the token can access and which permissions are granted to the token. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the `client_id` and `client_secret` of the GitHub App as the username and password. Invalid tokens will return `404 NOT FOUND`.
      */
     post: operations["apps/scope-token"];
   };
@@ -6711,7 +6711,7 @@ export interface paths {
      * 
      * This query searches for the keyword `windows`, within any open issue that is labeled as `bug`. The search runs across repositories whose primary language is Python. The results are sorted by creation date in ascending order, which means the oldest issues appear first in the search results.
      * 
-     * **Note:** For [user-to-server](https://docs.github.com/developers/apps/identifying-and-authorizing-users-for-github-apps#user-to-server-requests) GitHub App requests, you can't retrieve a combination of issues and pull requests in a single query. Requests that don't include the `is:issue` or `is:pull-request` qualifier will receive an HTTP `422 Unprocessable Entity` response. To get results for both issues and pull requests, you must send separate queries for issues and pull requests. For more information about the `is` qualifier, see "[Searching only issues or pull requests](https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests#search-only-issues-or-pull-requests)."
+     * **Note:** For requests made by GitHub Apps with a user access token, you can't retrieve a combination of issues and pull requests in a single query. Requests that don't include the `is:issue` or `is:pull-request` qualifier will receive an HTTP `422 Unprocessable Entity` response. To get results for both issues and pull requests, you must send separate queries for issues and pull requests. For more information about the `is` qualifier, see "[Searching only issues or pull requests](https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests#search-only-issues-or-pull-requests)."
      */
     get: operations["search/issues-and-pull-requests"];
   };
@@ -7537,7 +7537,7 @@ export interface paths {
      * List app installations accessible to the user access token 
      * @description Lists installations of your GitHub App that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access.
      * 
-     * You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint.
+     * You must use a [user access token](https://docs.github.com/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app), created for a user who has authorized your GitHub App, to access this endpoint.
      * 
      * The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
      * 
@@ -7552,7 +7552,7 @@ export interface paths {
      * 
      * The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
      * 
-     * You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint.
+     * You must use a [user access token](https://docs.github.com/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app), created for a user who has authorized your GitHub App, to access this endpoint.
      * 
      * The access the user has to each repository is included in the hash under the `permissions` key.
      */
@@ -7630,14 +7630,14 @@ export interface paths {
   "/user/marketplace_purchases": {
     /**
      * List subscriptions for the authenticated user 
-     * @description Lists the active subscriptions for the authenticated user. You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/).
+     * @description Lists the active subscriptions for the authenticated user. GitHub Apps must use a [user access token](https://docs.github.com/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps).
      */
     get: operations["apps/list-subscriptions-for-authenticated-user"];
   };
   "/user/marketplace_purchases/stubbed": {
     /**
      * List subscriptions for the authenticated user (stubbed) 
-     * @description Lists the active subscriptions for the authenticated user. You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/).
+     * @description Lists the active subscriptions for the authenticated user. GitHub Apps must use a [user access token](https://docs.github.com/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps).
      */
     get: operations["apps/list-subscriptions-for-authenticated-user-stubbed"];
   };
@@ -8839,7 +8839,7 @@ export interface components {
     };
     /**
      * App Permissions 
-     * @description The permissions granted to the user-to-server access token. 
+     * @description The permissions granted to the user access token. 
      * @example {
      *   "contents": "read",
      *   "issues": "read",
@@ -13137,12 +13137,12 @@ export interface components {
      */
     "repository-ruleset-bypass-actor": {
       /** @description The ID of the actor that can bypass a ruleset */
-      actor_id?: number;
+      actor_id: number;
       /**
        * @description The type of actor that can bypass a ruleset 
        * @enum {string}
        */
-      actor_type?: "Team" | "Integration";
+      actor_type: "Role" | "Team" | "Integration";
     };
     /**
      * Repository ruleset conditions for ref names 
@@ -13416,7 +13416,9 @@ export interface components {
       source: string;
       enforcement: components["schemas"]["repository-rule-enforcement"];
       /**
-       * @description The permission level required to bypass this ruleset. "repository" allows those with bypass permission at the repository level to bypass. "organization" allows those with bypass permission at the organization level to bypass. "none" prevents anyone from bypassing. 
+       * @description The permission level required to bypass this ruleset.
+       * 
+       * **Deprecation Notice:** The `bypass_mode` field is being deprecated. To add a bypass option to this ruleset, use `bypass_actors`. The `bypass_mode` field will no longer be included in the response. 
        * @enum {string}
        */
       bypass_mode?: "none" | "repository" | "organization";
@@ -80870,7 +80872,7 @@ export interface operations {
   };
   /**
    * Create a scoped access token 
-   * @description Use a non-scoped user-to-server access token to create a repository scoped and/or permission scoped user-to-server access token. You can specify which repositories the token can access and which permissions are granted to the token. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the `client_id` and `client_secret` of the GitHub App as the username and password. Invalid tokens will return `404 NOT FOUND`.
+   * @description Use a non-scoped user access token to create a repository scoped and/or permission scoped user access token. You can specify which repositories the token can access and which permissions are granted to the token. You must use [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the `client_id` and `client_secret` of the GitHub App as the username and password. Invalid tokens will return `404 NOT FOUND`.
    */
   "apps/scope-token": {
     parameters: {
@@ -80887,19 +80889,19 @@ export interface operations {
            */
           access_token: string;
           /**
-           * @description The name of the user or organization to scope the user-to-server access token to. **Required** unless `target_id` is specified. 
+           * @description The name of the user or organization to scope the user access token to. **Required** unless `target_id` is specified. 
            * @example octocat
            */
           target?: string;
           /**
-           * @description The ID of the user or organization to scope the user-to-server access token to. **Required** unless `target` is specified. 
+           * @description The ID of the user or organization to scope the user access token to. **Required** unless `target` is specified. 
            * @example 1
            */
           target_id?: number;
-          /** @description The list of repository names to scope the user-to-server access token to. `repositories` may not be specified if `repository_ids` is specified. */
+          /** @description The list of repository names to scope the user access token to. `repositories` may not be specified if `repository_ids` is specified. */
           repositories?: (string)[];
           /**
-           * @description The list of repository IDs to scope the user-to-server access token to. `repository_ids` may not be specified if `repositories` is specified. 
+           * @description The list of repository IDs to scope the user access token to. `repository_ids` may not be specified if `repositories` is specified. 
            * @example [
            *   1
            * ]
@@ -101425,7 +101427,9 @@ export interface operations {
           target?: "branch" | "tag";
           enforcement: components["schemas"]["repository-rule-enforcement"];
           /**
-           * @description The permission level required to bypass this ruleset. "repository" allows those with bypass permission at the repository level to bypass. "organization" allows those with bypass permission at the organization level to bypass. "none" prevents anyone from bypassing. 
+           * @description The permission level required to bypass this ruleset.
+           * 
+           * **Deprecation Notice:** The bypass_mode field is being deprecated. To add a bypass option to this ruleset, use bypass_actors. The bypass_mode field will no longer be included in the respnse. 
            * @enum {string}
            */
           bypass_mode?: "none" | "repository" | "organization";
@@ -101502,7 +101506,9 @@ export interface operations {
           target?: "branch" | "tag";
           enforcement?: components["schemas"]["repository-rule-enforcement"];
           /**
-           * @description The permission level required to bypass this ruleset. "repository" allows those with bypass permission at the repository level to bypass. "organization" allows those with bypass permission at the organization level to bypass. "none" prevents anyone from bypassing. 
+           * @description The permission level required to bypass this ruleset.
+           * 
+           * **Deprecation Notice:** The bypass_mode field is being deprecated. To add a bypass option to this ruleset, use bypass_actors. The bypass_mode field will no longer be included in the respnse. 
            * @enum {string}
            */
           bypass_mode?: "none" | "repository" | "organization";
@@ -103070,7 +103076,7 @@ export interface operations {
    * 
    * This query searches for the keyword `windows`, within any open issue that is labeled as `bug`. The search runs across repositories whose primary language is Python. The results are sorted by creation date in ascending order, which means the oldest issues appear first in the search results.
    * 
-   * **Note:** For [user-to-server](https://docs.github.com/developers/apps/identifying-and-authorizing-users-for-github-apps#user-to-server-requests) GitHub App requests, you can't retrieve a combination of issues and pull requests in a single query. Requests that don't include the `is:issue` or `is:pull-request` qualifier will receive an HTTP `422 Unprocessable Entity` response. To get results for both issues and pull requests, you must send separate queries for issues and pull requests. For more information about the `is` qualifier, see "[Searching only issues or pull requests](https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests#search-only-issues-or-pull-requests)."
+   * **Note:** For requests made by GitHub Apps with a user access token, you can't retrieve a combination of issues and pull requests in a single query. Requests that don't include the `is:issue` or `is:pull-request` qualifier will receive an HTTP `422 Unprocessable Entity` response. To get results for both issues and pull requests, you must send separate queries for issues and pull requests. For more information about the `is` qualifier, see "[Searching only issues or pull requests](https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests#search-only-issues-or-pull-requests)."
    */
   "search/issues-and-pull-requests": {
     parameters: {
@@ -105514,7 +105520,7 @@ export interface operations {
    * List app installations accessible to the user access token 
    * @description Lists installations of your GitHub App that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access.
    * 
-   * You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint.
+   * You must use a [user access token](https://docs.github.com/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app), created for a user who has authorized your GitHub App, to access this endpoint.
    * 
    * The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
    * 
@@ -105551,7 +105557,7 @@ export interface operations {
    * 
    * The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
    * 
-   * You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint.
+   * You must use a [user access token](https://docs.github.com/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app), created for a user who has authorized your GitHub App, to access this endpoint.
    * 
    * The access the user has to each repository is included in the hash under the `permissions` key.
    */
@@ -105816,7 +105822,7 @@ export interface operations {
   };
   /**
    * List subscriptions for the authenticated user 
-   * @description Lists the active subscriptions for the authenticated user. You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/).
+   * @description Lists the active subscriptions for the authenticated user. GitHub Apps must use a [user access token](https://docs.github.com/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps).
    */
   "apps/list-subscriptions-for-authenticated-user": {
     parameters: {
@@ -105842,7 +105848,7 @@ export interface operations {
   };
   /**
    * List subscriptions for the authenticated user (stubbed) 
-   * @description Lists the active subscriptions for the authenticated user. You must use a [user-to-server OAuth access token](https://docs.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/).
+   * @description Lists the active subscriptions for the authenticated user. GitHub Apps must use a [user access token](https://docs.github.com/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app), created for a user who has authorized your GitHub App, to access this endpoint. . OAuth Apps must authenticate using an [OAuth token](https://docs.github.com/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps).
    */
   "apps/list-subscriptions-for-authenticated-user-stubbed": {
     parameters: {
