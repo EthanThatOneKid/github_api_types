@@ -11996,7 +11996,7 @@ export interface components {
      * @description State of a code scanning alert. 
      * @enum {string}
      */
-    "code-scanning-alert-state": "open" | "closed" | "dismissed" | "fixed";
+    "code-scanning-alert-state-query": "open" | "closed" | "dismissed" | "fixed";
     /**
      * @description Severity of a code scanning alert. 
      * @enum {string}
@@ -12007,6 +12007,11 @@ export interface components {
      * @description The REST API URL for fetching the list of instances for an alert.
      */
     readonly "alert-instances-url": string;
+    /**
+     * @description State of a code scanning alert. 
+     * @enum {string}
+     */
+    "code-scanning-alert-state": "open" | "dismissed" | "fixed";
     /**
      * @description **Required when the state is dismissed.** The reason for dismissing or closing the alert. 
      * @enum {string|null}
@@ -13184,6 +13189,15 @@ export interface components {
     "repository-rule-creation": {
       /** @enum {string} */
       type: "creation";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
     };
     /**
      * update 
@@ -13192,6 +13206,15 @@ export interface components {
     "repository-rule-update": {
       /** @enum {string} */
       type: "update";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
       parameters?: {
         /** @description Branch can pull changes from its upstream repository */
         update_allows_fetch_and_merge: boolean;
@@ -13204,6 +13227,15 @@ export interface components {
     "repository-rule-deletion": {
       /** @enum {string} */
       type: "deletion";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
     };
     /**
      * required_linear_history 
@@ -13212,6 +13244,15 @@ export interface components {
     "repository-rule-required-linear-history": {
       /** @enum {string} */
       type: "required_linear_history";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
     };
     /**
      * required_deployments 
@@ -13220,6 +13261,15 @@ export interface components {
     "repository-rule-required-deployments": {
       /** @enum {string} */
       type: "required_deployments";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
       parameters?: {
         /** @description The environments that must be successfully deployed to before branches can be merged. */
         required_deployment_environments: (string)[];
@@ -13232,6 +13282,15 @@ export interface components {
     "repository-rule-required-signatures": {
       /** @enum {string} */
       type: "required_signatures";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
     };
     /**
      * pull_request 
@@ -13240,6 +13299,15 @@ export interface components {
     "repository-rule-pull-request": {
       /** @enum {string} */
       type: "pull_request";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
       parameters?: {
         /** @description New, reviewable commits pushed will dismiss previous pull request review approvals. */
         dismiss_stale_reviews_on_push: boolean;
@@ -13270,6 +13338,15 @@ export interface components {
     "repository-rule-required-status-checks": {
       /** @enum {string} */
       type: "required_status_checks";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
       parameters?: {
         /** @description Status checks that are required. */
         required_status_checks: (components["schemas"]["repository-rule-params-status-check-configuration"])[];
@@ -13284,6 +13361,15 @@ export interface components {
     "repository-rule-non-fast-forward": {
       /** @enum {string} */
       type: "non_fast_forward";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
     };
     /**
      * commit_message_pattern 
@@ -13292,6 +13378,15 @@ export interface components {
     "repository-rule-commit-message-pattern": {
       /** @enum {string} */
       type: "commit_message_pattern";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13313,6 +13408,15 @@ export interface components {
     "repository-rule-commit-author-email-pattern": {
       /** @enum {string} */
       type: "commit_author_email_pattern";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13334,6 +13438,15 @@ export interface components {
     "repository-rule-committer-email-pattern": {
       /** @enum {string} */
       type: "committer_email_pattern";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13355,6 +13468,15 @@ export interface components {
     "repository-rule-branch-name-pattern": {
       /** @enum {string} */
       type: "branch_name_pattern";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13376,6 +13498,15 @@ export interface components {
     "repository-rule-tag-name-pattern": {
       /** @enum {string} */
       type: "tag_name_pattern";
+      /**
+       * @description The type of source of the ruleset that this rule is configured in 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that this rule is configured in */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that this rule is configured in */
+      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -84006,7 +84137,7 @@ export interface operations {
         per_page?: components["parameters"]["per-page"];
         direction?: components["parameters"]["direction"];
         /** @description If specified, only code scanning alerts with this state will be returned. */
-        state?: components["schemas"]["code-scanning-alert-state"];
+        state?: components["schemas"]["code-scanning-alert-state-query"];
         /** @description The property by which to sort the results. */
         sort?: "created" | "updated";
         /** @description If specified, only code scanning alerts with this severity will be returned. */
@@ -92932,7 +93063,7 @@ export interface operations {
         /** @description The property by which to sort the results. */
         sort?: "created" | "updated";
         /** @description If specified, only code scanning alerts with this state will be returned. */
-        state?: components["schemas"]["code-scanning-alert-state"];
+        state?: components["schemas"]["code-scanning-alert-state-query"];
         /** @description If specified, only code scanning alerts with this severity will be returned. */
         severity?: components["schemas"]["code-scanning-alert-severity"];
       };
