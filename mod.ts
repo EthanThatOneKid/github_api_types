@@ -4884,7 +4884,7 @@ export interface paths {
   "/repos/{owner}/{repo}/git/commits": {
     /**
      * Create a commit 
-     * @description Creates a new Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).
+     * @description Creates a new Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects).
      * 
      * **Signature verification object**
      * 
@@ -4921,6 +4921,7 @@ export interface paths {
     /**
      * Get a commit object 
      * @description Gets a Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects).
+     * 
      * To get the contents of a commit, see "[Get a commit](/rest/commits/commits#get-a-commit)."
      * 
      * **Signature verification object**
@@ -13149,7 +13150,7 @@ export interface components {
        * @description The type of actor that can bypass a ruleset 
        * @enum {string}
        */
-      actor_type: "Role" | "Team" | "Integration";
+      actor_type: "RepositoryRole" | "Team" | "Integration";
     };
     /**
      * Repository ruleset conditions for ref names 
@@ -13168,7 +13169,7 @@ export interface components {
      * @description Parameters for a repository name condition
      */
     "repository-ruleset-conditions-repository-name-target": {
-      repository_name?: {
+      repository_name: {
         /** @description Array of repository names or patterns to include. One of these patterns must match for the condition to pass. Also accepts `~ALL` to include all repositories. */
         include?: (string)[];
         /** @description Array of repository names or patterns to exclude. The condition will not pass if any of these patterns match. */
@@ -13178,10 +13179,20 @@ export interface components {
       };
     };
     /**
+     * Repository ruleset conditions for repository IDs 
+     * @description Parameters for a repository ID condition
+     */
+    "repository-ruleset-conditions-repository-id-target": {
+      repository_id: {
+        /** @description The repository IDs that the ruleset applies to. One of these IDs must match for the condition to pass. */
+        repository_ids?: (number)[];
+      };
+    };
+    /**
      * Organization ruleset conditions 
      * @description Conditions for a organization ruleset
      */
-    "org-ruleset-conditions": components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-name-target"];
+    "org-ruleset-conditions": (components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-name-target"]) | (components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-id-target"]);
     /**
      * creation 
      * @description Only allow users with bypass permission to create matching refs.
@@ -13557,6 +13568,11 @@ export interface components {
       bypass_mode?: "none" | "repository" | "organization";
       /** @description The actors that can bypass the rules in this ruleset */
       bypass_actors?: (components["schemas"]["repository-ruleset-bypass-actor"])[];
+      /**
+       * @description Whether the user making this API request is able to bypass the ruleset. This field is only returned when
+       * querying the repository-level endpoint.
+       */
+      current_user_can_bypass?: boolean;
       node_id?: string;
       _links?: {
         self?: {
@@ -14911,6 +14927,11 @@ export interface components {
       master_branch?: string;
     };
     /**
+     * @description The CodeQL query suite to use. 
+     * @enum {string}
+     */
+    "code-scanning-query-suite": "default" | "extended";
+    /**
      * Project Card 
      * @description Project cards represent a scope of work.
      */
@@ -15860,6 +15881,7 @@ export interface components {
       url: string;
       /** @example https://github.com/github/hello-world/suites/4 */
       html_url: string;
+      /** @description Pull requests that are open with a `head_sha` or `head_branch` that matches the workflow run. The returned pull requests do not necessarily indicate pull requests that triggered the run. */
       pull_requests: (components["schemas"]["pull-request-minimal"])[] | null;
       /** Format: date-time */
       created_at: string;
@@ -16835,6 +16857,7 @@ export interface components {
         id: number;
       } | null;
       app: components["schemas"]["nullable-integration"];
+      /** @description Pull requests that are open with a `head_sha` or `head_branch` that matches the check. The returned pull requests do not necessarily indicate pull requests that triggered the check. */
       pull_requests: (components["schemas"]["pull-request-minimal"])[];
       deployment?: components["schemas"]["deployment-simple"];
     };
@@ -17147,11 +17170,7 @@ export interface components {
        * @enum {string}
        */
       state: "configured" | "not-configured";
-      /**
-       * @description CodeQL query suite to be used. 
-       * @enum {string}
-       */
-      query_suite?: "default" | "extended";
+      query_suite?: components["schemas"]["code-scanning-query-suite"];
       /** @description CodeQL languages to be analyzed. Supported values are: `c-cpp`, `csharp`, `go`, `java-kotlin`, `javascript-typescript`, `python`, and `ruby`. */
       languages?: ("c-cpp" | "csharp" | "go" | "java-kotlin" | "javascript-typescript" | "python" | "ruby")[];
     };
@@ -96475,7 +96494,7 @@ export interface operations {
   };
   /**
    * Create a commit 
-   * @description Creates a new Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).
+   * @description Creates a new Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects).
    * 
    * **Signature verification object**
    * 
@@ -96569,6 +96588,7 @@ export interface operations {
   /**
    * Get a commit object 
    * @description Gets a Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects).
+   * 
    * To get the contents of a commit, see "[Get a commit](/rest/commits/commits#get-a-commit)."
    * 
    * **Signature verification object**
