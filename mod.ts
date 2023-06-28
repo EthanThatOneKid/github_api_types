@@ -665,95 +665,6 @@ export interface paths {
      */
     put: operations["actions/set-github-actions-default-workflow-permissions-organization"];
   };
-  "/orgs/{org}/actions/required_workflows": {
-    /**
-     * List required workflows 
-     * @description List all required workflows in an organization.
-     * 
-     * You must authenticate using an access token with the `read:org` scope to use this endpoint.
-     * 
-     * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    get: operations["actions/list-required-workflows"];
-    /**
-     * Create a required workflow 
-     * @description Create a required workflow in an organization.
-     * 
-     * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-     * 
-     * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    post: operations["actions/create-required-workflow"];
-  };
-  "/orgs/{org}/actions/required_workflows/{required_workflow_id}": {
-    /**
-     * Get a required workflow 
-     * @description Get a required workflow configured in an organization.
-     * 
-     * You must authenticate using an access token with the `read:org` scope to use this endpoint.
-     * 
-     * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    get: operations["actions/get-required-workflow"];
-    /**
-     * Delete a required workflow 
-     * @description Deletes a required workflow configured in an organization.
-     * 
-     * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-     * 
-     * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    delete: operations["actions/delete-required-workflow"];
-    /**
-     * Update a required workflow 
-     * @description Update a required workflow in an organization.
-     * 
-     * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-     * 
-     * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    patch: operations["actions/update-required-workflow"];
-  };
-  "/orgs/{org}/actions/required_workflows/{required_workflow_id}/repositories": {
-    /**
-     * List selected repositories for a required workflow 
-     * @description Lists the selected repositories that are configured for a required workflow in an organization. To use this endpoint, the required workflow must be configured to run on selected repositories.
-     * 
-     * You must authenticate using an access token with the `read:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this endpoint.
-     * 
-     * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    get: operations["actions/list-selected-repositories-required-workflow"];
-    /**
-     * Sets repositories for a required workflow 
-     * @description Sets the repositories for a required workflow that is required for selected repositories.
-     * 
-     * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-     * 
-     * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    put: operations["actions/set-selected-repos-to-required-workflow"];
-  };
-  "/orgs/{org}/actions/required_workflows/{required_workflow_id}/repositories/{repository_id}": {
-    /**
-     * Add a repository to a required workflow 
-     * @description Adds a repository to a required workflow. To use this endpoint, the required workflow must be configured to run on selected repositories.
-     * 
-     * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-     * 
-     * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    put: operations["actions/add-selected-repo-to-required-workflow"];
-    /**
-     * Remove a selected repository from required workflow 
-     * @description Removes a repository from a required workflow. To use this endpoint, the required workflow must be configured to run on selected repositories.
-     * 
-     * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-     * 
-     * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    delete: operations["actions/remove-selected-repo-from-required-workflow"];
-  };
   "/orgs/{org}/actions/runners": {
     /**
      * List self-hosted runners for an organization 
@@ -2474,31 +2385,6 @@ export interface paths {
      */
     get: operations["rate-limit/get"];
   };
-  "/repos/{org}/{repo}/actions/required_workflows": {
-    /**
-     * List repository required workflows 
-     * @description Lists the required workflows in a repository. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint. For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    get: operations["actions/list-repo-required-workflows"];
-  };
-  "/repos/{org}/{repo}/actions/required_workflows/{required_workflow_id_for_repo}": {
-    /**
-     * Get a required workflow entity for a repository 
-     * @description Gets a specific required workflow present in a repository. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint. For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    get: operations["actions/get-repo-required-workflow"];
-  };
-  "/repos/{org}/{repo}/actions/required_workflows/{required_workflow_id_for_repo}/timing": {
-    /**
-     * Get required workflow usage 
-     * @description Gets the number of billable minutes used by a specific required workflow during the current billing cycle.
-     * 
-     * Billable minutes only apply to required workflows running in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)."
-     * 
-     * Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
-     */
-    get: operations["actions/get-repo-required-workflow-usage"];
-  };
   "/repos/{owner}/{repo}": {
     /**
      * Get a repository 
@@ -2715,15 +2601,6 @@ export interface paths {
      * You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the repository `administration` permission to use this API.
      */
     put: operations["actions/set-github-actions-default-workflow-permissions-repository"];
-  };
-  "/repos/{owner}/{repo}/actions/required_workflows/{required_workflow_id_for_repo}/runs": {
-    /**
-     * List workflow runs for a required workflow 
-     * @description List all workflow runs for a required workflow. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
-     * 
-     * Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-     */
-    get: operations["actions/list-required-workflow-runs"];
   };
   "/repos/{owner}/{repo}/actions/runners": {
     /**
@@ -11778,36 +11655,6 @@ export interface components {
       default_workflow_permissions?: components["schemas"]["actions-default-workflow-permissions"];
       can_approve_pull_request_reviews?: components["schemas"]["actions-can-approve-pull-request-reviews"];
     };
-    "required-workflow": {
-      /** @description Unique identifier for a required workflow */
-      id: number;
-      /** @description Name present in the workflow file */
-      name: string;
-      /** @description Path of the workflow file */
-      path: string;
-      /**
-       * @description Scope of the required workflow 
-       * @enum {string}
-       */
-      scope: "all" | "selected";
-      /** @description Ref at which the workflow file will be selected */
-      ref: string;
-      /**
-       * @description State of the required workflow 
-       * @enum {string}
-       */
-      state: "active" | "deleted";
-      /**
-       * Format: uri 
-       * @example https://api.github.com/organizations/org/actions/required_workflows/1/repositories
-       */
-      selected_repositories_url?: string;
-      /** Format: date-time */
-      created_at: string;
-      /** Format: date-time */
-      updated_at: string;
-      repository: components["schemas"]["minimal-repository"];
-    };
     /**
      * Self hosted runner label 
      * @description A label for a self hosted runner
@@ -13150,7 +12997,12 @@ export interface components {
        * @description The type of actor that can bypass a ruleset 
        * @enum {string}
        */
-      actor_type: "RepositoryRole" | "Team" | "Integration";
+      actor_type: "RepositoryRole" | "Team" | "Integration" | "OrganizationAdmin";
+      /**
+       * @description When the specified actor can bypass the ruleset. `pull_request` means that an actor can only bypass rules on pull requests. 
+       * @enum {string}
+       */
+      bypass_mode: "always" | "pull_request";
     };
     /**
      * Repository ruleset conditions for ref names 
@@ -13559,13 +13411,6 @@ export interface components {
       /** @description The name of the source */
       source: string;
       enforcement: components["schemas"]["repository-rule-enforcement"];
-      /**
-       * @description The permission level required to bypass this ruleset.
-       * 
-       * **Deprecation Notice:** The `bypass_mode` field is being deprecated. To add a bypass option to this ruleset, use `bypass_actors`. The `bypass_mode` field will no longer be included in the response. 
-       * @enum {string}
-       */
-      bypass_mode?: "none" | "repository" | "organization";
       /** @description The actors that can bypass the rules in this ruleset */
       bypass_actors?: (components["schemas"]["repository-ruleset-bypass-actor"])[];
       /**
@@ -15062,59 +14907,6 @@ export interface components {
       rate: components["schemas"]["rate-limit"];
     };
     /**
-     * Required workflow 
-     * @description A GitHub Actions required workflow
-     */
-    "repo-required-workflow": {
-      /** @example 5 */
-      id: number;
-      /** @example MDg6V29ya2Zsb3cxMg== */
-      node_id: string;
-      /** @example Required CI */
-      name: string;
-      /** @example .github/workflows/required_ci.yaml */
-      path: string;
-      /**
-       * @example active 
-       * @enum {string}
-       */
-      state: "active" | "deleted";
-      source_repository: components["schemas"]["minimal-repository"];
-      /**
-       * Format: date-time 
-       * @example 2019-12-06T14:20:20.000Z
-       */
-      created_at: string;
-      /**
-       * Format: date-time 
-       * @example 2019-12-06T14:20:20.000Z
-       */
-      updated_at: string;
-      /** @example https://api.github.com/repos/sample-org/sample-repo/actions/required_workflows/5 */
-      url: string;
-      /** @example https://github.com/sample-org/source-repo/blob/main/.github/workflows/required_ci.yaml */
-      html_url: string;
-      /** @example https://github.com/sample-org/sample-repo/workflows/required/sample-org/source-repo/.github/workflows/required_ci.yaml/badge.svg */
-      badge_url: string;
-    };
-    /**
-     * Workflow Usage 
-     * @description Workflow Usage
-     */
-    "workflow-usage": {
-      billable: {
-        UBUNTU?: {
-          total_ms?: number;
-        };
-        MACOS?: {
-          total_ms?: number;
-        };
-        WINDOWS?: {
-          total_ms?: number;
-        };
-      };
-    };
-    /**
      * Code Of Conduct Simple 
      * @description Code of Conduct Simple
      */
@@ -16208,6 +16000,23 @@ export interface components {
        * @example 2019-12-06T14:20:20.000Z
        */
       deleted_at?: string;
+    };
+    /**
+     * Workflow Usage 
+     * @description Workflow Usage
+     */
+    "workflow-usage": {
+      billable: {
+        UBUNTU?: {
+          total_ms?: number;
+        };
+        MACOS?: {
+          total_ms?: number;
+        };
+        WINDOWS?: {
+          total_ms?: number;
+        };
+      };
     };
     /**
      * Autolink reference 
@@ -80359,8 +80168,6 @@ export interface components {
     org: string;
     /** @description The unique identifier of the repository. */
     "repository-id": number;
-    /** @description The unique identifier of the required workflow. */
-    "required-workflow-id": number;
     /** @description Unique identifier of the self-hosted runner. */
     "runner-id": number;
     /** @description The name of a self-hosted runner's custom label. */
@@ -80441,8 +80248,6 @@ export interface components {
     "card-id": number;
     /** @description The unique identifier of the column. */
     "column-id": number;
-    /** @description The ID of the required workflow that has run at least once in a repository. */
-    "repo-required-workflow-id": number;
     /** @description The unique identifier of the artifact. */
     "artifact-id": number;
     /** @description The full Git reference for narrowing down the cache. The `ref` for a branch should be formatted as `refs/heads/<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
@@ -82967,272 +82772,6 @@ export interface operations {
     responses: {
       /** @description Success response */
       204: never;
-    };
-  };
-  /**
-   * List required workflows 
-   * @description List all required workflows in an organization.
-   * 
-   * You must authenticate using an access token with the `read:org` scope to use this endpoint.
-   * 
-   * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/list-required-workflows": {
-    parameters: {
-      query?: {
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-      };
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        content: {
-          "application/json": {
-            total_count: number;
-            required_workflows: (components["schemas"]["required-workflow"])[];
-          };
-        };
-      };
-    };
-  };
-  /**
-   * Create a required workflow 
-   * @description Create a required workflow in an organization.
-   * 
-   * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-   * 
-   * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/create-required-workflow": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /** @description Path of the workflow file to be configured as a required workflow. */
-          workflow_file_path: string;
-          /** @description The ID of the repository that contains the workflow file. */
-          repository_id: string;
-          /**
-           * @description Enable the required workflow for all repositories or selected repositories in the organization. 
-           * @default all 
-           * @enum {string}
-           */
-          scope?: "selected" | "all";
-          /** @description A list of repository IDs where you want to enable the required workflow. You can only provide a list of repository ids when the `scope` is set to `selected`. */
-          selected_repository_ids?: (number)[];
-        };
-      };
-    };
-    responses: {
-      /** @description Response */
-      201: {
-        content: {
-          "application/json": components["schemas"]["required-workflow"];
-        };
-      };
-      422: components["responses"]["validation_failed_simple"];
-    };
-  };
-  /**
-   * Get a required workflow 
-   * @description Get a required workflow configured in an organization.
-   * 
-   * You must authenticate using an access token with the `read:org` scope to use this endpoint.
-   * 
-   * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/get-required-workflow": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        required_workflow_id: components["parameters"]["required-workflow-id"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["required-workflow"];
-        };
-      };
-    };
-  };
-  /**
-   * Delete a required workflow 
-   * @description Deletes a required workflow configured in an organization.
-   * 
-   * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-   * 
-   * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/delete-required-workflow": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        required_workflow_id: components["parameters"]["required-workflow-id"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      204: never;
-    };
-  };
-  /**
-   * Update a required workflow 
-   * @description Update a required workflow in an organization.
-   * 
-   * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-   * 
-   * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/update-required-workflow": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        required_workflow_id: components["parameters"]["required-workflow-id"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /** @description Path of the workflow file to be configured as a required workflow. */
-          workflow_file_path?: string;
-          /** @description The ID of the repository that contains the workflow file. */
-          repository_id?: string;
-          /**
-           * @description Enable the required workflow for all repositories or selected repositories in the organization. 
-           * @default all 
-           * @enum {string}
-           */
-          scope?: "selected" | "all";
-          /** @description A list of repository IDs where you want to enable the required workflow. A list of repository IDs where you want to enable the required workflow. You can only provide a list of repository ids when the `scope` is set to `selected`. */
-          selected_repository_ids?: (number)[];
-        };
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["required-workflow"];
-        };
-      };
-      422: components["responses"]["validation_failed_simple"];
-    };
-  };
-  /**
-   * List selected repositories for a required workflow 
-   * @description Lists the selected repositories that are configured for a required workflow in an organization. To use this endpoint, the required workflow must be configured to run on selected repositories.
-   * 
-   * You must authenticate using an access token with the `read:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this endpoint.
-   * 
-   * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/list-selected-repositories-required-workflow": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        required_workflow_id: components["parameters"]["required-workflow-id"];
-      };
-    };
-    responses: {
-      /** @description Success */
-      200: {
-        content: {
-          "application/json": {
-            total_count: number;
-            repositories: (components["schemas"]["repository"])[];
-          };
-        };
-      };
-      /** @description Resource Not Found */
-      404: never;
-    };
-  };
-  /**
-   * Sets repositories for a required workflow 
-   * @description Sets the repositories for a required workflow that is required for selected repositories.
-   * 
-   * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-   * 
-   * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/set-selected-repos-to-required-workflow": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        required_workflow_id: components["parameters"]["required-workflow-id"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /** @description The IDs of the repositories for which the workflow should be required. */
-          selected_repository_ids: (number)[];
-        };
-      };
-    };
-    responses: {
-      /** @description Response */
-      204: never;
-    };
-  };
-  /**
-   * Add a repository to a required workflow 
-   * @description Adds a repository to a required workflow. To use this endpoint, the required workflow must be configured to run on selected repositories.
-   * 
-   * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-   * 
-   * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/add-selected-repo-to-required-workflow": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        required_workflow_id: components["parameters"]["required-workflow-id"];
-        repository_id: components["parameters"]["repository-id"];
-      };
-    };
-    responses: {
-      /** @description Success */
-      204: never;
-      /** @description Resource Not Found */
-      404: never;
-      /** @description Validation Error */
-      422: never;
-    };
-  };
-  /**
-   * Remove a selected repository from required workflow 
-   * @description Removes a repository from a required workflow. To use this endpoint, the required workflow must be configured to run on selected repositories.
-   * 
-   * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
-   * 
-   * For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/remove-selected-repo-from-required-workflow": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        required_workflow_id: components["parameters"]["required-workflow-id"];
-        repository_id: components["parameters"]["repository-id"];
-      };
-    };
-    responses: {
-      /** @description Success */
-      204: never;
-      /** @description Resource Not Found */
-      404: never;
-      /** @description Validation Error */
-      422: never;
     };
   };
   /**
@@ -89079,82 +88618,6 @@ export interface operations {
     };
   };
   /**
-   * List repository required workflows 
-   * @description Lists the required workflows in a repository. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint. For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/list-repo-required-workflows": {
-    parameters: {
-      query?: {
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-      };
-      path: {
-        org: components["parameters"]["org"];
-        repo: components["parameters"]["repo"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        content: {
-          "application/json": {
-            total_count: number;
-            required_workflows: (components["schemas"]["repo-required-workflow"])[];
-          };
-        };
-      };
-      404: components["responses"]["not_found"];
-    };
-  };
-  /**
-   * Get a required workflow entity for a repository 
-   * @description Gets a specific required workflow present in a repository. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint. For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/get-repo-required-workflow": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        repo: components["parameters"]["repo"];
-        required_workflow_id_for_repo: components["parameters"]["repo-required-workflow-id"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["repo-required-workflow"];
-        };
-      };
-      404: components["responses"]["not_found"];
-    };
-  };
-  /**
-   * Get required workflow usage 
-   * @description Gets the number of billable minutes used by a specific required workflow during the current billing cycle.
-   * 
-   * Billable minutes only apply to required workflows running in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)."
-   * 
-   * Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
-   */
-  "actions/get-repo-required-workflow-usage": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        repo: components["parameters"]["repo"];
-        required_workflow_id_for_repo: components["parameters"]["repo-required-workflow-id"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        content: {
-          "application/json": components["schemas"]["workflow-usage"];
-        };
-      };
-      404: components["responses"]["not_found"];
-    };
-  };
-  /**
    * Get a repository 
    * @description The `parent` and `source` objects are present when the repository is a fork. `parent` is the repository this repository was forked from, `source` is the ultimate source for the network.
    * 
@@ -89972,47 +89435,6 @@ export interface operations {
       204: never;
       /** @description Conflict response when changing a setting is prevented by the owning organization */
       409: never;
-    };
-  };
-  /**
-   * List workflow runs for a required workflow 
-   * @description List all workflow runs for a required workflow. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
-   * 
-   * Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. For more information, see "[Required Workflows](https://docs.github.com/actions/using-workflows/required-workflows)."
-   */
-  "actions/list-required-workflow-runs": {
-    parameters: {
-      query?: {
-        actor?: components["parameters"]["actor"];
-        branch?: components["parameters"]["workflow-run-branch"];
-        event?: components["parameters"]["event"];
-        status?: components["parameters"]["workflow-run-status"];
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-        created?: components["parameters"]["created"];
-        exclude_pull_requests?: components["parameters"]["exclude-pull-requests"];
-        check_suite_id?: components["parameters"]["workflow-run-check-suite-id"];
-        head_sha?: components["parameters"]["workflow-run-head-sha"];
-      };
-      path: {
-        owner: components["parameters"]["owner"];
-        repo: components["parameters"]["repo"];
-        required_workflow_id_for_repo: components["parameters"]["repo-required-workflow-id"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        headers: {
-          Link: components["headers"]["link"];
-        };
-        content: {
-          "application/json": {
-            total_count: number;
-            workflow_runs: (components["schemas"]["workflow-run"])[];
-          };
-        };
-      };
     };
   };
   /**
@@ -101581,13 +101003,6 @@ export interface operations {
            */
           target?: "branch" | "tag";
           enforcement: components["schemas"]["repository-rule-enforcement"];
-          /**
-           * @description The permission level required to bypass this ruleset.
-           * 
-           * **Deprecation Notice:** The bypass_mode field is being deprecated. To add a bypass option to this ruleset, use bypass_actors. The bypass_mode field will no longer be included in the respnse. 
-           * @enum {string}
-           */
-          bypass_mode?: "none" | "repository" | "organization";
           /** @description The actors that can bypass the rules in this ruleset */
           bypass_actors?: (components["schemas"]["repository-ruleset-bypass-actor"])[];
           conditions?: components["schemas"]["repository-ruleset-conditions"];
@@ -101660,13 +101075,6 @@ export interface operations {
            */
           target?: "branch" | "tag";
           enforcement?: components["schemas"]["repository-rule-enforcement"];
-          /**
-           * @description The permission level required to bypass this ruleset.
-           * 
-           * **Deprecation Notice:** The bypass_mode field is being deprecated. To add a bypass option to this ruleset, use bypass_actors. The bypass_mode field will no longer be included in the respnse. 
-           * @enum {string}
-           */
-          bypass_mode?: "none" | "repository" | "organization";
           /** @description The actors that can bypass the rules in this ruleset */
           bypass_actors?: (components["schemas"]["repository-ruleset-bypass-actor"])[];
           conditions?: components["schemas"]["repository-ruleset-conditions"];
