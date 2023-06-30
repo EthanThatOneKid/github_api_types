@@ -1037,14 +1037,22 @@ export interface paths {
      * Add users to Codespaces billing for an organization 
      * @deprecated 
      * @description Codespaces for the specified users will be billed to the organization.
-     * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+     * 
+     * To use this endpoint, the billing settings for the organization must be set to `selected_members`.
+     * For information on how to change this setting, see "[Manage access control for organization codespaces](https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces)."
+     * 
+     * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     post: operations["codespaces/set-codespaces-billing-users"];
     /**
-     * Removes users from Codespaces billing for an organization 
+     * Remove users from Codespaces billing for an organization 
      * @deprecated 
      * @description Codespaces for the specified users will no longer be billed to the organization.
-     * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+     * 
+     * To use this endpoint, the billing settings for the organization must be set to `selected_members`.
+     * For information on how to change this setting, see "[Manage access control for organization codespaces](https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces)."
+     * 
+     * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     delete: operations["codespaces/delete-codespaces-billing-users"];
   };
@@ -11070,6 +11078,14 @@ export interface components {
     "security-and-analysis": ({
       advanced_security?: {
         /** @enum {string} */
+        status?: "enabled" | "disabled";
+      };
+      /** @description Enable or disable Dependabot security updates for the repository. */
+      dependabot_security_updates?: {
+        /**
+         * @description The enablement status of Dependabot security updates for the repository. 
+         * @enum {string}
+         */
         status?: "enabled" | "disabled";
       };
       secret_scanning?: {
@@ -83792,7 +83808,11 @@ export interface operations {
    * Add users to Codespaces billing for an organization 
    * @deprecated 
    * @description Codespaces for the specified users will be billed to the organization.
-   * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+   * 
+   * To use this endpoint, the billing settings for the organization must be set to `selected_members`.
+   * For information on how to change this setting, see "[Manage access control for organization codespaces](https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces)."
+   * 
+   * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
   "codespaces/set-codespaces-billing-users": {
     parameters: {
@@ -83820,10 +83840,14 @@ export interface operations {
     };
   };
   /**
-   * Removes users from Codespaces billing for an organization 
+   * Remove users from Codespaces billing for an organization 
    * @deprecated 
    * @description Codespaces for the specified users will no longer be billed to the organization.
-   * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+   * 
+   * To use this endpoint, the billing settings for the organization must be set to `selected_members`.
+   * For information on how to change this setting, see "[Manage access control for organization codespaces](https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces)."
+   * 
+   * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
   "codespaces/delete-codespaces-billing-users": {
     parameters: {
