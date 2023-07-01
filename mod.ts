@@ -16975,7 +16975,7 @@ export interface components {
        */
       state?: "configured" | "not-configured";
       /** @description Languages to be analysed. */
-      languages?: ("c-cpp" | "csharp" | "go" | "java-kotlin" | "javascript-typescript" | "javascript" | "python" | "ruby" | "typescript")[];
+      languages?: ("c-cpp" | "csharp" | "go" | "java-kotlin" | "javascript-typescript" | "javascript" | "python" | "ruby" | "typescript" | "swift")[];
       /**
        * @description CodeQL query suite to be used. 
        * @enum {string}
@@ -16997,7 +16997,7 @@ export interface components {
       state: "configured" | "not-configured";
       query_suite?: components["schemas"]["code-scanning-query-suite"];
       /** @description CodeQL languages to be analyzed. Supported values are: `c-cpp`, `csharp`, `go`, `java-kotlin`, `javascript-typescript`, `python`, and `ruby`. */
-      languages?: ("c-cpp" | "csharp" | "go" | "java-kotlin" | "javascript-typescript" | "python" | "ruby")[];
+      languages?: ("c-cpp" | "csharp" | "go" | "java-kotlin" | "javascript-typescript" | "python" | "ruby" | "swift")[];
     };
     /**
      * @description You can use `run_url` to track the status of the run. This includes a property status and conclusion.
