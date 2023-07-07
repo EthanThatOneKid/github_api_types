@@ -11473,11 +11473,6 @@ export interface components {
        * @example https://github.com/octocat
        */
       html_url: string;
-      /**
-       * Format: date-time 
-       * @example 2008-01-14T04:33:35Z
-       */
-      created_at: string;
       /** @example Organization */
       type: string;
       /** @example 100 */
@@ -11525,8 +11520,6 @@ export interface components {
       members_can_fork_private_repositories?: boolean | null;
       /** @example false */
       web_commit_signoff_required?: boolean;
-      /** Format: date-time */
-      updated_at: string;
       /**
        * @description Whether GitHub Advanced Security is enabled for new repositories and repositories transferred to this organization.
        * 
@@ -11584,6 +11577,15 @@ export interface components {
        * @example https://github.com/test-org/test-repo/blob/main/README.md
        */
       secret_scanning_push_protection_custom_link?: string | null;
+      /**
+       * Format: date-time 
+       * @example 2008-01-14T04:33:35Z
+       */
+      created_at: string;
+      /** Format: date-time */
+      updated_at: string;
+      /** Format: date-time */
+      archived_at: string | null;
     };
     "actions-cache-usage-org-enterprise": {
       /** @description The count of active caches across all repositories of an enterprise or an organization. */
@@ -13700,6 +13702,8 @@ export interface components {
       web_commit_signoff_required?: boolean;
       /** Format: date-time */
       updated_at: string;
+      /** Format: date-time */
+      archived_at: string | null;
     };
     /**
      * Full Team 
@@ -23109,7 +23113,6 @@ export interface components {
     "webhook-check-suite-completed": {
       /** @enum {string} */
       action: "completed";
-      actions_meta?: Record<string, unknown> | null;
       /** @description The [check_suite](https://docs.github.com/rest/reference/checks#suites). */
       check_suite: {
         after: string | null;
@@ -23351,7 +23354,6 @@ export interface components {
     "webhook-check-suite-requested": {
       /** @enum {string} */
       action: "requested";
-      actions_meta?: Record<string, unknown> | null;
       /** @description The [check_suite](https://docs.github.com/rest/reference/checks#suites). */
       check_suite: {
         after: string | null;
@@ -23593,12 +23595,6 @@ export interface components {
     "webhook-check-suite-rerequested": {
       /** @enum {string} */
       action: "rerequested";
-      actions_meta?: {
-        rerun_info?: {
-          plan_id?: string;
-          job_ids?: (string)[];
-        };
-      } | null;
       /** @description The [check_suite](https://docs.github.com/rest/reference/checks#suites). */
       check_suite: {
         after: string | null;
@@ -27478,6 +27474,7 @@ export interface components {
     };
     "webhook-installation-target-renamed": {
       account: {
+        archived_at?: string | null;
         avatar_url: string;
         created_at?: string;
         description?: Record<string, unknown> | null;
