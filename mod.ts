@@ -3749,14 +3749,14 @@ export interface paths {
      * 
      * The `202 Accepted` response includes an `id` value.
      * You can use this ID to check the status of the upload by using it in the `/sarifs/{sarif_id}` endpoint.
-     * For more information, see "[Get information about a SARIF upload](/rest/reference/code-scanning#get-information-about-a-sarif-upload)."
+     * For more information, see "[Get information about a SARIF upload](/rest/code-scanning/code-scanning#get-information-about-a-sarif-upload)."
      */
     post: operations["code-scanning/upload-sarif"];
   };
   "/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}": {
     /**
      * Get information about a SARIF upload 
-     * @description Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
+     * @description Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/code-scanning/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
      */
     get: operations["code-scanning/get-sarif"];
   };
@@ -21172,6 +21172,8 @@ export interface components {
           type?: components["schemas"]["security-advisory-credit-types"];
         })[] | null;
       credits_detailed: readonly (components["schemas"]["repository-advisory-credit"])[] | null;
+      /** @description A temporary private fork of the advisory's repository for collaborating on a fix. */
+      private_fork: components["schemas"]["simple-repository"] | null;
     };
     "repository-advisory-create": {
       /** @description A short summary of the advisory. */
@@ -92985,7 +92987,7 @@ export interface operations {
    * 
    * The `202 Accepted` response includes an `id` value.
    * You can use this ID to check the status of the upload by using it in the `/sarifs/{sarif_id}` endpoint.
-   * For more information, see "[Get information about a SARIF upload](/rest/reference/code-scanning#get-information-about-a-sarif-upload)."
+   * For more information, see "[Get information about a SARIF upload](/rest/code-scanning/code-scanning#get-information-about-a-sarif-upload)."
    */
   "code-scanning/upload-sarif": {
     parameters: {
@@ -93040,7 +93042,7 @@ export interface operations {
   };
   /**
    * Get information about a SARIF upload 
-   * @description Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
+   * @description Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/code-scanning/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
    */
   "code-scanning/get-sarif": {
     parameters: {
