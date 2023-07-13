@@ -363,7 +363,7 @@ export interface paths {
      * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
      * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
      * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-     * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+     * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
      */
     get: operations["issues/list"];
   };
@@ -1314,19 +1314,19 @@ export interface paths {
     get: operations["dependabot/list-selected-repos-for-org-secret"];
     /**
      * Set selected repositories for an organization secret 
-     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
      */
     put: operations["dependabot/set-selected-repos-for-org-secret"];
   };
   "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}": {
     /**
      * Add selected repository to an organization secret 
-     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
      */
     put: operations["dependabot/add-selected-repo-to-org-secret"];
     /**
      * Remove selected repository from an organization secret 
-     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
      */
     delete: operations["dependabot/remove-selected-repo-from-org-secret"];
   };
@@ -1487,7 +1487,7 @@ export interface paths {
      * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
      * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
      * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-     * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+     * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
      */
     get: operations["issues/list-for-org"];
   };
@@ -4847,7 +4847,7 @@ export interface paths {
      * 
      * When you use this endpoint without providing a `:ref`, it will return an array of all the references from your Git database, including notes and stashes if they exist on the server. Anything in the namespace is returned, not just `heads` and `tags`.
      * 
-     * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+     * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
      * 
      * If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the response can still include other matching head refs that start with the word `feature`, such as `featureA` and `featureB`.
      */
@@ -4858,7 +4858,7 @@ export interface paths {
      * Get a reference 
      * @description Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is returned.
      * 
-     * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+     * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
      */
     get: operations["git/get-ref"];
   };
@@ -5219,7 +5219,7 @@ export interface paths {
      * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
      * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
      * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-     * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+     * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
      */
     get: operations["issues/list-for-repo"];
     /**
@@ -5304,7 +5304,7 @@ export interface paths {
      * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
      * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
      * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-     * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+     * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
      */
     get: operations["issues/get"];
     /**
@@ -5847,7 +5847,7 @@ export interface paths {
      * 
      * Pull request reviews created in the `PENDING` state are not submitted and therefore do not include the `submitted_at` property in the response. To create a pending review for a pull request, leave the `event` parameter blank. For more information about submitting a `PENDING` review, see "[Submit a review for a pull request](https://docs.github.com/rest/pulls#submit-a-review-for-a-pull-request)."
      * 
-     * **Note:** To comment on a specific line in a file, you need to first determine the _position_ of that line in the diff. The GitHub REST API offers the `application/vnd.github.v3.diff` [media type](https://docs.github.com/rest/overview/media-types#commits-commit-comparison-and-pull-requests). To see a pull request diff, add this media type to the `Accept` header of a call to the [single pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) endpoint.
+     * **Note:** To comment on a specific line in a file, you need to first determine the _position_ of that line in the diff. The GitHub REST API offers the `application/vnd.github.v3.diff` [media type](https://docs.github.com/rest/overview/media-types#commits-commit-comparison-and-pull-requests). To see a pull request diff, add this media type to the `Accept` header of a call to the [single pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) endpoint.
      * 
      * The `position` value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
      */
@@ -6789,7 +6789,7 @@ export interface paths {
     /**
      * List reactions for a team discussion comment (Legacy) 
      * @deprecated 
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion comment`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion comment`](https://docs.github.com/rest/reactions/reactions#list-reactions-for-a-team-discussion-comment) endpoint.
      * 
      * List the reactions to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6797,7 +6797,7 @@ export interface paths {
     /**
      * Create reaction for a team discussion comment (Legacy) 
      * @deprecated 
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Create reaction for a team discussion comment](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)" endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Create reaction for a team discussion comment](https://docs.github.com/rest/reactions/reactions#create-reaction-for-a-team-discussion-comment)" endpoint.
      * 
      * Create a reaction to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion comment.
      */
@@ -6807,7 +6807,7 @@ export interface paths {
     /**
      * List reactions for a team discussion (Legacy) 
      * @deprecated 
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion`](https://docs.github.com/rest/reactions/reactions#list-reactions-for-a-team-discussion) endpoint.
      * 
      * List the reactions to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6815,7 +6815,7 @@ export interface paths {
     /**
      * Create reaction for a team discussion (Legacy) 
      * @deprecated 
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create reaction for a team discussion`](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create reaction for a team discussion`](https://docs.github.com/rest/reactions/reactions#create-reaction-for-a-team-discussion) endpoint.
      * 
      * Create a reaction to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion.
      */
@@ -7487,7 +7487,7 @@ export interface paths {
      * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
      * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
      * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-     * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+     * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
      */
     get: operations["issues/list-for-authenticated-user"];
   };
@@ -7719,7 +7719,7 @@ export interface paths {
   "/user/public_emails": {
     /**
      * List public email addresses for the authenticated user 
-     * @description Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
+     * @description Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/users/emails#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
      */
     get: operations["users/list-public-emails-for-authenticated-user"];
   };
@@ -13070,15 +13070,6 @@ export interface components {
     "repository-rule-creation": {
       /** @enum {string} */
       type: "creation";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
     };
     /**
      * update 
@@ -13087,15 +13078,6 @@ export interface components {
     "repository-rule-update": {
       /** @enum {string} */
       type: "update";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description Branch can pull changes from its upstream repository */
         update_allows_fetch_and_merge: boolean;
@@ -13108,15 +13090,6 @@ export interface components {
     "repository-rule-deletion": {
       /** @enum {string} */
       type: "deletion";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
     };
     /**
      * required_linear_history 
@@ -13125,15 +13098,6 @@ export interface components {
     "repository-rule-required-linear-history": {
       /** @enum {string} */
       type: "required_linear_history";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
     };
     /**
      * required_deployments 
@@ -13142,15 +13106,6 @@ export interface components {
     "repository-rule-required-deployments": {
       /** @enum {string} */
       type: "required_deployments";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description The environments that must be successfully deployed to before branches can be merged. */
         required_deployment_environments: (string)[];
@@ -13163,15 +13118,6 @@ export interface components {
     "repository-rule-required-signatures": {
       /** @enum {string} */
       type: "required_signatures";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
     };
     /**
      * pull_request 
@@ -13180,15 +13126,6 @@ export interface components {
     "repository-rule-pull-request": {
       /** @enum {string} */
       type: "pull_request";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description New, reviewable commits pushed will dismiss previous pull request review approvals. */
         dismiss_stale_reviews_on_push: boolean;
@@ -13219,15 +13156,6 @@ export interface components {
     "repository-rule-required-status-checks": {
       /** @enum {string} */
       type: "required_status_checks";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description Status checks that are required. */
         required_status_checks: (components["schemas"]["repository-rule-params-status-check-configuration"])[];
@@ -13242,15 +13170,6 @@ export interface components {
     "repository-rule-non-fast-forward": {
       /** @enum {string} */
       type: "non_fast_forward";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
     };
     /**
      * commit_message_pattern 
@@ -13259,15 +13178,6 @@ export interface components {
     "repository-rule-commit-message-pattern": {
       /** @enum {string} */
       type: "commit_message_pattern";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13289,15 +13199,6 @@ export interface components {
     "repository-rule-commit-author-email-pattern": {
       /** @enum {string} */
       type: "commit_author_email_pattern";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13319,15 +13220,6 @@ export interface components {
     "repository-rule-committer-email-pattern": {
       /** @enum {string} */
       type: "committer_email_pattern";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13349,15 +13241,6 @@ export interface components {
     "repository-rule-branch-name-pattern": {
       /** @enum {string} */
       type: "branch_name_pattern";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13379,15 +13262,6 @@ export interface components {
     "repository-rule-tag-name-pattern": {
       /** @enum {string} */
       type: "tag_name_pattern";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in 
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -20940,6 +20814,26 @@ export interface components {
       /** @description The generated body describing the contents of the release supporting markdown formatting */
       body: string;
     };
+    /**
+     * repository ruleset data for rule 
+     * @description User-defined metadata to store domain-specific information limited to 8 keys with scalar values.
+     */
+    "repository-rule-ruleset-info": {
+      /**
+       * @description The type of source for the ruleset that includes this rule. 
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that includes this rule. */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that includes this rule. */
+      ruleset_id?: number;
+    };
+    /**
+     * Repository Rule 
+     * @description A repository rule with ruleset details.
+     */
+    "repository-rule-detailed": (components["schemas"]["repository-rule-creation"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-update"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-deletion"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-linear-history"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-deployments"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-signatures"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-pull-request"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-status-checks"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-non-fast-forward"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-commit-message-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-commit-author-email-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-committer-email-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-branch-name-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-tag-name-pattern"] & components["schemas"]["repository-rule-ruleset-info"]);
     "secret-scanning-alert": {
       number?: components["schemas"]["alert-number"];
       created_at?: components["schemas"]["alert-created-at"];
@@ -80086,7 +79980,7 @@ export interface components {
     "delivery-id": number;
     /** @description Page number of the results to fetch. */
     page?: number;
-    /** @description Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    /** @description Only show results that were last updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
     since?: string;
     /** @description The unique identifier of the installation. */
     "installation-id": number;
@@ -81680,7 +81574,7 @@ export interface operations {
    * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
    * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
    * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-   * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+   * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
    */
   "issues/list": {
     parameters: {
@@ -84376,7 +84270,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/reference/dependabot#get-an-organization-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/dependabot/secrets#get-an-organization-public-key) endpoint. */
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -84385,7 +84279,7 @@ export interface operations {
            * @enum {string}
            */
           visibility: "all" | "private" | "selected";
-          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/dependabot#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/dependabot#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/dependabot#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/dependabot/secrets#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/dependabot/secrets#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/dependabot/secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids?: (string)[];
         };
       };
@@ -84446,7 +84340,7 @@ export interface operations {
   };
   /**
    * Set selected repositories for an organization secret 
-   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
    */
   "dependabot/set-selected-repos-for-org-secret": {
     parameters: {
@@ -84458,7 +84352,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/dependabot#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/dependabot#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/dependabot/secrets#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/dependabot/secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids: (number)[];
         };
       };
@@ -84470,7 +84364,7 @@ export interface operations {
   };
   /**
    * Add selected repository to an organization secret 
-   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
    */
   "dependabot/add-selected-repo-to-org-secret": {
     parameters: {
@@ -84489,7 +84383,7 @@ export interface operations {
   };
   /**
    * Remove selected repository from an organization secret 
-   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
    */
   "dependabot/remove-selected-repo-from-org-secret": {
     parameters: {
@@ -85117,7 +85011,7 @@ export interface operations {
    * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
    * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
    * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-   * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+   * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
    */
   "issues/list-for-org": {
     parameters: {
@@ -94900,7 +94794,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/reference/dependabot#get-a-repository-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/dependabot/secrets#get-a-repository-public-key) endpoint. */
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -96089,7 +95983,7 @@ export interface operations {
    * 
    * When you use this endpoint without providing a `:ref`, it will return an array of all the references from your Git database, including notes and stashes if they exist on the server. Anything in the namespace is returned, not just `heads` and `tags`.
    * 
-   * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+   * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
    * 
    * If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the response can still include other matching head refs that start with the word `feature`, such as `featureA` and `featureB`.
    */
@@ -96117,7 +96011,7 @@ export interface operations {
    * Get a reference 
    * @description Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is returned.
    * 
-   * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+   * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
    */
   "git/get-ref": {
     parameters: {
@@ -97281,7 +97175,7 @@ export interface operations {
    * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
    * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
    * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-   * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+   * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
    */
   "issues/list-for-repo": {
     parameters: {
@@ -97636,7 +97530,7 @@ export interface operations {
    * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
    * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
    * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-   * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+   * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
    */
   "issues/get": {
     parameters: {
@@ -100110,7 +100004,7 @@ export interface operations {
    * 
    * Pull request reviews created in the `PENDING` state are not submitted and therefore do not include the `submitted_at` property in the response. To create a pending review for a pull request, leave the `event` parameter blank. For more information about submitting a `PENDING` review, see "[Submit a review for a pull request](https://docs.github.com/rest/pulls#submit-a-review-for-a-pull-request)."
    * 
-   * **Note:** To comment on a specific line in a file, you need to first determine the _position_ of that line in the diff. The GitHub REST API offers the `application/vnd.github.v3.diff` [media type](https://docs.github.com/rest/overview/media-types#commits-commit-comparison-and-pull-requests). To see a pull request diff, add this media type to the `Accept` header of a call to the [single pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) endpoint.
+   * **Note:** To comment on a specific line in a file, you need to first determine the _position_ of that line in the diff. The GitHub REST API offers the `application/vnd.github.v3.diff` [media type](https://docs.github.com/rest/overview/media-types#commits-commit-comparison-and-pull-requests). To see a pull request diff, add this media type to the `Accept` header of a call to the [single pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) endpoint.
    * 
    * The `position` value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
    */
@@ -100970,7 +100864,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["repository-rule"])[];
+          "application/json": (components["schemas"]["repository-rule-detailed"])[];
         };
       };
     };
@@ -103251,7 +103145,7 @@ export interface operations {
   /**
    * List reactions for a team discussion comment (Legacy) 
    * @deprecated 
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion comment`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion comment`](https://docs.github.com/rest/reactions/reactions#list-reactions-for-a-team-discussion-comment) endpoint.
    * 
    * List the reactions to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103284,7 +103178,7 @@ export interface operations {
   /**
    * Create reaction for a team discussion comment (Legacy) 
    * @deprecated 
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Create reaction for a team discussion comment](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)" endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Create reaction for a team discussion comment](https://docs.github.com/rest/reactions/reactions#create-reaction-for-a-team-discussion-comment)" endpoint.
    * 
    * Create a reaction to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion comment.
    */
@@ -103319,7 +103213,7 @@ export interface operations {
   /**
    * List reactions for a team discussion (Legacy) 
    * @deprecated 
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion`](https://docs.github.com/rest/reactions/reactions#list-reactions-for-a-team-discussion) endpoint.
    * 
    * List the reactions to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103351,7 +103245,7 @@ export interface operations {
   /**
    * Create reaction for a team discussion (Legacy) 
    * @deprecated 
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create reaction for a team discussion`](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create reaction for a team discussion`](https://docs.github.com/rest/reactions/reactions#create-reaction-for-a-team-discussion) endpoint.
    * 
    * Create a reaction to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion.
    */
@@ -105273,7 +105167,7 @@ export interface operations {
    * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
    * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
    * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-   * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+   * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
    */
   "issues/list-for-authenticated-user": {
     parameters: {
@@ -106039,7 +105933,7 @@ export interface operations {
   };
   /**
    * List public email addresses for the authenticated user 
-   * @description Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
+   * @description Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/users/emails#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
    */
   "users/list-public-emails-for-authenticated-user": {
     parameters: {
