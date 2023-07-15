@@ -520,6 +520,32 @@ export interface paths {
      */
     get: operations["orgs/list"];
   };
+  "/organizations/{org}/copilot/billing": {
+    /**
+     * Get Copilot for Business seat information and settings for an organization 
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     * 
+     * Gets information about an organization's Copilot for Business subscription, including seat breakdown
+     * and code matching policies. To configure these settings, go to your organization's settings on GitHub.com.
+     * For more information, see "[Configuring GitHub Copilot settings in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization)".
+     * 
+     * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    get: operations["copilot/get-copilot-organization-details"];
+  };
+  "/organizations/{org}/copilot/billing/seats": {
+    /**
+     * List all Copilot for Business seat assignments for an orgainzation 
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     * 
+     * Lists all Copilot for Business seat assignments for an orgainzation that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
+     * 
+     * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    get: operations["copilot/list-copilot-seats"];
+  };
   "/orgs/{org}": {
     /**
      * Get an organization 
@@ -699,7 +725,7 @@ export interface paths {
      * 
      * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      * 
-     * #### Example using registration token
+     * Example using registration token: 
      * 
      * Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
      * 
@@ -716,7 +742,7 @@ export interface paths {
      * 
      * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      * 
-     * #### Example using remove token
+     * Example using remove token:
      * 
      * To remove your self-hosted runner from an organization, replace `TOKEN` with the remove token provided by this
      * endpoint.
@@ -1171,21 +1197,85 @@ export interface paths {
     get: operations["codespaces/list-selected-repos-for-org-secret"];
     /**
      * Set selected repositories for an organization secret 
-     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     put: operations["codespaces/set-selected-repos-for-org-secret"];
   };
   "/orgs/{org}/codespaces/secrets/{secret_name}/repositories/{repository_id}": {
     /**
      * Add selected repository to an organization secret 
-     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     put: operations["codespaces/add-selected-repo-to-org-secret"];
     /**
      * Remove selected repository from an organization secret 
-     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     delete: operations["codespaces/remove-selected-repo-from-org-secret"];
+  };
+  "/orgs/{org}/copilot/billing/selected_teams": {
+    /**
+     * Add teams to the Copilot for Business subscription for an organization 
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     * 
+     *  Purchases a GitHub Copilot for Business seat for all users within each specified team.
+     *  The organization will be billed accordingly. For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+     * 
+     *  Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+     *  authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     * 
+     *  In order for an admin to use this endpoint, the organization must have a Copilot for Business subscription and a configured suggestion matching policy.
+     *  For more information about setting up a Copilot for Business subscription, see "[Setting up a Copilot for Business subscription for your organization](https://docs.github.com/billing/managing-billing-for-github-copilot/managing-your-github-copilot-subscription-for-your-organization-or-enterprise#setting-up-a-copilot-for-business-subscription-for-your-organization)".
+     *  For more information about setting a suggestion matching policy, see "[Configuring suggestion matching policies for GitHub Copilot in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#configuring-suggestion-matching-policies-for-github-copilot-in-your-organization)".
+     */
+    post: operations["copilot/add-copilot-for-business-seats-for-teams"];
+    /**
+     * Remove teams from the Copilot for Business subscription for an organization 
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     * 
+     * Cancels the Copilot for Business seat assignment for all members of each team specified.
+     * This will cause the members of the specified team(s) to lose access to GitHub Copilot at the end of the current billing cycle, and the organization will not be billed further for those users.
+     * 
+     * For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+     * 
+     * For more information about disabling access to Copilot for Business, see "[Disabling access to GitHub Copilot for specific users in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#disabling-access-to-github-copilot-for-specific-users-in-your-organization)".
+     * 
+     * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    delete: operations["copilot/cancel-copilot-seat-assignment-for-teams"];
+  };
+  "/orgs/{org}/copilot/billing/selected_users": {
+    /**
+     * Add users to the Copilot for Business subscription for an organization 
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     * 
+     * Purchases a GitHub Copilot for Business seat for each user specified.
+     * The organization will be billed accordingly. For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+     * 
+     * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     * 
+     * In order for an admin to use this endpoint, the organization must have a Copilot for Business subscription and a configured suggestion matching policy.
+     * For more information about setting up a Copilot for Business subscription, see "[Setting up a Copilot for Business subscription for your organization](https://docs.github.com/billing/managing-billing-for-github-copilot/managing-your-github-copilot-subscription-for-your-organization-or-enterprise#setting-up-a-copilot-for-business-subscription-for-your-organization)".
+     * For more information about setting a suggestion matching policy, see "[Configuring suggestion matching policies for GitHub Copilot in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#configuring-suggestion-matching-policies-for-github-copilot-in-your-organization)".
+     */
+    post: operations["copilot/add-copilot-for-business-seats-for-users"];
+    /**
+     * Remove users from the Copilot for Business subscription for an organization 
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     * 
+     * Cancels the Copilot for Business seat assignment for each user specified.
+     * This will cause the specified users to lose access to GitHub Copilot at the end of the current billing cycle, and the organization will not be billed further for those users.
+     * 
+     * For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)"
+     * 
+     * For more information about disabling access to Copilot for Business, see "[Disabling access to GitHub Copilot for specific users in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#disabling-access-to-github-copilot-for-specific-users-in-your-organization)".
+     * 
+     * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    delete: operations["copilot/cancel-copilot-seat-assignment-for-users"];
   };
   "/orgs/{org}/dependabot/alerts": {
     /**
@@ -1536,6 +1626,17 @@ export interface paths {
      * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     post: operations["codespaces/stop-in-organization"];
+  };
+  "/orgs/{org}/members/{username}/copilot": {
+    /**
+     * Get Copilot for Business seat assignment details for a user 
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     * 
+     * Gets the GitHub Copilot for Business seat assignment details for a member of an organization who currently has access to GitHub Copilot.
+     * 
+     * Organization owners and members with admin permissions can view GitHub Copilot seat assignment details for members in their organization. You must authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    get: operations["copilot/get-copilot-seat-assignment-details-for-user"];
   };
   "/orgs/{org}/memberships/{username}": {
     /**
@@ -2638,10 +2739,9 @@ export interface paths {
   "/repos/{owner}/{repo}/actions/runners/registration-token": {
     /**
      * Create a registration token for a repository 
-     * @description Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate
-     * using an access token with the `repo` scope to use this endpoint.
+     * @description Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate using an access token with the `repo` scope to use this endpoint.
      * 
-     * #### Example using registration token
+     * Example using registration token:
      *  
      * Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
      * 
@@ -2657,7 +2757,7 @@ export interface paths {
      * @description Returns a token that you can pass to remove a self-hosted runner from a repository. The token expires after one hour.
      * You must authenticate using an access token with the `repo` scope to use this endpoint.
      * 
-     * #### Example using remove token
+     * Example using remove token:
      *  
      * To remove your self-hosted runner from a repository, replace TOKEN with the remove token provided by this endpoint.
      * 
@@ -3480,14 +3580,14 @@ export interface paths {
      * Create a check suite 
      * @description **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.
      * 
-     * By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
+     * By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/checks/suites#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
      */
     post: operations["checks/create-suite"];
   };
   "/repos/{owner}/{repo}/check-suites/preferences": {
     /**
      * Update repository preferences for check suites 
-     * @description Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/reference/checks#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
+     * @description Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/checks/suites#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
      */
     patch: operations["checks/set-suites-preferences"];
   };
@@ -3852,7 +3952,7 @@ export interface paths {
      * token with the `repo` scope to use this endpoint. GitHub Apps must have write access to the `codespaces_secrets`
      * repository permission to use this endpoint.
      * 
-     * #### Example of encrypting a secret using Node.js
+     * Example of encrypting a secret using Node.js:
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -3877,7 +3977,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example of encrypting a secret using Python
+     * Example of encrypting a secret using Python:
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -3893,7 +3993,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example of encrypting a secret using C#
+     * Example of encrypting a secret using C#:
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -3906,7 +4006,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example of encrypting a secret using Ruby
+     * Example of encrypting a secret using Ruby:
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -4294,24 +4394,24 @@ export interface paths {
      * *   This API has an upper limit of 1,000 files for a directory. If you need to retrieve more files, use the [Git Trees
      * API](https://docs.github.com/rest/reference/git#get-a-tree).
      *  *  Download URLs expire and are meant to be used just once. To ensure the download URL does not expire, please use the contents API to obtain a fresh download URL for each download.
-     * #### Size limits
+     *  Size limits:
      * If the requested file's size is:
      * * 1 MB or smaller: All features of this endpoint are supported.
      * * Between 1-100 MB: Only the `raw` or `object` [custom media types](https://docs.github.com/rest/repos/contents#custom-media-types-for-repository-contents) are supported. Both will work as normal, except that when using the `object` media type, the `content` field will be an empty string and the `encoding` field will be `"none"`. To get the contents of these larger files, use the `raw` media type.
      *  * Greater than 100 MB: This endpoint is not supported.
      * 
-     * #### If the content is a directory
+     *  If the content is a directory:
      * The response will be an array of objects, one object for each item in the directory.
      * When listing the contents of a directory, submodules have their "type" specified as "file". Logically, the value
      * _should_ be "submodule". This behavior exists in API v3 [for backwards compatibility purposes](https://git.io/v1YCW).
      * In the next major version of the API, the type will be returned as "submodule".
      * 
-     * #### If the content is a symlink 
+     *  If the content is a symlink: 
      * If the requested `:path` points to a symlink, and the symlink's target is a normal file in the repository, then the
      * API responds with the content of the file (in the format shown in the example. Otherwise, the API responds with an object 
      * describing the symlink itself.
      * 
-     * #### If the content is a submodule
+     *  If the content is a submodule:
      * The `submodule_git_url` identifies the location of the submodule repository, and the `sha` identifies a specific
      * commit within the submodule repository. Git uses the given URL when cloning the submodule repository, and checks out
      * the submodule at that specific commit.
@@ -4540,7 +4640,8 @@ export interface paths {
      * 
      * Users with `repo` or `repo_deployment` scopes can create a deployment for a given ref.
      * 
-     * #### Merged branch response
+     * Merged branch response:
+     * 
      * You will see this response when GitHub automatically merges the base branch into the topic branch instead of creating
      * a deployment. This auto-merge happens when:
      * *   Auto-merge option is enabled in the repository
@@ -4550,11 +4651,13 @@ export interface paths {
      * If there are no new commits in the base branch, a new request to create a deployment should give a successful
      * response.
      * 
-     * #### Merge conflict response
+     * Merge conflict response:
+     * 
      * This error happens when the `auto_merge` option is enabled and when the default branch (in this case `master`), can't
      * be merged into the branch that's being deployed (in this case `topic-branch`), due to merge conflicts.
      * 
-     * #### Failed commit status checks
+     * Failed commit status checks:
+     * 
      * This error happens when the `required_contexts` parameter indicates that one or more contexts need to have a `success`
      * status for the commit to be deployed, but one or more of the required contexts do not have a state of `success`.
      */
@@ -5771,7 +5874,7 @@ export interface paths {
     /**
      * Create a review comment for a pull request 
      * @description 
-     * Creates a review comment in the pull request diff. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/reference/issues#create-an-issue-comment)." We recommend creating a review comment using `line`, `side`, and optionally `start_line` and `start_side` if your comment applies to more than one line in the pull request diff.
+     * Creates a review comment in the pull request diff. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/issues/comments#create-an-issue-comment)." We recommend creating a review comment using `line`, `side`, and optionally `start_line` and `start_side` if your comment applies to more than one line in the pull request diff.
      * 
      * The `position` parameter is deprecated. If you use `position`, the `line`, `side`, `start_line`, and `start_side` parameters are not required.
      * 
@@ -6558,7 +6661,7 @@ export interface paths {
      * 
      * This query searches for the keyword `addClass` within a file's contents. The query limits the search to files where the language is JavaScript in the `jquery/jquery` repository.
      * 
-     * #### Considerations for code search
+     * Considerations for code search:
      * 
      * Due to the complexity of searching code, there are a few restrictions on how searches are performed:
      * 
@@ -11399,6 +11502,251 @@ export interface components {
       description: string | null;
     };
     /**
+     * Copilot for Business Seat Breakdown 
+     * @description The breakdown of Copilot for Business seats for the organization.
+     */
+    "copilot-seat-breakdown": {
+      /** @description The total number of seats being billed for the organization as of the current billing cycle. */
+      total?: number;
+      /** @description Seats added during the current billing cycle. */
+      added_this_cycle?: number;
+      /** @description The number of seats that are pending cancellation at the end of the current billing cycle. */
+      pending_cancellation?: number;
+      /** @description The number of seats that have been assigned to users that have not yet accepted an invitation to this organization. */
+      pending_invitation?: number;
+      /** @description The number of seats that have used Copilot during the current billing cycle. */
+      active_this_cycle?: number;
+      /** @description The number of seats that have not used Copilot during the current billing cycle. */
+      inactive_this_cycle?: number;
+    };
+    /**
+     * Copilot for Business Organization Details 
+     * @description Information about the seat breakdown and policies set for an organization with a Copilot for Business subscription.
+     */
+    "copilot-organization-details": {
+      seat_breakdown: components["schemas"]["copilot-seat-breakdown"];
+      /**
+       * @description The organization policy for allowing or disallowing Copilot to make suggestions that match public code. 
+       * @enum {string}
+       */
+      public_code_suggestions: "allow" | "block" | "unconfigured" | "unknown";
+      /**
+       * @description The mode of assigning new seats. 
+       * @enum {string}
+       */
+      seat_management_setting: "assign_all" | "assign_selected" | "disabled";
+      [key: string]: unknown;
+    };
+    /**
+     * Team Simple 
+     * @description Groups of organization members that gives permissions on specified repositories.
+     */
+    "nullable-team-simple": ({
+      /**
+       * @description Unique identifier of the team 
+       * @example 1
+       */
+      id: number;
+      /** @example MDQ6VGVhbTE= */
+      node_id: string;
+      /**
+       * Format: uri 
+       * @description URL for the team 
+       * @example https://api.github.com/organizations/1/team/1
+       */
+      url: string;
+      /** @example https://api.github.com/organizations/1/team/1/members{/member} */
+      members_url: string;
+      /**
+       * @description Name of the team 
+       * @example Justice League
+       */
+      name: string;
+      /**
+       * @description Description of the team 
+       * @example A great team.
+       */
+      description: string | null;
+      /**
+       * @description Permission that the team will have for its repositories 
+       * @example admin
+       */
+      permission: string;
+      /**
+       * @description The level of privacy this team should have 
+       * @example closed
+       */
+      privacy?: string;
+      /**
+       * @description The notification setting the team has set 
+       * @example notifications_enabled
+       */
+      notification_setting?: string;
+      /**
+       * Format: uri 
+       * @example https://github.com/orgs/rails/teams/core
+       */
+      html_url: string;
+      /**
+       * Format: uri 
+       * @example https://api.github.com/organizations/1/team/1/repos
+       */
+      repositories_url: string;
+      /** @example justice-league */
+      slug: string;
+      /**
+       * @description Distinguished Name (DN) that team maps to within LDAP environment 
+       * @example uid=example,ou=users,dc=github,dc=com
+       */
+      ldap_dn?: string;
+    }) | null;
+    /**
+     * Team 
+     * @description Groups of organization members that gives permissions on specified repositories.
+     */
+    team: {
+      id: number;
+      node_id: string;
+      name: string;
+      slug: string;
+      description: string | null;
+      privacy?: string;
+      notification_setting?: string;
+      permission: string;
+      permissions?: {
+        pull: boolean;
+        triage: boolean;
+        push: boolean;
+        maintain: boolean;
+        admin: boolean;
+      };
+      /** Format: uri */
+      url: string;
+      /**
+       * Format: uri 
+       * @example https://github.com/orgs/rails/teams/core
+       */
+      html_url: string;
+      members_url: string;
+      /** Format: uri */
+      repositories_url: string;
+      parent: components["schemas"]["nullable-team-simple"];
+    };
+    /**
+     * Organization 
+     * @description GitHub account for managing multiple users, teams, and repositories
+     */
+    organization: {
+      /**
+       * @description Unique login name of the organization 
+       * @example new-org
+       */
+      login: string;
+      /**
+       * Format: uri 
+       * @description URL for the organization 
+       * @example https://api.github.com/orgs/github
+       */
+      url: string;
+      id: number;
+      node_id: string;
+      /** Format: uri */
+      repos_url: string;
+      /** Format: uri */
+      events_url: string;
+      hooks_url: string;
+      issues_url: string;
+      members_url: string;
+      public_members_url: string;
+      avatar_url: string;
+      description: string | null;
+      /**
+       * Format: uri 
+       * @description Display blog url for the organization 
+       * @example blog.example-org.com
+       */
+      blog?: string;
+      /** Format: uri */
+      html_url: string;
+      /**
+       * @description Display name for the organization 
+       * @example New Org
+       */
+      name?: string;
+      /**
+       * @description Display company name for the organization 
+       * @example Acme corporation
+       */
+      company?: string;
+      /**
+       * @description Display location for the organization 
+       * @example Berlin, Germany
+       */
+      location?: string;
+      /**
+       * Format: email 
+       * @description Display email for the organization 
+       * @example org@example.com
+       */
+      email?: string;
+      /** @description Specifies if organization projects are enabled for this org */
+      has_organization_projects: boolean;
+      /** @description Specifies if repository projects are enabled for repositories that belong to this org */
+      has_repository_projects: boolean;
+      is_verified?: boolean;
+      public_repos: number;
+      public_gists: number;
+      followers: number;
+      following: number;
+      type: string;
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      updated_at: string;
+      plan?: {
+        name?: string;
+        space?: number;
+        private_repos?: number;
+        filled_seats?: number;
+        seats?: number;
+      };
+    };
+    /**
+     * Copilot for Business Seat Detail 
+     * @description Information about a Copilot for Business seat assignment for a user, team, or organization.
+     */
+    "copilot-seat-details": {
+      /**
+       * @description The assignee that has been granted access to GitHub Copilot. 
+       * @enum {object}
+       */
+      assignee: [object Object];
+      /** @description The team that granted access to GitHub Copilot to the assignee. This will be null if the user was assigned a seat individually. */
+      assigning_team?: components["schemas"]["team"];
+      /**
+       * Format: date 
+       * @description The pending cancellation date for the seat, in `YYYY-MM-DD` format. This will be null unless the assignee's Copilot access has been canceled during the current billing cycle. If the seat has been cancelled, this corresponds to the start of the organization's next billing cycle.
+       */
+      pending_cancellation_date?: string | null;
+      /**
+       * Format: date-time 
+       * @description Timestamp of user's last GitHub Copilot activity, in ISO 8601 format.
+       */
+      last_activity_at?: string | null;
+      /** @description Last editor that was used by the user for a GitHub Copilot completion. */
+      last_activity_editor?: string | null;
+      /**
+       * Format: date-time 
+       * @description Timestamp of when the assignee was last granted access to GitHub Copilot, in ISO 8601 format.
+       */
+      created_at: string;
+      /**
+       * Format: date-time 
+       * @description Timestamp of when the assignee's GitHub Copilot access was last updated, in ISO 8601 format.
+       */
+      updated_at?: string;
+    };
+    /**
      * Organization Full 
      * @description Organization Full
      */
@@ -12632,101 +12980,6 @@ export interface components {
     "interaction-limit": {
       limit: components["schemas"]["interaction-group"];
       expiry?: components["schemas"]["interaction-expiry"];
-    };
-    /**
-     * Team Simple 
-     * @description Groups of organization members that gives permissions on specified repositories.
-     */
-    "nullable-team-simple": ({
-      /**
-       * @description Unique identifier of the team 
-       * @example 1
-       */
-      id: number;
-      /** @example MDQ6VGVhbTE= */
-      node_id: string;
-      /**
-       * Format: uri 
-       * @description URL for the team 
-       * @example https://api.github.com/organizations/1/team/1
-       */
-      url: string;
-      /** @example https://api.github.com/organizations/1/team/1/members{/member} */
-      members_url: string;
-      /**
-       * @description Name of the team 
-       * @example Justice League
-       */
-      name: string;
-      /**
-       * @description Description of the team 
-       * @example A great team.
-       */
-      description: string | null;
-      /**
-       * @description Permission that the team will have for its repositories 
-       * @example admin
-       */
-      permission: string;
-      /**
-       * @description The level of privacy this team should have 
-       * @example closed
-       */
-      privacy?: string;
-      /**
-       * @description The notification setting the team has set 
-       * @example notifications_enabled
-       */
-      notification_setting?: string;
-      /**
-       * Format: uri 
-       * @example https://github.com/orgs/rails/teams/core
-       */
-      html_url: string;
-      /**
-       * Format: uri 
-       * @example https://api.github.com/organizations/1/team/1/repos
-       */
-      repositories_url: string;
-      /** @example justice-league */
-      slug: string;
-      /**
-       * @description Distinguished Name (DN) that team maps to within LDAP environment 
-       * @example uid=example,ou=users,dc=github,dc=com
-       */
-      ldap_dn?: string;
-    }) | null;
-    /**
-     * Team 
-     * @description Groups of organization members that gives permissions on specified repositories.
-     */
-    team: {
-      id: number;
-      node_id: string;
-      name: string;
-      slug: string;
-      description: string | null;
-      privacy?: string;
-      notification_setting?: string;
-      permission: string;
-      permissions?: {
-        pull: boolean;
-        triage: boolean;
-        push: boolean;
-        maintain: boolean;
-        admin: boolean;
-      };
-      /** Format: uri */
-      url: string;
-      /**
-       * Format: uri 
-       * @example https://github.com/orgs/rails/teams/core
-       */
-      html_url: string;
-      members_url: string;
-      /** Format: uri */
-      repositories_url: string;
-      parent: components["schemas"]["nullable-team-simple"];
     };
     /**
      * Org Membership 
@@ -21066,6 +21319,10 @@ export interface components {
           type?: components["schemas"]["security-advisory-credit-types"];
         })[] | null;
       credits_detailed: readonly (components["schemas"]["repository-advisory-credit"])[] | null;
+      /** @description A list of users that collaborate on the advisory. */
+      collaborating_users: (components["schemas"]["simple-user"])[] | null;
+      /** @description A list of teams that collaborate on the advisory. */
+      collaborating_teams: (components["schemas"]["team"])[] | null;
       /** @description A temporary private fork of the advisory's repository for collaborating on a fix. */
       private_fork: components["schemas"]["simple-repository"] | null;
     };
@@ -79889,6 +80146,12 @@ export interface components {
         "application/json": components["schemas"]["basic-error"];
       };
     };
+    /** @description Internal Error */
+    internal_error: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
+      };
+    };
     /** @description Conflict */
     conflict: {
       content: {
@@ -79921,12 +80184,6 @@ export interface components {
           total_count: number;
           labels: (components["schemas"]["runner-label"])[];
         };
-      };
-    };
-    /** @description Internal Error */
-    internal_error: {
-      content: {
-        "application/json": components["schemas"]["basic-error"];
       };
     };
     /** @description The value of `per_page` multiplied by `page` cannot be greater than 10000. */
@@ -82157,6 +82414,73 @@ export interface operations {
     };
   };
   /**
+   * Get Copilot for Business seat information and settings for an organization 
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   * 
+   * Gets information about an organization's Copilot for Business subscription, including seat breakdown
+   * and code matching policies. To configure these settings, go to your organization's settings on GitHub.com.
+   * For more information, see "[Configuring GitHub Copilot settings in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization)".
+   * 
+   * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/get-copilot-organization-details": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["copilot-organization-details"];
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * List all Copilot for Business seat assignments for an orgainzation 
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   * 
+   * Lists all Copilot for Business seat assignments for an orgainzation that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
+   * 
+   * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/list-copilot-seats": {
+    parameters: {
+      query?: {
+        page?: components["parameters"]["page"];
+        /** @description The number of results per page (max 100). */
+        per_page?: number;
+      };
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": {
+            /** @description Total number of Copilot For Business seats for the organization currently being billed. */
+            total_seats?: number;
+            seats?: (components["schemas"]["copilot-seat-details"])[];
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
    * Get an organization 
    * @description To see many of the organization response values, you need to be an authenticated organization owner with the `admin:org` scope. When the value of `two_factor_requirement_enabled` is `true`, the organization requires all members, billing managers, and outside collaborators to enable [two-factor authentication](https://docs.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/).
    * 
@@ -82776,7 +83100,7 @@ export interface operations {
    * 
    * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    * 
-   * #### Example using registration token
+   * Example using registration token: 
    * 
    * Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
    * 
@@ -82805,7 +83129,7 @@ export interface operations {
    * 
    * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    * 
-   * #### Example using remove token
+   * Example using remove token:
    * 
    * To remove your self-hosted runner from an organization, replace `TOKEN` with the remove token provided by this
    * endpoint.
@@ -83928,7 +84252,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description The value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/reference/codespaces#get-an-organization-public-key) endpoint. */
+          /** @description The value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/codespaces/organization-secrets#get-an-organization-public-key) endpoint. */
           encrypted_value?: string;
           /** @description The ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -83937,7 +84261,7 @@ export interface operations {
            * @enum {string}
            */
           visibility: "all" | "private" | "selected";
-          /** @description An array of repository IDs that can access the organization secret. You can only provide a list of repository IDs when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/codespaces#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository IDs that can access the organization secret. You can only provide a list of repository IDs when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids?: (number)[];
         };
       };
@@ -84002,7 +84326,7 @@ export interface operations {
   };
   /**
    * Set selected repositories for an organization secret 
-   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
   "codespaces/set-selected-repos-for-org-secret": {
     parameters: {
@@ -84014,7 +84338,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/codespaces#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids: (number)[];
         };
       };
@@ -84029,7 +84353,7 @@ export interface operations {
   };
   /**
    * Add selected repository to an organization secret 
-   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
   "codespaces/add-selected-repo-to-org-secret": {
     parameters: {
@@ -84050,7 +84374,7 @@ export interface operations {
   };
   /**
    * Remove selected repository from an organization secret 
-   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
   "codespaces/remove-selected-repo-from-org-secret": {
     parameters: {
@@ -84067,6 +84391,186 @@ export interface operations {
       /** @description Conflict when visibility type not set to selected */
       409: never;
       422: components["responses"]["validation_failed"];
+    };
+  };
+  /**
+   * Add teams to the Copilot for Business subscription for an organization 
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   * 
+   *  Purchases a GitHub Copilot for Business seat for all users within each specified team.
+   *  The organization will be billed accordingly. For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+   * 
+   *  Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+   *  authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   * 
+   *  In order for an admin to use this endpoint, the organization must have a Copilot for Business subscription and a configured suggestion matching policy.
+   *  For more information about setting up a Copilot for Business subscription, see "[Setting up a Copilot for Business subscription for your organization](https://docs.github.com/billing/managing-billing-for-github-copilot/managing-your-github-copilot-subscription-for-your-organization-or-enterprise#setting-up-a-copilot-for-business-subscription-for-your-organization)".
+   *  For more information about setting a suggestion matching policy, see "[Configuring suggestion matching policies for GitHub Copilot in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#configuring-suggestion-matching-policies-for-github-copilot-in-your-organization)".
+   */
+  "copilot/add-copilot-for-business-seats-for-teams": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description List of team names within the organization to which to grant access to GitHub Copilot. */
+          selected_teams: (string)[];
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      201: {
+        content: {
+          "application/json": {
+            seats_created: number;
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Copilot for Business is not enabled for this organization, billing has not been set up for this organization, a public code suggestions policy has not been set for this organization, or the organization's Copilot access setting is set to enable Copilot for all users or is unconfigured. */
+      422: never;
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Remove teams from the Copilot for Business subscription for an organization 
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   * 
+   * Cancels the Copilot for Business seat assignment for all members of each team specified.
+   * This will cause the members of the specified team(s) to lose access to GitHub Copilot at the end of the current billing cycle, and the organization will not be billed further for those users.
+   * 
+   * For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+   * 
+   * For more information about disabling access to Copilot for Business, see "[Disabling access to GitHub Copilot for specific users in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#disabling-access-to-github-copilot-for-specific-users-in-your-organization)".
+   * 
+   * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/cancel-copilot-seat-assignment-for-teams": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The names of teams from which to revoke access to GitHub Copilot. */
+          selected_teams: (string)[];
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            seats_cancelled: number;
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Copilot for Business is not enabled for this organization, billing has not been set up for this organization, a public code suggestions policy has not been set for this organization, or the organization's Copilot access setting is set to enable Copilot for all users or is unconfigured. */
+      422: never;
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Add users to the Copilot for Business subscription for an organization 
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   * 
+   * Purchases a GitHub Copilot for Business seat for each user specified.
+   * The organization will be billed accordingly. For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+   * 
+   * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   * 
+   * In order for an admin to use this endpoint, the organization must have a Copilot for Business subscription and a configured suggestion matching policy.
+   * For more information about setting up a Copilot for Business subscription, see "[Setting up a Copilot for Business subscription for your organization](https://docs.github.com/billing/managing-billing-for-github-copilot/managing-your-github-copilot-subscription-for-your-organization-or-enterprise#setting-up-a-copilot-for-business-subscription-for-your-organization)".
+   * For more information about setting a suggestion matching policy, see "[Configuring suggestion matching policies for GitHub Copilot in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#configuring-suggestion-matching-policies-for-github-copilot-in-your-organization)".
+   */
+  "copilot/add-copilot-for-business-seats-for-users": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The usernames of the organization members to be granted access to GitHub Copilot. */
+          selected_usernames: (string)[];
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      201: {
+        content: {
+          "application/json": {
+            seats_created: number;
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Copilot for Business is not enabled for this organization, billing has not been set up for this organization, a public code suggestions policy has not been set for this organization, or the organization's Copilot access setting is set to enable Copilot for all users or is unconfigured. */
+      422: never;
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Remove users from the Copilot for Business subscription for an organization 
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   * 
+   * Cancels the Copilot for Business seat assignment for each user specified.
+   * This will cause the specified users to lose access to GitHub Copilot at the end of the current billing cycle, and the organization will not be billed further for those users.
+   * 
+   * For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)"
+   * 
+   * For more information about disabling access to Copilot for Business, see "[Disabling access to GitHub Copilot for specific users in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#disabling-access-to-github-copilot-for-specific-users-in-your-organization)".
+   * 
+   * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/cancel-copilot-seat-assignment-for-users": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The usernames of the organization members for which to revoke access to GitHub Copilot. */
+          selected_usernames: (string)[];
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            seats_cancelled: number;
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Copilot for Business is not enabled for this organization, billing has not been set up for this organization, a public code suggestions policy has not been set for this organization, the seat management setting is set to enable Copilot for all users or is unconfigured, or a user's seat cannot be cancelled because it was assigned to them via a team. */
+      422: never;
+      500: components["responses"]["internal_error"];
     };
   };
   /**
@@ -85195,6 +85699,36 @@ export interface operations {
       401: components["responses"]["requires_authentication"];
       403: components["responses"]["forbidden"];
       404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Get Copilot for Business seat assignment details for a user 
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   * 
+   * Gets the GitHub Copilot for Business seat assignment details for a member of an organization who currently has access to GitHub Copilot.
+   * 
+   * Organization owners and members with admin permissions can view GitHub Copilot seat assignment details for members in their organization. You must authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/get-copilot-seat-assignment-details-for-user": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        username: components["parameters"]["username"];
+      };
+    };
+    responses: {
+      /** @description The user's GitHub Copilot seat details, including usage. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["copilot-seat-details"];
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Copilot for Business is not enabled for this organization or the user has a pending organization invitation. */
+      422: never;
       500: components["responses"]["internal_error"];
     };
   };
@@ -89444,10 +89978,9 @@ export interface operations {
   };
   /**
    * Create a registration token for a repository 
-   * @description Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate
-   * using an access token with the `repo` scope to use this endpoint.
+   * @description Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate using an access token with the `repo` scope to use this endpoint.
    * 
-   * #### Example using registration token
+   * Example using registration token:
    *  
    * Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
    * 
@@ -89476,7 +90009,7 @@ export interface operations {
    * @description Returns a token that you can pass to remove a self-hosted runner from a repository. The token expires after one hour.
    * You must authenticate using an access token with the `repo` scope to use this endpoint.
    * 
-   * #### Example using remove token
+   * Example using remove token:
    *  
    * To remove your self-hosted runner from a repository, replace TOKEN with the remove token provided by this endpoint.
    * 
@@ -92112,7 +92645,7 @@ export interface operations {
             summary: string;
             /** @description Can contain Markdown. */
             text?: string;
-            /** @description Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. GitHub Actions are limited to 10 warning annotations and 10 error annotations per step. For details about annotations in the UI, see "[About status checks](https://docs.github.com/articles/about-status-checks#checks)". */
+            /** @description Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/checks/runs#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. GitHub Actions are limited to 10 warning annotations and 10 error annotations per step. For details about annotations in the UI, see "[About status checks](https://docs.github.com/articles/about-status-checks#checks)". */
             annotations?: ({
                 /** @description The path of the file to add an annotation to. For example, `assets/css/main.css`. */
                 path: string;
@@ -92245,7 +92778,7 @@ export interface operations {
    * Create a check suite 
    * @description **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.
    * 
-   * By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
+   * By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/checks/suites#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
    */
   "checks/create-suite": {
     parameters: {
@@ -92279,7 +92812,7 @@ export interface operations {
   };
   /**
    * Update repository preferences for check suites 
-   * @description Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/reference/checks#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
+   * @description Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/checks/suites#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
    */
   "checks/set-suites-preferences": {
     parameters: {
@@ -93287,7 +93820,7 @@ export interface operations {
    * token with the `repo` scope to use this endpoint. GitHub Apps must have write access to the `codespaces_secrets`
    * repository permission to use this endpoint.
    * 
-   * #### Example of encrypting a secret using Node.js
+   * Example of encrypting a secret using Node.js:
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -93312,7 +93845,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example of encrypting a secret using Python
+   * Example of encrypting a secret using Python:
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -93328,7 +93861,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example of encrypting a secret using C#
+   * Example of encrypting a secret using C#:
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -93341,7 +93874,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example of encrypting a secret using Ruby
+   * Example of encrypting a secret using Ruby:
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -93370,7 +93903,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/reference/codespaces#get-a-repository-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/codespaces/repository-secrets#get-a-repository-public-key) endpoint. */
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -94296,24 +94829,24 @@ export interface operations {
    * *   This API has an upper limit of 1,000 files for a directory. If you need to retrieve more files, use the [Git Trees
    * API](https://docs.github.com/rest/reference/git#get-a-tree).
    *  *  Download URLs expire and are meant to be used just once. To ensure the download URL does not expire, please use the contents API to obtain a fresh download URL for each download.
-   * #### Size limits
+   *  Size limits:
    * If the requested file's size is:
    * * 1 MB or smaller: All features of this endpoint are supported.
    * * Between 1-100 MB: Only the `raw` or `object` [custom media types](https://docs.github.com/rest/repos/contents#custom-media-types-for-repository-contents) are supported. Both will work as normal, except that when using the `object` media type, the `content` field will be an empty string and the `encoding` field will be `"none"`. To get the contents of these larger files, use the `raw` media type.
    *  * Greater than 100 MB: This endpoint is not supported.
    * 
-   * #### If the content is a directory
+   *  If the content is a directory:
    * The response will be an array of objects, one object for each item in the directory.
    * When listing the contents of a directory, submodules have their "type" specified as "file". Logically, the value
    * _should_ be "submodule". This behavior exists in API v3 [for backwards compatibility purposes](https://git.io/v1YCW).
    * In the next major version of the API, the type will be returned as "submodule".
    * 
-   * #### If the content is a symlink 
+   *  If the content is a symlink: 
    * If the requested `:path` points to a symlink, and the symlink's target is a normal file in the repository, then the
    * API responds with the content of the file (in the format shown in the example. Otherwise, the API responds with an object 
    * describing the symlink itself.
    * 
-   * #### If the content is a submodule
+   *  If the content is a submodule:
    * The `submodule_git_url` identifies the location of the submodule repository, and the `sha` identifies a specific
    * commit within the submodule repository. Git uses the given URL when cloning the submodule repository, and checks out
    * the submodule at that specific commit.
@@ -94983,7 +95516,8 @@ export interface operations {
    * 
    * Users with `repo` or `repo_deployment` scopes can create a deployment for a given ref.
    * 
-   * #### Merged branch response
+   * Merged branch response:
+   * 
    * You will see this response when GitHub automatically merges the base branch into the topic branch instead of creating
    * a deployment. This auto-merge happens when:
    * *   Auto-merge option is enabled in the repository
@@ -94993,11 +95527,13 @@ export interface operations {
    * If there are no new commits in the base branch, a new request to create a deployment should give a successful
    * response.
    * 
-   * #### Merge conflict response
+   * Merge conflict response:
+   * 
    * This error happens when the `auto_merge` option is enabled and when the default branch (in this case `master`), can't
    * be merged into the branch that's being deployed (in this case `topic-branch`), due to merge conflicts.
    * 
-   * #### Failed commit status checks
+   * Failed commit status checks:
+   * 
    * This error happens when the `required_contexts` parameter indicates that one or more contexts need to have a `success`
    * status for the commit to be deployed, but one or more of the required contexts do not have a state of `success`.
    */
@@ -97851,7 +98387,7 @@ export interface operations {
     requestBody?: {
       content: {
         "application/json": OneOf<[{
-          /** @description The names of the labels to set for the issue. The labels you set replace any existing labels. You can pass an empty array to remove all labels. Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. You can also add labels to the existing labels for an issue. For more information, see "[Add labels to an issue](https://docs.github.com/rest/reference/issues#add-labels-to-an-issue)." */
+          /** @description The names of the labels to set for the issue. The labels you set replace any existing labels. You can pass an empty array to remove all labels. Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. You can also add labels to the existing labels for an issue. For more information, see "[Add labels to an issue](https://docs.github.com/rest/issues/labels#add-labels-to-an-issue)." */
           labels?: (string)[];
         }, (string)[], {
           labels?: ({
@@ -97890,7 +98426,7 @@ export interface operations {
     requestBody?: {
       content: {
         "application/json": OneOf<[{
-          /** @description The names of the labels to add to the issue's existing labels. You can pass an empty array to remove all labels. Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. You can also replace all of the labels for an issue. For more information, see "[Set labels for an issue](https://docs.github.com/rest/reference/issues#set-labels-for-an-issue)." */
+          /** @description The names of the labels to add to the issue's existing labels. You can pass an empty array to remove all labels. Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. You can also replace all of the labels for an issue. For more information, see "[Set labels for an issue](https://docs.github.com/rest/issues/labels#set-labels-for-an-issue)." */
           labels?: (string)[];
         }, (string)[], {
           labels?: ({
@@ -99632,7 +100168,7 @@ export interface operations {
   /**
    * Create a review comment for a pull request 
    * @description 
-   * Creates a review comment in the pull request diff. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/reference/issues#create-an-issue-comment)." We recommend creating a review comment using `line`, `side`, and optionally `start_line` and `start_side` if your comment applies to more than one line in the pull request diff.
+   * Creates a review comment in the pull request diff. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/issues/comments#create-an-issue-comment)." We recommend creating a review comment using `line`, `side`, and optionally `start_line` and `start_side` if your comment applies to more than one line in the pull request diff.
    * 
    * The `position` parameter is deprecated. If you use `position`, the `line`, `side`, `start_line`, and `start_side` parameters are not required.
    * 
@@ -102459,7 +102995,7 @@ export interface operations {
    * 
    * This query searches for the keyword `addClass` within a file's contents. The query limits the search to files where the language is JavaScript in the `jquery/jquery` repository.
    * 
-   * #### Considerations for code search
+   * Considerations for code search:
    * 
    * Due to the complexity of searching code, there are a few restrictions on how searches are performed:
    * 
@@ -104233,7 +104769,7 @@ export interface operations {
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id: string;
-          /** @description An array of repository ids that can access the user secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret), [Set selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret) endpoints. */
+          /** @description An array of repository ids that can access the user secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/codespaces/secrets#list-selected-repositories-for-a-user-secret), [Set selected repositories for a user secret](https://docs.github.com/rest/codespaces/secrets#set-selected-repositories-for-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/codespaces/secrets#remove-a-selected-repository-from-a-user-secret) endpoints. */
           selected_repository_ids?: (number | string)[];
         };
       };
@@ -104317,7 +104853,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description An array of repository ids for which a codespace can access the secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret), [Add a selected repository to a user secret](https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret) endpoints. */
+          /** @description An array of repository ids for which a codespace can access the secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/codespaces/secrets#list-selected-repositories-for-a-user-secret), [Add a selected repository to a user secret](https://docs.github.com/rest/codespaces/secrets#add-a-selected-repository-to-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/codespaces/secrets#remove-a-selected-repository-from-a-user-secret) endpoints. */
           selected_repository_ids: (number)[];
         };
       };
