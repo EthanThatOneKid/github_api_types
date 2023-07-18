@@ -536,10 +536,10 @@ export interface paths {
   };
   "/organizations/{org}/copilot/billing/seats": {
     /**
-     * List all Copilot for Business seat assignments for an orgainzation 
+     * List all Copilot for Business seat assignments for an organization 
      * @description **Note**: This endpoint is in beta and is subject to change.
      * 
-     * Lists all Copilot for Business seat assignments for an orgainzation that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
+     * Lists all Copilot for Business seat assignments for an organization that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
      * 
      * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
      * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
@@ -82444,10 +82444,10 @@ export interface operations {
     };
   };
   /**
-   * List all Copilot for Business seat assignments for an orgainzation 
+   * List all Copilot for Business seat assignments for an organization 
    * @description **Note**: This endpoint is in beta and is subject to change.
    * 
-   * Lists all Copilot for Business seat assignments for an orgainzation that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
+   * Lists all Copilot for Business seat assignments for an organization that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
    * 
    * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
    * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
