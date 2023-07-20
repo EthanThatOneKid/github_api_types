@@ -465,7 +465,7 @@ export interface paths {
     get: operations["activity/list-notifications-for-authenticated-user"];
     /**
      * Mark notifications as read 
-     * @description Marks all notifications as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+     * @description Marks all notifications as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
      */
     put: operations["activity/mark-notifications-as-read"];
   };
@@ -484,7 +484,7 @@ export interface paths {
   "/notifications/threads/{thread_id}/subscription": {
     /**
      * Get a thread subscription for the authenticated user 
-     * @description This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/reference/activity#get-a-repository-subscription).
+     * @description This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/activity/watching#get-a-repository-subscription).
      * 
      * Note that subscriptions are only generated if a user is participating in a conversation--for example, they've replied to the thread, were **@mentioned**, or manually subscribe to a thread.
      */
@@ -495,12 +495,12 @@ export interface paths {
      * 
      * You can also use this endpoint to subscribe to threads that you are currently not receiving notifications for or to subscribed to threads that you have previously ignored.
      * 
-     * Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/reference/activity#delete-a-thread-subscription) endpoint.
+     * Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/activity/notifications#delete-a-thread-subscription) endpoint.
      */
     put: operations["activity/set-thread-subscription"];
     /**
      * Delete a thread subscription 
-     * @description Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/reference/activity#set-a-thread-subscription) endpoint and set `ignore` to `true`.
+     * @description Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/activity/notifications#set-a-thread-subscription) endpoint and set `ignore` to `true`.
      */
     delete: operations["activity/delete-thread-subscription"];
   };
@@ -519,32 +519,6 @@ export interface paths {
      * **Note:** Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers) to get the URL for the next page of organizations.
      */
     get: operations["orgs/list"];
-  };
-  "/organizations/{org}/copilot/billing": {
-    /**
-     * Get Copilot for Business seat information and settings for an organization 
-     * @description **Note**: This endpoint is in beta and is subject to change.
-     * 
-     * Gets information about an organization's Copilot for Business subscription, including seat breakdown
-     * and code matching policies. To configure these settings, go to your organization's settings on GitHub.com.
-     * For more information, see "[Configuring GitHub Copilot settings in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization)".
-     * 
-     * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
-     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
-     */
-    get: operations["copilot/get-copilot-organization-details"];
-  };
-  "/organizations/{org}/copilot/billing/seats": {
-    /**
-     * List all Copilot for Business seat assignments for an organization 
-     * @description **Note**: This endpoint is in beta and is subject to change.
-     * 
-     * Lists all Copilot for Business seat assignments for an organization that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
-     * 
-     * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
-     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
-     */
-    get: operations["copilot/list-copilot-seats"];
   };
   "/orgs/{org}": {
     /**
@@ -928,19 +902,19 @@ export interface paths {
     get: operations["actions/list-selected-repos-for-org-secret"];
     /**
      * Set selected repositories for an organization secret 
-     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
      */
     put: operations["actions/set-selected-repos-for-org-secret"];
   };
   "/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}": {
     /**
      * Add selected repository to an organization secret 
-     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
      */
     put: operations["actions/add-selected-repo-to-org-secret"];
     /**
      * Remove selected repository from an organization secret 
-     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
      */
     delete: operations["actions/remove-selected-repo-from-org-secret"];
   };
@@ -1213,6 +1187,32 @@ export interface paths {
      */
     delete: operations["codespaces/remove-selected-repo-from-org-secret"];
   };
+  "/orgs/{org}/copilot/billing": {
+    /**
+     * Get Copilot for Business seat information and settings for an organization 
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     * 
+     * Gets information about an organization's Copilot for Business subscription, including seat breakdown
+     * and code matching policies. To configure these settings, go to your organization's settings on GitHub.com.
+     * For more information, see "[Configuring GitHub Copilot settings in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization)".
+     * 
+     * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    get: operations["copilot/get-copilot-organization-details"];
+  };
+  "/orgs/{org}/copilot/billing/seats": {
+    /**
+     * List all Copilot for Business seat assignments for an organization 
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     * 
+     * Lists all Copilot for Business seat assignments for an organization that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
+     * 
+     * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    get: operations["copilot/list-copilot-seats"];
+  };
   "/orgs/{org}/copilot/billing/selected_teams": {
     /**
      * Add teams to the Copilot for Business subscription for an organization 
@@ -1451,28 +1451,28 @@ export interface paths {
   "/orgs/{org}/hooks/{hook_id}": {
     /**
      * Get an organization webhook 
-     * @description Returns a webhook configured in an organization. To get only the webhook `config` properties, see "[Get a webhook configuration for an organization](/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)."
+     * @description Returns a webhook configured in an organization. To get only the webhook `config` properties, see "[Get a webhook configuration for an organization](/rest/orgs/webhooks#get-a-webhook-configuration-for-an-organization)."
      */
     get: operations["orgs/get-webhook"];
     /** Delete an organization webhook */
     delete: operations["orgs/delete-webhook"];
     /**
      * Update an organization webhook 
-     * @description Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)."
+     * @description Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/orgs/webhooks#update-a-webhook-configuration-for-an-organization)."
      */
     patch: operations["orgs/update-webhook"];
   };
   "/orgs/{org}/hooks/{hook_id}/config": {
     /**
      * Get a webhook configuration for an organization 
-     * @description Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/reference/orgs#get-an-organization-webhook)."
+     * @description Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/orgs/webhooks#get-an-organization-webhook)."
      * 
      * Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:read` permission.
      */
     get: operations["orgs/get-webhook-config-for-org"];
     /**
      * Update a webhook configuration for an organization 
-     * @description Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "[Update an organization webhook ](/rest/reference/orgs#update-an-organization-webhook)."
+     * @description Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "[Update an organization webhook ](/rest/orgs/webhooks#update-an-organization-webhook)."
      * 
      * Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:write` permission.
      */
@@ -1648,7 +1648,7 @@ export interface paths {
      * Set organization membership for a user 
      * @description Only authenticated organization owners can add a member to the organization or update the member's role.
      * 
-     * *   If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user) will be `pending` until they accept the invitation.
+     * *   If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/orgs/members#get-organization-membership-for-a-user) will be `pending` until they accept the invitation.
      *     
      * *   Authenticated users can _update_ a user's membership by passing the `role` parameter. If the authenticated user changes a member's role to `admin`, the affected user will receive an email notifying them that they've been made an organization owner. If the authenticated user changes an owner's role to `member`, no email will be sent.
      * 
@@ -3240,6 +3240,11 @@ export interface paths {
   };
   "/repos/{owner}/{repo}/automated-security-fixes": {
     /**
+     * Check if automated security fixes are enabled for a repository 
+     * @description Shows whether automated security fixes are enabled, disabled or paused for a repository. The authenticated user must have admin read access to the repository. For more information, see "[Configuring automated security fixes](https://docs.github.com/articles/configuring-automated-security-fixes)".
+     */
+    get: operations["repos/check-automated-security-fixes"];
+    /**
      * Enable automated security fixes 
      * @description Enables automated security fixes for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring automated security fixes](https://docs.github.com/articles/configuring-automated-security-fixes)".
      */
@@ -4392,7 +4397,7 @@ export interface paths {
      * **Notes**:
      * *   To get a repository's contents recursively, you can [recursively get the tree](https://docs.github.com/rest/reference/git#trees).
      * *   This API has an upper limit of 1,000 files for a directory. If you need to retrieve more files, use the [Git Trees
-     * API](https://docs.github.com/rest/reference/git#get-a-tree).
+     * API](https://docs.github.com/rest/git/trees#get-a-tree).
      *  *  Download URLs expire and are meant to be used just once. To ensure the download URL does not expire, please use the contents API to obtain a fresh download URL for each download.
      *  Size limits:
      * If the requested file's size is:
@@ -4981,7 +4986,7 @@ export interface paths {
   "/repos/{owner}/{repo}/git/tags": {
     /**
      * Create a tag object 
-     * @description Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/reference/git#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/reference/git#create-a-reference) the tag reference - this call would be unnecessary.
+     * @description Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/git/refs#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/git/refs#create-a-reference) the tag reference - this call would be unnecessary.
      * 
      * **Signature verification object**
      * 
@@ -5053,7 +5058,7 @@ export interface paths {
      * Create a tree 
      * @description The tree creation API accepts nested entries. If you specify both a tree and a nested path modifying that tree, this endpoint will overwrite the contents of the tree with the new path contents, and create a new tree structure.
      * 
-     * If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/reference/git#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/reference/git#update-a-reference)."
+     * If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/git/commits#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/git/refs#update-a-reference)."
      * 
      * Returns an error if you try to delete a file that does not exist.
      */
@@ -5665,7 +5670,7 @@ export interface paths {
     get: operations["activity/list-repo-notifications-for-authenticated-user"];
     /**
      * Mark repository notifications as read 
-     * @description Marks all notifications in a repository as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+     * @description Marks all notifications in a repository as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
      */
     put: operations["activity/mark-repo-notifications-as-read"];
   };
@@ -6350,12 +6355,12 @@ export interface paths {
     get: operations["activity/get-repo-subscription"];
     /**
      * Set a repository subscription 
-     * @description If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/reference/activity#delete-a-repository-subscription) completely.
+     * @description If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/activity/watching#delete-a-repository-subscription) completely.
      */
     put: operations["activity/set-repo-subscription"];
     /**
      * Delete a repository subscription 
-     * @description This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/reference/activity#set-a-repository-subscription).
+     * @description This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/activity/watching#set-a-repository-subscription).
      */
     delete: operations["activity/delete-repo-subscription"];
   };
@@ -6449,6 +6454,7 @@ export interface paths {
     /**
      * Transfer a repository 
      * @description A transfer request will need to be accepted by the new owner when transferring a personal repository to another user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more details on the requirements to transfer personal and organization-owned repositories, see [about repository transfers](https://docs.github.com/articles/about-repository-transfers/).
+     * You must use a personal access token (classic) or an OAuth token for this endpoint. An installation access token or a fine-grained personal access token cannot be used because they are only granted access to a single account.
      */
     post: operations["repos/transfer"];
   };
@@ -8056,7 +8062,7 @@ export interface paths {
      * List organizations for a user 
      * @description List [public organization memberships](https://docs.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user.
      * 
-     * This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user) API instead.
+     * This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/orgs/orgs#list-organizations-for-the-authenticated-user) API instead.
      */
     get: operations["orgs/list-for-user"];
   };
@@ -11502,251 +11508,6 @@ export interface components {
       description: string | null;
     };
     /**
-     * Copilot for Business Seat Breakdown 
-     * @description The breakdown of Copilot for Business seats for the organization.
-     */
-    "copilot-seat-breakdown": {
-      /** @description The total number of seats being billed for the organization as of the current billing cycle. */
-      total?: number;
-      /** @description Seats added during the current billing cycle. */
-      added_this_cycle?: number;
-      /** @description The number of seats that are pending cancellation at the end of the current billing cycle. */
-      pending_cancellation?: number;
-      /** @description The number of seats that have been assigned to users that have not yet accepted an invitation to this organization. */
-      pending_invitation?: number;
-      /** @description The number of seats that have used Copilot during the current billing cycle. */
-      active_this_cycle?: number;
-      /** @description The number of seats that have not used Copilot during the current billing cycle. */
-      inactive_this_cycle?: number;
-    };
-    /**
-     * Copilot for Business Organization Details 
-     * @description Information about the seat breakdown and policies set for an organization with a Copilot for Business subscription.
-     */
-    "copilot-organization-details": {
-      seat_breakdown: components["schemas"]["copilot-seat-breakdown"];
-      /**
-       * @description The organization policy for allowing or disallowing Copilot to make suggestions that match public code. 
-       * @enum {string}
-       */
-      public_code_suggestions: "allow" | "block" | "unconfigured" | "unknown";
-      /**
-       * @description The mode of assigning new seats. 
-       * @enum {string}
-       */
-      seat_management_setting: "assign_all" | "assign_selected" | "disabled";
-      [key: string]: unknown;
-    };
-    /**
-     * Team Simple 
-     * @description Groups of organization members that gives permissions on specified repositories.
-     */
-    "nullable-team-simple": ({
-      /**
-       * @description Unique identifier of the team 
-       * @example 1
-       */
-      id: number;
-      /** @example MDQ6VGVhbTE= */
-      node_id: string;
-      /**
-       * Format: uri 
-       * @description URL for the team 
-       * @example https://api.github.com/organizations/1/team/1
-       */
-      url: string;
-      /** @example https://api.github.com/organizations/1/team/1/members{/member} */
-      members_url: string;
-      /**
-       * @description Name of the team 
-       * @example Justice League
-       */
-      name: string;
-      /**
-       * @description Description of the team 
-       * @example A great team.
-       */
-      description: string | null;
-      /**
-       * @description Permission that the team will have for its repositories 
-       * @example admin
-       */
-      permission: string;
-      /**
-       * @description The level of privacy this team should have 
-       * @example closed
-       */
-      privacy?: string;
-      /**
-       * @description The notification setting the team has set 
-       * @example notifications_enabled
-       */
-      notification_setting?: string;
-      /**
-       * Format: uri 
-       * @example https://github.com/orgs/rails/teams/core
-       */
-      html_url: string;
-      /**
-       * Format: uri 
-       * @example https://api.github.com/organizations/1/team/1/repos
-       */
-      repositories_url: string;
-      /** @example justice-league */
-      slug: string;
-      /**
-       * @description Distinguished Name (DN) that team maps to within LDAP environment 
-       * @example uid=example,ou=users,dc=github,dc=com
-       */
-      ldap_dn?: string;
-    }) | null;
-    /**
-     * Team 
-     * @description Groups of organization members that gives permissions on specified repositories.
-     */
-    team: {
-      id: number;
-      node_id: string;
-      name: string;
-      slug: string;
-      description: string | null;
-      privacy?: string;
-      notification_setting?: string;
-      permission: string;
-      permissions?: {
-        pull: boolean;
-        triage: boolean;
-        push: boolean;
-        maintain: boolean;
-        admin: boolean;
-      };
-      /** Format: uri */
-      url: string;
-      /**
-       * Format: uri 
-       * @example https://github.com/orgs/rails/teams/core
-       */
-      html_url: string;
-      members_url: string;
-      /** Format: uri */
-      repositories_url: string;
-      parent: components["schemas"]["nullable-team-simple"];
-    };
-    /**
-     * Organization 
-     * @description GitHub account for managing multiple users, teams, and repositories
-     */
-    organization: {
-      /**
-       * @description Unique login name of the organization 
-       * @example new-org
-       */
-      login: string;
-      /**
-       * Format: uri 
-       * @description URL for the organization 
-       * @example https://api.github.com/orgs/github
-       */
-      url: string;
-      id: number;
-      node_id: string;
-      /** Format: uri */
-      repos_url: string;
-      /** Format: uri */
-      events_url: string;
-      hooks_url: string;
-      issues_url: string;
-      members_url: string;
-      public_members_url: string;
-      avatar_url: string;
-      description: string | null;
-      /**
-       * Format: uri 
-       * @description Display blog url for the organization 
-       * @example blog.example-org.com
-       */
-      blog?: string;
-      /** Format: uri */
-      html_url: string;
-      /**
-       * @description Display name for the organization 
-       * @example New Org
-       */
-      name?: string;
-      /**
-       * @description Display company name for the organization 
-       * @example Acme corporation
-       */
-      company?: string;
-      /**
-       * @description Display location for the organization 
-       * @example Berlin, Germany
-       */
-      location?: string;
-      /**
-       * Format: email 
-       * @description Display email for the organization 
-       * @example org@example.com
-       */
-      email?: string;
-      /** @description Specifies if organization projects are enabled for this org */
-      has_organization_projects: boolean;
-      /** @description Specifies if repository projects are enabled for repositories that belong to this org */
-      has_repository_projects: boolean;
-      is_verified?: boolean;
-      public_repos: number;
-      public_gists: number;
-      followers: number;
-      following: number;
-      type: string;
-      /** Format: date-time */
-      created_at: string;
-      /** Format: date-time */
-      updated_at: string;
-      plan?: {
-        name?: string;
-        space?: number;
-        private_repos?: number;
-        filled_seats?: number;
-        seats?: number;
-      };
-    };
-    /**
-     * Copilot for Business Seat Detail 
-     * @description Information about a Copilot for Business seat assignment for a user, team, or organization.
-     */
-    "copilot-seat-details": {
-      /**
-       * @description The assignee that has been granted access to GitHub Copilot. 
-       * @enum {object}
-       */
-      assignee: [object Object];
-      /** @description The team that granted access to GitHub Copilot to the assignee. This will be null if the user was assigned a seat individually. */
-      assigning_team?: components["schemas"]["team"];
-      /**
-       * Format: date 
-       * @description The pending cancellation date for the seat, in `YYYY-MM-DD` format. This will be null unless the assignee's Copilot access has been canceled during the current billing cycle. If the seat has been cancelled, this corresponds to the start of the organization's next billing cycle.
-       */
-      pending_cancellation_date?: string | null;
-      /**
-       * Format: date-time 
-       * @description Timestamp of user's last GitHub Copilot activity, in ISO 8601 format.
-       */
-      last_activity_at?: string | null;
-      /** @description Last editor that was used by the user for a GitHub Copilot completion. */
-      last_activity_editor?: string | null;
-      /**
-       * Format: date-time 
-       * @description Timestamp of when the assignee was last granted access to GitHub Copilot, in ISO 8601 format.
-       */
-      created_at: string;
-      /**
-       * Format: date-time 
-       * @description Timestamp of when the assignee's GitHub Copilot access was last updated, in ISO 8601 format.
-       */
-      updated_at?: string;
-    };
-    /**
      * Organization Full 
      * @description Organization Full
      */
@@ -12577,6 +12338,251 @@ export interface components {
       title?: string;
       /** @example 2011-01-26T19:01:12Z */
       created_at?: string;
+    };
+    /**
+     * Copilot for Business Seat Breakdown 
+     * @description The breakdown of Copilot for Business seats for the organization.
+     */
+    "copilot-seat-breakdown": {
+      /** @description The total number of seats being billed for the organization as of the current billing cycle. */
+      total?: number;
+      /** @description Seats added during the current billing cycle. */
+      added_this_cycle?: number;
+      /** @description The number of seats that are pending cancellation at the end of the current billing cycle. */
+      pending_cancellation?: number;
+      /** @description The number of seats that have been assigned to users that have not yet accepted an invitation to this organization. */
+      pending_invitation?: number;
+      /** @description The number of seats that have used Copilot during the current billing cycle. */
+      active_this_cycle?: number;
+      /** @description The number of seats that have not used Copilot during the current billing cycle. */
+      inactive_this_cycle?: number;
+    };
+    /**
+     * Copilot for Business Organization Details 
+     * @description Information about the seat breakdown and policies set for an organization with a Copilot for Business subscription.
+     */
+    "copilot-organization-details": {
+      seat_breakdown: components["schemas"]["copilot-seat-breakdown"];
+      /**
+       * @description The organization policy for allowing or disallowing Copilot to make suggestions that match public code. 
+       * @enum {string}
+       */
+      public_code_suggestions: "allow" | "block" | "unconfigured" | "unknown";
+      /**
+       * @description The mode of assigning new seats. 
+       * @enum {string}
+       */
+      seat_management_setting: "assign_all" | "assign_selected" | "disabled";
+      [key: string]: unknown;
+    };
+    /**
+     * Team Simple 
+     * @description Groups of organization members that gives permissions on specified repositories.
+     */
+    "nullable-team-simple": ({
+      /**
+       * @description Unique identifier of the team 
+       * @example 1
+       */
+      id: number;
+      /** @example MDQ6VGVhbTE= */
+      node_id: string;
+      /**
+       * Format: uri 
+       * @description URL for the team 
+       * @example https://api.github.com/organizations/1/team/1
+       */
+      url: string;
+      /** @example https://api.github.com/organizations/1/team/1/members{/member} */
+      members_url: string;
+      /**
+       * @description Name of the team 
+       * @example Justice League
+       */
+      name: string;
+      /**
+       * @description Description of the team 
+       * @example A great team.
+       */
+      description: string | null;
+      /**
+       * @description Permission that the team will have for its repositories 
+       * @example admin
+       */
+      permission: string;
+      /**
+       * @description The level of privacy this team should have 
+       * @example closed
+       */
+      privacy?: string;
+      /**
+       * @description The notification setting the team has set 
+       * @example notifications_enabled
+       */
+      notification_setting?: string;
+      /**
+       * Format: uri 
+       * @example https://github.com/orgs/rails/teams/core
+       */
+      html_url: string;
+      /**
+       * Format: uri 
+       * @example https://api.github.com/organizations/1/team/1/repos
+       */
+      repositories_url: string;
+      /** @example justice-league */
+      slug: string;
+      /**
+       * @description Distinguished Name (DN) that team maps to within LDAP environment 
+       * @example uid=example,ou=users,dc=github,dc=com
+       */
+      ldap_dn?: string;
+    }) | null;
+    /**
+     * Team 
+     * @description Groups of organization members that gives permissions on specified repositories.
+     */
+    team: {
+      id: number;
+      node_id: string;
+      name: string;
+      slug: string;
+      description: string | null;
+      privacy?: string;
+      notification_setting?: string;
+      permission: string;
+      permissions?: {
+        pull: boolean;
+        triage: boolean;
+        push: boolean;
+        maintain: boolean;
+        admin: boolean;
+      };
+      /** Format: uri */
+      url: string;
+      /**
+       * Format: uri 
+       * @example https://github.com/orgs/rails/teams/core
+       */
+      html_url: string;
+      members_url: string;
+      /** Format: uri */
+      repositories_url: string;
+      parent: components["schemas"]["nullable-team-simple"];
+    };
+    /**
+     * Organization 
+     * @description GitHub account for managing multiple users, teams, and repositories
+     */
+    organization: {
+      /**
+       * @description Unique login name of the organization 
+       * @example new-org
+       */
+      login: string;
+      /**
+       * Format: uri 
+       * @description URL for the organization 
+       * @example https://api.github.com/orgs/github
+       */
+      url: string;
+      id: number;
+      node_id: string;
+      /** Format: uri */
+      repos_url: string;
+      /** Format: uri */
+      events_url: string;
+      hooks_url: string;
+      issues_url: string;
+      members_url: string;
+      public_members_url: string;
+      avatar_url: string;
+      description: string | null;
+      /**
+       * Format: uri 
+       * @description Display blog url for the organization 
+       * @example blog.example-org.com
+       */
+      blog?: string;
+      /** Format: uri */
+      html_url: string;
+      /**
+       * @description Display name for the organization 
+       * @example New Org
+       */
+      name?: string;
+      /**
+       * @description Display company name for the organization 
+       * @example Acme corporation
+       */
+      company?: string;
+      /**
+       * @description Display location for the organization 
+       * @example Berlin, Germany
+       */
+      location?: string;
+      /**
+       * Format: email 
+       * @description Display email for the organization 
+       * @example org@example.com
+       */
+      email?: string;
+      /** @description Specifies if organization projects are enabled for this org */
+      has_organization_projects: boolean;
+      /** @description Specifies if repository projects are enabled for repositories that belong to this org */
+      has_repository_projects: boolean;
+      is_verified?: boolean;
+      public_repos: number;
+      public_gists: number;
+      followers: number;
+      following: number;
+      type: string;
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      updated_at: string;
+      plan?: {
+        name?: string;
+        space?: number;
+        private_repos?: number;
+        filled_seats?: number;
+        seats?: number;
+      };
+    };
+    /**
+     * Copilot for Business Seat Detail 
+     * @description Information about a Copilot for Business seat assignment for a user, team, or organization.
+     */
+    "copilot-seat-details": {
+      /**
+       * @description The assignee that has been granted access to GitHub Copilot. 
+       * @enum {object}
+       */
+      assignee: [object Object];
+      /** @description The team that granted access to GitHub Copilot to the assignee. This will be null if the user was assigned a seat individually. */
+      assigning_team?: components["schemas"]["team"];
+      /**
+       * Format: date 
+       * @description The pending cancellation date for the seat, in `YYYY-MM-DD` format. This will be null unless the assignee's Copilot access has been canceled during the current billing cycle. If the seat has been cancelled, this corresponds to the start of the organization's next billing cycle.
+       */
+      pending_cancellation_date?: string | null;
+      /**
+       * Format: date-time 
+       * @description Timestamp of user's last GitHub Copilot activity, in ISO 8601 format.
+       */
+      last_activity_at?: string | null;
+      /** @description Last editor that was used by the user for a GitHub Copilot completion. */
+      last_activity_editor?: string | null;
+      /**
+       * Format: date-time 
+       * @description Timestamp of when the assignee was last granted access to GitHub Copilot, in ISO 8601 format.
+       */
+      created_at: string;
+      /**
+       * Format: date-time 
+       * @description Timestamp of when the assignee's GitHub Copilot access was last updated, in ISO 8601 format.
+       */
+      updated_at?: string;
     };
     /**
      * Dependabot Secret for an Organization 
@@ -16187,6 +16193,22 @@ export interface components {
        * @example true
        */
       is_alphanumeric: boolean;
+    };
+    /**
+     * Check Automated Security Fixes 
+     * @description Check Automated Security Fixes
+     */
+    "check-automated-security-fixes": {
+      /**
+       * @description Whether automated security fixes are enabled for the repository. 
+       * @example true
+       */
+      enabled: boolean;
+      /**
+       * @description Whether automated security fixes are paused for the repository. 
+       * @example false
+       */
+      paused: boolean;
     };
     /**
      * Protected Branch Required Status Check 
@@ -21436,6 +21458,10 @@ export interface components {
        * @enum {string}
        */
       state?: "published" | "closed" | "draft";
+      /** @description A list of usernames who have been granted write access to the advisory. */
+      collaborating_users?: (string)[] | null;
+      /** @description A list of team slugs which have been granted write access to the advisory. */
+      collaborating_teams?: (string)[] | null;
     };
     /**
      * Stargazer 
@@ -24765,7 +24791,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** @description The pusher type for the event. Can be either `user` or a deploy key. */
       pusher_type: string;
-      /** @description The [`git ref`](https://docs.github.com/rest/reference/git#get-a-reference) resource. */
+      /** @description The [`git ref`](https://docs.github.com/rest/git/refs#get-a-reference) resource. */
       ref: string;
       /**
        * @description The type of Git ref object created in the repository. 
@@ -24782,7 +24808,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** @description The pusher type for the event. Can be either `user` or a deploy key. */
       pusher_type: string;
-      /** @description The [`git ref`](https://docs.github.com/rest/reference/git#get-a-reference) resource. */
+      /** @description The [`git ref`](https://docs.github.com/rest/git/refs#get-a-reference) resource. */
       ref: string;
       /**
        * @description The type of Git ref object deleted in the repository. 
@@ -80146,12 +80172,6 @@ export interface components {
         "application/json": components["schemas"]["basic-error"];
       };
     };
-    /** @description Internal Error */
-    internal_error: {
-      content: {
-        "application/json": components["schemas"]["basic-error"];
-      };
-    };
     /** @description Conflict */
     conflict: {
       content: {
@@ -80184,6 +80204,12 @@ export interface components {
           total_count: number;
           labels: (components["schemas"]["runner-label"])[];
         };
+      };
+    };
+    /** @description Internal Error */
+    internal_error: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
       };
     };
     /** @description The value of `per_page` multiplied by `page` cannot be greater than 10000. */
@@ -80326,7 +80352,7 @@ export interface components {
     participating?: boolean;
     /** @description Only show notifications updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
     before?: string;
-    /** @description The unique identifier of the notification thread. This corresponds to the value returned in the `id` field when you retrieve notifications (for example with the [`GET /notifications` operation](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user)). */
+    /** @description The unique identifier of the notification thread. This corresponds to the value returned in the `id` field when you retrieve notifications (for example with the [`GET /notifications` operation](https://docs.github.com/rest/activity/notifications#list-notifications-for-the-authenticated-user)). */
     "thread-id": number;
     /** @description An organization ID. Only return organizations with an ID greater than this ID. */
     "since-org"?: number;
@@ -82216,7 +82242,7 @@ export interface operations {
   };
   /**
    * Mark notifications as read 
-   * @description Marks all notifications as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+   * @description Marks all notifications as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
    */
   "activity/mark-notifications-as-read": {
     requestBody?: {
@@ -82289,7 +82315,7 @@ export interface operations {
   };
   /**
    * Get a thread subscription for the authenticated user 
-   * @description This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/reference/activity#get-a-repository-subscription).
+   * @description This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/activity/watching#get-a-repository-subscription).
    * 
    * Note that subscriptions are only generated if a user is participating in a conversation--for example, they've replied to the thread, were **@mentioned**, or manually subscribe to a thread.
    */
@@ -82317,7 +82343,7 @@ export interface operations {
    * 
    * You can also use this endpoint to subscribe to threads that you are currently not receiving notifications for or to subscribed to threads that you have previously ignored.
    * 
-   * Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/reference/activity#delete-a-thread-subscription) endpoint.
+   * Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/activity/notifications#delete-a-thread-subscription) endpoint.
    */
   "activity/set-thread-subscription": {
     parameters: {
@@ -82350,7 +82376,7 @@ export interface operations {
   };
   /**
    * Delete a thread subscription 
-   * @description Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/reference/activity#set-a-thread-subscription) endpoint and set `ignore` to `true`.
+   * @description Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/activity/notifications#set-a-thread-subscription) endpoint and set `ignore` to `true`.
    */
   "activity/delete-thread-subscription": {
     parameters: {
@@ -82411,73 +82437,6 @@ export interface operations {
         };
       };
       304: components["responses"]["not_modified"];
-    };
-  };
-  /**
-   * Get Copilot for Business seat information and settings for an organization 
-   * @description **Note**: This endpoint is in beta and is subject to change.
-   * 
-   * Gets information about an organization's Copilot for Business subscription, including seat breakdown
-   * and code matching policies. To configure these settings, go to your organization's settings on GitHub.com.
-   * For more information, see "[Configuring GitHub Copilot settings in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization)".
-   * 
-   * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
-   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
-   */
-  "copilot/get-copilot-organization-details": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["copilot-organization-details"];
-        };
-      };
-      401: components["responses"]["requires_authentication"];
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * List all Copilot for Business seat assignments for an organization 
-   * @description **Note**: This endpoint is in beta and is subject to change.
-   * 
-   * Lists all Copilot for Business seat assignments for an organization that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
-   * 
-   * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
-   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
-   */
-  "copilot/list-copilot-seats": {
-    parameters: {
-      query?: {
-        page?: components["parameters"]["page"];
-        /** @description The number of results per page (max 100). */
-        per_page?: number;
-      };
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        content: {
-          "application/json": {
-            /** @description Total number of Copilot For Business seats for the organization currently being billed. */
-            total_seats?: number;
-            seats?: (components["schemas"]["copilot-seat-details"])[];
-          };
-        };
-      };
-      401: components["responses"]["requires_authentication"];
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      500: components["responses"]["internal_error"];
     };
   };
   /**
@@ -83466,7 +83425,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/reference/actions#get-an-organization-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/actions/secrets#get-an-organization-public-key) endpoint. */
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -83475,7 +83434,7 @@ export interface operations {
            * @enum {string}
            */
           visibility: "all" | "private" | "selected";
-          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/actions/secrets#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/actions/secrets#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/actions/secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids?: (number)[];
         };
       };
@@ -83536,7 +83495,7 @@ export interface operations {
   };
   /**
    * Set selected repositories for an organization secret 
-   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
    */
   "actions/set-selected-repos-for-org-secret": {
     parameters: {
@@ -83548,7 +83507,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Add selected repository to an organization secret](https://docs.github.com/rest/actions/secrets#add-selected-repository-to-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Add selected repository to an organization secret](https://docs.github.com/rest/actions/secrets#add-selected-repository-to-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/actions/secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids: (number)[];
         };
       };
@@ -83560,7 +83519,7 @@ export interface operations {
   };
   /**
    * Add selected repository to an organization secret 
-   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
    */
   "actions/add-selected-repo-to-org-secret": {
     parameters: {
@@ -83579,7 +83538,7 @@ export interface operations {
   };
   /**
    * Remove selected repository from an organization secret 
-   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
    */
   "actions/remove-selected-repo-from-org-secret": {
     parameters: {
@@ -84394,6 +84353,73 @@ export interface operations {
     };
   };
   /**
+   * Get Copilot for Business seat information and settings for an organization 
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   * 
+   * Gets information about an organization's Copilot for Business subscription, including seat breakdown
+   * and code matching policies. To configure these settings, go to your organization's settings on GitHub.com.
+   * For more information, see "[Configuring GitHub Copilot settings in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization)".
+   * 
+   * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/get-copilot-organization-details": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["copilot-organization-details"];
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * List all Copilot for Business seat assignments for an organization 
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   * 
+   * Lists all Copilot for Business seat assignments for an organization that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
+   * 
+   * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/list-copilot-seats": {
+    parameters: {
+      query?: {
+        page?: components["parameters"]["page"];
+        /** @description The number of results per page (max 100). */
+        per_page?: number;
+      };
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": {
+            /** @description Total number of Copilot For Business seats for the organization currently being billed. */
+            total_seats?: number;
+            seats?: (components["schemas"]["copilot-seat-details"])[];
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
    * Add teams to the Copilot for Business subscription for an organization 
    * @description **Note**: This endpoint is in beta and is subject to change.
    * 
@@ -85055,7 +85081,7 @@ export interface operations {
   };
   /**
    * Get an organization webhook 
-   * @description Returns a webhook configured in an organization. To get only the webhook `config` properties, see "[Get a webhook configuration for an organization](/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)."
+   * @description Returns a webhook configured in an organization. To get only the webhook `config` properties, see "[Get a webhook configuration for an organization](/rest/orgs/webhooks#get-a-webhook-configuration-for-an-organization)."
    */
   "orgs/get-webhook": {
     parameters: {
@@ -85090,7 +85116,7 @@ export interface operations {
   };
   /**
    * Update an organization webhook 
-   * @description Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)."
+   * @description Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/orgs/webhooks#update-a-webhook-configuration-for-an-organization)."
    */
   "orgs/update-webhook": {
     parameters: {
@@ -85139,7 +85165,7 @@ export interface operations {
   };
   /**
    * Get a webhook configuration for an organization 
-   * @description Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/reference/orgs#get-an-organization-webhook)."
+   * @description Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/orgs/webhooks#get-an-organization-webhook)."
    * 
    * Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:read` permission.
    */
@@ -85161,7 +85187,7 @@ export interface operations {
   };
   /**
    * Update a webhook configuration for an organization 
-   * @description Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "[Update an organization webhook ](/rest/reference/orgs#update-an-organization-webhook)."
+   * @description Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "[Update an organization webhook ](/rest/orgs/webhooks#update-an-organization-webhook)."
    * 
    * Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:write` permission.
    */
@@ -85758,7 +85784,7 @@ export interface operations {
    * Set organization membership for a user 
    * @description Only authenticated organization owners can add a member to the organization or update the member's role.
    * 
-   * *   If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user) will be `pending` until they accept the invitation.
+   * *   If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/orgs/members#get-organization-membership-for-a-user) will be `pending` until they accept the invitation.
    *     
    * *   Authenticated users can _update_ a user's membership by passing the `role` parameter. If the authenticated user changes a member's role to `admin`, the affected user will receive an email notifying them that they've been made an organization owner. If the authenticated user changes an owner's role to `member`, no email will be sent.
    * 
@@ -90885,7 +90911,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/reference/actions#get-a-repository-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/actions/secrets#get-a-repository-public-key) endpoint. */
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -91399,6 +91425,28 @@ export interface operations {
       /** @description Response */
       204: never;
       404: components["responses"]["not_found"];
+    };
+  };
+  /**
+   * Check if automated security fixes are enabled for a repository 
+   * @description Shows whether automated security fixes are enabled, disabled or paused for a repository. The authenticated user must have admin read access to the repository. For more information, see "[Configuring automated security fixes](https://docs.github.com/articles/configuring-automated-security-fixes)".
+   */
+  "repos/check-automated-security-fixes": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
+    responses: {
+      /** @description Response if dependabot is enabled */
+      200: {
+        content: {
+          "application/json": components["schemas"]["check-automated-security-fixes"];
+        };
+      };
+      /** @description Not Found if dependabot is not enabled for the repository */
+      404: never;
     };
   };
   /**
@@ -94827,7 +94875,7 @@ export interface operations {
    * **Notes**:
    * *   To get a repository's contents recursively, you can [recursively get the tree](https://docs.github.com/rest/reference/git#trees).
    * *   This API has an upper limit of 1,000 files for a directory. If you need to retrieve more files, use the [Git Trees
-   * API](https://docs.github.com/rest/reference/git#get-a-tree).
+   * API](https://docs.github.com/rest/git/trees#get-a-tree).
    *  *  Download URLs expire and are meant to be used just once. To ensure the download URL does not expire, please use the contents API to obtain a fresh download URL for each download.
    *  Size limits:
    * If the requested file's size is:
@@ -96655,7 +96703,7 @@ export interface operations {
   };
   /**
    * Create a tag object 
-   * @description Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/reference/git#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/reference/git#create-a-reference) the tag reference - this call would be unnecessary.
+   * @description Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/git/refs#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/git/refs#create-a-reference) the tag reference - this call would be unnecessary.
    * 
    * **Signature verification object**
    * 
@@ -96789,7 +96837,7 @@ export interface operations {
    * Create a tree 
    * @description The tree creation API accepts nested entries. If you specify both a tree and a nested path modifying that tree, this endpoint will overwrite the contents of the tree with the new path contents, and create a new tree structure.
    * 
-   * If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/reference/git#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/reference/git#update-a-reference)."
+   * If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/git/commits#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/git/refs#update-a-reference)."
    * 
    * Returns an error if you try to delete a file that does not exist.
    */
@@ -99283,7 +99331,7 @@ export interface operations {
   };
   /**
    * Mark repository notifications as read 
-   * @description Marks all notifications in a repository as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+   * @description Marks all notifications in a repository as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
    */
   "activity/mark-repo-notifications-as-read": {
     parameters: {
@@ -102131,7 +102179,7 @@ export interface operations {
   };
   /**
    * Set a repository subscription 
-   * @description If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/reference/activity#delete-a-repository-subscription) completely.
+   * @description If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/activity/watching#delete-a-repository-subscription) completely.
    */
   "activity/set-repo-subscription": {
     parameters: {
@@ -102161,7 +102209,7 @@ export interface operations {
   };
   /**
    * Delete a repository subscription 
-   * @description This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/reference/activity#set-a-repository-subscription).
+   * @description This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/activity/watching#set-a-repository-subscription).
    */
   "activity/delete-repo-subscription": {
     parameters: {
@@ -102472,6 +102520,7 @@ export interface operations {
   /**
    * Transfer a repository 
    * @description A transfer request will need to be accepted by the new owner when transferring a personal repository to another user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more details on the requirements to transfer personal and organization-owned repositories, see [about repository transfers](https://docs.github.com/articles/about-repository-transfers/).
+   * You must use a personal access token (classic) or an OAuth token for this endpoint. An installation access token or a fine-grained personal access token cannot be used because they are only granted access to a single account.
    */
   "repos/transfer": {
     parameters: {
@@ -102817,7 +102866,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an environment public key](https://docs.github.com/rest/reference/actions#get-an-environment-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an environment public key](https://docs.github.com/rest/actions/secrets#get-an-environment-public-key) endpoint. */
           encrypted_value: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id: string;
@@ -107444,7 +107493,7 @@ export interface operations {
    * List organizations for a user 
    * @description List [public organization memberships](https://docs.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user.
    * 
-   * This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user) API instead.
+   * This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/orgs/orgs#list-organizations-for-the-authenticated-user) API instead.
    */
   "orgs/list-for-user": {
     parameters: {
