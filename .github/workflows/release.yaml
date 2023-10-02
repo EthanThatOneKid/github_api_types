@@ -18,20 +18,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Promote branch to main
-        run: |
-          git fetch
-          git checkout main
-          git pull
-      
-          # Use the most recent version of auto/update as the force push
-          git checkout auto/update
-          git pull
-          git push origin auto/update:main --force
-      
-          echo "datetime=$(date -u +'%Y-%m-%d-%H-%M')" >> $GITHUB_ENV
-          echo "success=1" >> $GITHUB_ENV
+      - name: Get current datetime
+        run: echo "datetime=$(date -u +'%Y-%m-%d-%H-%M')" >> $GITHUB_ENV
 
+      - name: Promote branch to main
+        uses: devmasx/merge-branch@1.4.0
+        with:
+          from_branch: "auto/update"
+          target_branch: "main"
+          github_token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
 
       - name: Release
         if: success()
@@ -41,6 +36,7 @@ jobs:
           tag_name: ${{ env.datetime }}
           token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
           repository: ${{ github.repository }}
+          body: "Deno module: https://deno.land/x/github_api_types@${{ env.datetime }}"
           generate_release_notes: true
           draft: false
           prerelease: false
