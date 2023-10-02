@@ -19,28 +19,22 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Promote branch to main
-        id: promote
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
+      
           git fetch
           git checkout main
           git pull
+      
+          # Use the most recent version of auto/update as the force push
           git checkout auto/update
           git pull
-
-          if git diff --name-only --diff-filter=U | grep -q .; then
-            echo "There are conflicts between main and auto/update. Merge aborted."
-            exit 1
-          fi
-
-          git checkout main
-          git merge --strategy=ours auto/update -m "Merge auto/update into main"
-          git push origin main
-
+          git push origin auto/update:main --force
+      
           echo "datetime=$(date -u +'%Y-%m-%d-%H-%M')" >> $GITHUB_ENV
           echo "success=1" >> $GITHUB_ENV
+
 
       - name: Release
         if: success()
