@@ -20,9 +20,6 @@ jobs:
 
       - name: Promote branch to main
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      
           git fetch
           git checkout main
           git pull
