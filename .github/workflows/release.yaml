@@ -31,7 +31,7 @@ jobs:
         with:
           github-token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
           script: |
-            await github.git.updateRef({
+            await github.rest.git.updateRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: "heads/main",
