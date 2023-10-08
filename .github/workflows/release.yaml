@@ -1,4 +1,4 @@
-name: Manual Branch Promotion
+name: Release
 
 on:
   schedule:
@@ -11,7 +11,7 @@ on:
         default: "auto/update"
 
 jobs:
-  promote_to_main:
+  release:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +25,11 @@ jobs:
       - name: Get latest auto/update sha
         id: get_sha
         run: echo "sha=$(git rev-parse ${{ github.event.inputs.branch }})" >> $GITHUB_ENV
+
+      - name: Merge feature-branch into main
+        run: |
+          git merge --ff-only ${{ github.event.inputs.branch }}
+          git push --force -u origin main
 
       - name: Promote branch to main
         uses: actions/github-script@v6
